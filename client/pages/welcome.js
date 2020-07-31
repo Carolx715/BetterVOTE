@@ -29,15 +29,13 @@ export default function welcome(props) {
 				</Text>
 			</View>
 
-
 			<View style={styles.buttonContainer}>
-				<Button text="Login" onPress={onPress} />
-				<Button text="Register" />
+				<Button text="Login" onPress={() => onPress("Login")} />
+				<Button text="Register" onPress={() => onPress("Registration")} />
+				<Button text="Organizations" onPress={() => onPress("Organizations")} />
 			</View>
 
 			{/* testing */}
-			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
-			<AddOrgMenu visible={isVisible}></AddOrgMenu>
 		</View>
 	);
 }
