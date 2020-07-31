@@ -9,11 +9,22 @@ const formStyling = StyleSheet.create({
         textAlign: "center",
         marginBottom: vh(2),
     },
+    formTitleRegister: {
+		fontWeight: "bold",
+		color: "white",
+        fontSize: 40,
+        textAlign: "center",
+    },
 
 	formText: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 20,
+	},
+	formTextRegister: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 15,
 	},
     
 	formContainer: {
@@ -21,6 +32,13 @@ const formStyling = StyleSheet.create({
 		color: "white",
 		position: "absolute", // child
 		top: vh(15),
+		marginLeft: vw(3),
+    },
+    formContainerRegister: {
+		fontWeight: "bold",
+		color: "white",
+		position: "absolute", // child
+		top: vh(10),
 		marginLeft: vw(3),
     },
 
