@@ -14,6 +14,7 @@ router.use((err, req, res, next) => {
 });
 
 router.post('/create', create);
+router.get('/getList', getOrganizations);
 
 async function create(req, res) {
     if (!req.body.name || !req.body.description) {
@@ -39,6 +40,15 @@ async function create(req, res) {
         } else {
             res.status(500).send({ error: 'Internal server error' });
             console.log(`Internal server error ${result} with ${JSON.stringify(req.body)} input`);
+        }
+    })
+}
+
+async function getOrganizations(req, res) {
+    database.getOrganizations(req.user.email).then(response => {
+        if (!response.error) {
+            console.log(response);
+            res.status(200).send(response);
         }
     })
 }

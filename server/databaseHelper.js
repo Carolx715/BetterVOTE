@@ -47,6 +47,19 @@ async function addUser(username, email, password) {
     });
 };
 
+async function getOrganizations(email) {
+    return new Promise((resolve, reject) => {
+        try {
+            db.collection("organizations").find({ "users.email": email }).project({ representatives: 0, users: 0 }).toArray(function (err, result) {
+                if (err) throw err;
+                resolve(result);
+            })
+        } catch (err) {
+            reject(err);
+        }
+    })
+}
+
 async function addOrganization(data) {
     return new Promise((resolve, reject) => {
         try {
@@ -55,12 +68,13 @@ async function addOrganization(data) {
                 resolve('success');
             });
         } catch (err) {
-            reject(err);
+            reject({ error: err });
         }
     })
-}
+};
 
 
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
+exports.getOrganizations = getOrganizations;
