@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Text,
 	View,
@@ -28,9 +28,9 @@ export default function organizations(props) {
 	const [isVisible, setIsVisible] = useState(false);
 
 	const onPressPlus = () => {
-		setIsVisible(prev => !prev);
+		setIsVisible((prev) => !prev);
 		console.log(isVisible);
-	}
+	};
 
 	return (
 		<View>

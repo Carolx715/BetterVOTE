@@ -5,7 +5,7 @@ import Button from "../components/button";
 import { useState } from "react";
 
 export default function welcome(props) {
-	const onPress = () => props.navigation.navigate("Login");
+	const onPress = (route) => props.navigation.navigate(route);
 	return (
 		<View style={styles.container}>
 			<Image
