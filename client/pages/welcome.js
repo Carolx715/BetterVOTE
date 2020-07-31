@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
+import NewOrgBtn from "../components/addNewOrgBtn";
 
 export default function welcome() {
 	return (
@@ -18,10 +19,14 @@ export default function welcome() {
 				</Text>
 			</View>
 
+
 			<View style={styles.buttonContainer}>
 				<Button text="Login" />
 				<Button text="Register" />
 			</View>
+
+			{/* testing */}
+			<NewOrgBtn text="+"></NewOrgBtn>
 		</View>
 	);
 }
