@@ -1,4 +1,4 @@
-import styles from "../styles/homepage";
+import styles from "../styles/welcomepage";
 import { TouchableOpacity, View, Text } from "react-native";
 import React from "react";
 

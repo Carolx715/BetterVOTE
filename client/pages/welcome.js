@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
-import styles from "../styles/homepage";
+import styles from "../styles/welcomepage";
 import Button from "../components/button";
 
 export default function welcome() {
