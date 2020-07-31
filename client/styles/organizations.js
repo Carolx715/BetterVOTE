@@ -38,7 +38,37 @@ const styles = StyleSheet.create({
         fontSize: 56,
         textAlign: "center",
         textAlignVertical: "center",
-	},
+    },
+    
+    modal: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+
+	text: {
+		fontSize: 18,
+        marginVertical: vw(3),
+
+    },
+
+    centeredView: {
+        flex: 1,
+        bottom: vh(15),
+        right: 0,
+        marginTop: 22,
+        position: "absolute",
+    },
 
 });
 
