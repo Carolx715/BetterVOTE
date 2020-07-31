@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
 		transform: [
 			{ scaleY: 1.5 },
 			{ scaleX: 1.5 },
-			{ rotate: "135deg" },
-			{ translateX: -50 },
-			{ translateY: 150 },
+			{ rotate: "140deg" },
+			{ translateX: 0 },
+            { translateY: 90 },
 		],
 	},
 	textContainer: {
