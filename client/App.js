@@ -1,21 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Navigator from "./routes/mainStack";
+import { Image, Text, View, Button } from "react-native";
+import styles from "./styles/homepage";
 
 export default function App() {
 	return (
 		<View style={styles.container}>
-			<Navigator />
+			<Image
+				source={require("./assets/background.jpg")}
+				style={styles.backgroundImage}
+			/>
+			<View style={styles.textContainer}>
+				<Text style={styles.text}>WELCOME TO</Text>
+				<Text style={styles.textTitle}>BetterVOTE</Text>
+				<Text style={styles.text}>
+					Organizing communities, one vote at a time.
+				</Text>
+				<Button style={styles.loginButton} title="Sign In" color="white" />
+				<Button
+					style={styles.loginButton}
+					title="Create Account"
+					color="white"
+				/>
+			</View>
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
