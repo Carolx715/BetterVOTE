@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
+import AddOrgMenu from "../components/addNewOrgMenu";
 
 export default function organizations(props) {
 	// dummy data needs to be replaced...
@@ -23,6 +24,13 @@ export default function organizations(props) {
 			representatives: "Random Representative 2",
 		},
 	];
+
+	const [isVisible, setIsVisible] = useState(false);
+
+	const onPressPlus = () => {
+		setIsVisible(prev => !prev);
+		console.log(isVisible);
+	}
 
 	return (
 		<View>
@@ -43,7 +51,8 @@ export default function organizations(props) {
 					</TouchableOpacity>
 				)}
 			/>
-			<NewOrgBtn>+</NewOrgBtn>
+			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
+			<AddOrgMenu visible={isVisible}></AddOrgMenu>
 		</View>
 	);
 }

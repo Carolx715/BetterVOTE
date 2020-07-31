@@ -2,9 +2,10 @@ import React from "react";
 import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
+import { useState } from "react";
 
 export default function welcome(props) {
-	const onPress = (route) => props.navigation.navigate(route);
+	const onPress = () => props.navigation.navigate("Login");
 	return (
 		<View style={styles.container}>
 			<Image
@@ -24,6 +25,7 @@ export default function welcome(props) {
 				<Button text="Register" onPress={() => onPress("Registration")} />
 				<Button text="Organizations" onPress={() => onPress("Organizations")} />
 			</View>
+
 		</View>
 	);
 }
