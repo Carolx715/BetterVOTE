@@ -30,7 +30,7 @@ async function create(req, res) {
                 title: 'President'
             }
         ],
-        users: [req.user.username]
+        users: [{username: req.user.username, email: req.user.email}]
     }
 
     database.addOrganization(data).then(response => {
