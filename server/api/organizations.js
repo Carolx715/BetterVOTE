@@ -19,7 +19,7 @@ router.get('/getList', getOrganizations);
 async function create(req, res) {
     if (!req.body.name || !req.body.description) {
         res.status(400).send({ error: 'Not all fields were filled' });
-    }
+    };
 
     const data = {
         name: req.body.name,
@@ -32,7 +32,7 @@ async function create(req, res) {
             }
         ],
         users: [{username: req.user.username, email: req.user.email}]
-    }
+    };
 
     database.addOrganization(data).then(response => {
         if (response === 'success') {
@@ -41,7 +41,7 @@ async function create(req, res) {
             res.status(500).send({ error: 'Internal server error' });
             console.log(`Internal server error ${result} with ${JSON.stringify(req.body)} input`);
         }
-    })
+    });
 }
 
 async function getOrganizations(req, res) {
@@ -49,8 +49,11 @@ async function getOrganizations(req, res) {
         if (!response.error) {
             console.log(response);
             res.status(200).send(response);
+        } else {
+            res.status(500).send({ error: 'Internal server error' });
+            console.log(`Internal server error ${result} with ${req.user.email} email`);
         }
-    })
+    });
 }
 
 module.exports = router;
