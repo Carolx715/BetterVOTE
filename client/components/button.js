@@ -1,11 +1,11 @@
-import styles from "../styles/homepage";
+import styles from "../styles/welcomepage";
 import { TouchableOpacity, View, Text } from "react-native";
 import React from "react";
 
-export default function welcome({ text }) {
+export default function button({ text, onPress }) {
 	return (
 		<View>
-			<TouchableOpacity style={styles.loginButton}>
+			<TouchableOpacity style={styles.loginButton} onPress={onPress}>
 				<Text style={styles.text}>{text}</Text>
 			</TouchableOpacity>
 		</View>

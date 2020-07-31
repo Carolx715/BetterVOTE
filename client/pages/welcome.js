@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
-import styles from "../styles/homepage";
+import styles from "../styles/welcomepage";
 import Button from "../components/button";
 
-export default function welcome() {
+export default function welcome(props) {
+	const onPress = (route) => props.navigation.navigate(route);
 	return (
 		<View style={styles.container}>
 			<Image
@@ -19,8 +20,9 @@ export default function welcome() {
 			</View>
 
 			<View style={styles.buttonContainer}>
-				<Button text="Login" />
-				<Button text="Register" />
+				<Button text="Login" onPress={() => onPress("Login")} />
+				<Button text="Register" onPress={() => onPress("Registration")} />
+				<Button text="Organizations" onPress={() => onPress("Organizations")} />
 			</View>
 		</View>
 	);
