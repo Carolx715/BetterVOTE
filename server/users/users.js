@@ -39,7 +39,7 @@ async function register(req, res) {
     database.addUser(req.body.username, req.body.email, bcrypt.hashSync(req.body.password)).then(result => {
         if (result === 'success') {
             res.status(200).send({
-                jwt: jwt.sign({ username: req.body.username }, process.env.JWT_SECRET)
+                jwt: jwt.sign({ username: req.body.username, email: req.body.email }, process.env.JWT_SECRET)
             });
         } else {
             res.status(500).send({ error: 'Internal server error'});
@@ -62,7 +62,7 @@ async function authenticate(req, res) {
     if (user) {
         if (bcrypt.compareSync(req.body.password, user.password)) {
             res.status(200).send({
-                jwt: jwt.sign({ username: req.body.username }, process.env.JWT_SECRET)
+                jwt: jwt.sign({ username: req.body.username, email: req.body.email }, process.env.JWT_SECRET)
             });
         } else {
             res.status(403).send({ error: 'Password incorrect'});
