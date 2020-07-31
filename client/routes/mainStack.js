@@ -18,7 +18,7 @@ const screens = {
 		screen: Login,
 	},
 	Register: {
-		screen: Register,
+		screen: Registration,
 	},
 	Home: {
 		screen: Home,

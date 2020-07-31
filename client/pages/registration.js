@@ -32,6 +32,7 @@ const validationSchema = yup.object().shape({
 
 export default () => (
 	<SafeAreaView style={{ marginTop: 90 }}>
+		<Text> Registration </Text>
 		<Formik
 			initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
 			onSubmit={(values, actions) => {
