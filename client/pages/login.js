@@ -7,7 +7,6 @@ import Button from "../components/button";
 export default function login() {
 	return (
 		<View style={styles.container}>
-			
 		</View>
 	);
 }
