@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { Text, View, Image } from "react-native";
 import styles from "../styles/homepage";
+import Button from "../components/button";
 
 export default function welcome() {
 	return (
@@ -13,8 +14,13 @@ export default function welcome() {
 				<Text style={styles.text}>WELCOME TO</Text>
 				<Text style={styles.textTitle}>BetterVOTE</Text>
 				<Text style={styles.text}>
-					Organizing communities, one vote at a time.
+					Organizing communities, one vote at a time
 				</Text>
+			</View>
+
+			<View style={styles.buttonContainer}>
+				<Button text="Login" />
+				<Button text="Register" />
 			</View>
 		</View>
 	);
