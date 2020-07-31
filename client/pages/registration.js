@@ -124,7 +124,7 @@ const validationSchema = yup.object().shape({
               <Text style={{ color: 'red' }}>
                 {formikProps.touched.confirmPassword && formikProps.errors.confirmPassword}
               </Text>
-              
+  
             </View>
 
             {formikProps.isSubmitting ? (
