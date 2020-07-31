@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+var {vw, vh, vmin, vmax} = require('../node_modules/react-native-expo-viewport-units');
 
 const styles = StyleSheet.create({
 	container: {
@@ -16,37 +17,37 @@ const styles = StyleSheet.create({
 			{ scaleX: 1.5 },
 			{ rotate: "140deg" },
 			{ translateX: 0 },
-            { translateY: 90 },
+            { translateY: vh(10) },
 		],
 	},
 	textContainer: {
 		fontWeight: "bold",
 		color: "white",
 		position: "absolute", // child
-		top: 190,
-		marginLeft: 30,
+		top: vh(20),
+		marginLeft: vw(3),
 	},
 	text: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 20,
-		margin: 20,
+		margin: vw(2.2),
 		marginVertical: 0,
 	},
 	textTitle: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 50,
-		margin: 20,
+		margin: vw(2.2),
 		marginTop: 0,
 	},
 	buttonContainer: {
-		marginBottom: 120,
+		marginBottom: vh(13.3),
 	},
 	loginButton: {
 		marginTop: 0,
-		marginHorizontal: 50,
-		marginBottom: 40,
+		marginHorizontal: vw(5.6),
+		marginBottom: vh(4.4),
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: "#66C",
