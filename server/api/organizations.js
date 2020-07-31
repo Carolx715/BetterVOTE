@@ -34,8 +34,8 @@ async function create(req, res) {
         users: [{username: req.user.username, email: req.user.email}]
     };
 
-    database.addOrganization(data).then(response => {
-        if (response === 'success') {
+    database.addOrganization(data).then(result => {
+        if (result === 'success') {
             res.sendStatus(200);
         } else {
             res.status(500).send({ error: 'Internal server error' });
@@ -45,10 +45,9 @@ async function create(req, res) {
 }
 
 async function getOrganizations(req, res) {
-    database.getOrganizations(req.user.email).then(response => {
-        if (!response.error) {
-            console.log(response);
-            res.status(200).send(response);
+    database.getOrganizations(req.user.email).then(result => {
+        if (!result.error) {
+            res.status(200).send(result);
         } else {
             res.status(500).send({ error: 'Internal server error' });
             console.log(`Internal server error ${result} with ${req.user.email} email`);
