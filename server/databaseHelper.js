@@ -8,7 +8,7 @@ mongoClient.connect((err, client) => {
     if (err) { console.error(err) };
     db = client.db("database");
     console.log('Successfully connected to database');
-})
+});
 
 async function getUser(username = null, email = null) {
     return new Promise((resolve, reject) => {
@@ -27,7 +27,7 @@ async function getUser(username = null, email = null) {
             reject(err);
         }
     });
-}
+};
 
 async function addUser(username, email, password) {
     return new Promise((resolve, reject) => {
@@ -45,7 +45,22 @@ async function addUser(username, email, password) {
             reject(err);
         }
     });
+};
+
+async function addOrganization(data) {
+    return new Promise((resolve, reject) => {
+        try {
+            db.collection("organizations").insertOne(data, function (err, res) {
+                if (err) err;
+                resolve('success');
+            });
+        } catch (err) {
+            reject(err);
+        }
+    })
 }
+
 
 exports.getUser = getUser;
 exports.addUser = addUser;
+exports.addOrganization = addOrganization;
