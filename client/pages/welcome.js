@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
+import NewOrgBtn from "../components/addNewOrgBtn";
 
 export default function welcome(props) {
 	const onPress = () => props.navigation.navigate("Login");
@@ -20,10 +21,14 @@ export default function welcome(props) {
 				</Text>
 			</View>
 
+
 			<View style={styles.buttonContainer}>
 				<Button text="Login" onPress={onPress} />
 				<Button text="Register" onPress = {onPress2}/>
 			</View>
+
+			{/* testing */}
+			<NewOrgBtn text="+"></NewOrgBtn>
 		</View>
 	);
 }
