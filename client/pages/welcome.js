@@ -2,19 +2,10 @@ import React from "react";
 import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
-// Testing
-import NewOrgBtn from "../components/addNewOrgBtn";
-import AddOrgMenu from "../components/addNewOrgMenu";
 import { useState } from "react";
 
 export default function welcome(props) {
 	const onPress = () => props.navigation.navigate("Login");
-	const [isVisible, setIsVisible] = useState(false);
-
-	const onPressPlus = () => {
-		setIsVisible(prev => !prev);
-		console.log(isVisible);
-	}
 	return (
 		<View style={styles.container}>
 			<Image
@@ -35,7 +26,6 @@ export default function welcome(props) {
 				<Button text="Organizations" onPress={() => onPress("Organizations")} />
 			</View>
 
-			{/* testing */}
 		</View>
 	);
 }
