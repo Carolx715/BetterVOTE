@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
+
 	backgroundImage: {
 		flex: 1,
 		resizeMode: "contain", // or 'stretch'
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
             { translateY: vh(10) },
 		],
 	},
+
 	textContainer: {
 		fontWeight: "bold",
 		color: "white",
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
 		top: vh(20),
 		marginLeft: vw(3),
 	},
+
 	text: {
 		fontWeight: "bold",
 		color: "white",
@@ -34,6 +37,7 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginVertical: 0,
 	},
+
 	textTitle: {
 		fontWeight: "bold",
 		color: "white",
@@ -41,9 +45,11 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginTop: 0,
 	},
+
 	buttonContainer: {
 		marginBottom: vh(13.3),
 	},
+
 	loginButton: {
 		marginTop: 0,
 		marginHorizontal: vw(5.6),

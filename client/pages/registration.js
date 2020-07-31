@@ -6,10 +6,12 @@ import {
 	ActivityIndicator,
 	Text,
 	View,
-	ImageBackground,
 	Image,
 } from "react-native";
+
 import styles from "../styles/welcomepage";
+import formStyles from "../styles/formStyling";
+
 import { Formik } from "formik";
 import * as yup from "yup";
 
