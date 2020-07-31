@@ -2,12 +2,23 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const expressJWT = require('express-jwt');
 const database = require('../databaseHelper');
 
 const dotenv = require('dotenv').config();
 
 router.post('/register', register);
 router.post('/authenticate', authenticate);
+router.get('/isloggedin',
+    expressJWT({ secret: process.env.JWT_SECRET, algorithms: ['HS256']}),
+    (err, req, res, next) => {
+        if (err.name === 'UnauthorizedError') {
+            res.status(err.status).send({ error: err });
+            return;
+        }
+        next();
+    },
+    isLoggedIn);
 
 async function register(req, res) {
     if (!req.body.username || !req.body.email || !req.body.password) {
@@ -59,6 +70,10 @@ async function authenticate(req, res) {
     } else {
         res.status(403).send({ error: 'User does not exist'})
     }
+}
+
+async function isLoggedIn(req, res) {
+    res.sendStatus(200);
 }
 
 module.exports = router;
