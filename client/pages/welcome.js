@@ -21,7 +21,8 @@ export default function welcome(props) {
 
 			<View style={styles.buttonContainer}>
 				<Button text="Login" onPress={() => onPress("Login")} />
-				<Button text="Register" onPress={() => onPress("Organizations")} />
+				<Button text="Register" onPress={() => onPress("Registration")} />
+				<Button text="Organizations" onPress={() => onPress("Organizations")} />
 			</View>
 		</View>
 	);

@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 } from "react-native";
 import Card from "../components/card";
+import NewOrgBtn from "../components/addNewOrgBtn";
 
 export default function organizations(props) {
 	// dummy data needs to be replaced...
@@ -42,6 +43,7 @@ export default function organizations(props) {
 					</TouchableOpacity>
 				)}
 			/>
+			<NewOrgBtn>+</NewOrgBtn>
 		</View>
 	);
 }
