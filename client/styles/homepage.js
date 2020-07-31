@@ -39,7 +39,18 @@ const styles = StyleSheet.create({
         marginTop: 0, 
     },
     loginButton: {
-        margin: 50
+        marginTop: 85,
+        marginHorizontal: 50,
+        marginBottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#66C",
+        padding: 20,
+        elevation: 8,
+        borderRadius: 10,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset : { width: 5, height: 5},
     }
   });
   

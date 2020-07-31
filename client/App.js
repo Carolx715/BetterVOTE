@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, Text, View, Button } from 'react-native';
+import { Image, Text, View, TouchableOpacity } from 'react-native';
 import styles from "./styles/homepage";
 
 export default function App() {
@@ -13,12 +13,14 @@ export default function App() {
         <Text style={styles.text}>Organizing communities, one vote at a time.</Text>
 
 
-        <Button style={styles.loginButton}
-          title="Sign In"
-          color="white"/>
-        <Button style={styles.loginButton}
-          title="Create Account"
-          color="white"/>
+        {/* Buttons */}
+        <TouchableOpacity style={styles.loginButton}>
+            <Text style={styles.text}>Sign In</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.loginButton}>
+            <Text style={styles.text}>Create Account</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
