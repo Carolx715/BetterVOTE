@@ -4,7 +4,8 @@ import styles from "../styles/welcomepage";
 import Button from "../components/button";
 import NewOrgBtn from "../components/addNewOrgBtn";
 
-export default function welcome() {
+export default function welcome(props) {
+	const onPress = () => props.navigation.navigate("Login");
 	return (
 		<View style={styles.container}>
 			<Image
@@ -21,7 +22,7 @@ export default function welcome() {
 
 
 			<View style={styles.buttonContainer}>
-				<Button text="Login" />
+				<Button text="Login" onPress={onPress} />
 				<Button text="Register" />
 			</View>
 
