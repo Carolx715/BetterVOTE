@@ -2,11 +2,9 @@ import React from "react";
 import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
-import NewOrgBtn from "../components/addNewOrgBtn";
 
 export default function welcome(props) {
-	const onPress = () => props.navigation.navigate("Login");
-	const onPress2 = () => props.navigation.navigate("Registration");
+	const onPress = (route) => props.navigation.navigate(route);
 	return (
 		<View style={styles.container}>
 			<Image
@@ -21,14 +19,11 @@ export default function welcome(props) {
 				</Text>
 			</View>
 
-
 			<View style={styles.buttonContainer}>
-				<Button text="Login" onPress={onPress} />
-				<Button text="Register" onPress = {onPress2}/>
+				<Button text="Login" onPress={() => onPress("Login")} />
+				<Button text="Register" onPress={() => onPress("Registration")} />
+				<Button text="Organizations" onPress={() => onPress("Organizations")} />
 			</View>
-
-			{/* testing */}
-			<NewOrgBtn text="+"></NewOrgBtn>
 		</View>
 	);
 }
