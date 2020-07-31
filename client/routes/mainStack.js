@@ -3,8 +3,8 @@ import { createAppContainer } from "react-navigation";
 import React from "react";
 
 //pages
-import Welcome from "../blank_pages/welcome";
-import Home from "../blank_pages/home";
+import Welcome from "../pages/welcome";
+import Home from "../pages/home";
 
 const screens = {
 	Welcome: {
@@ -16,9 +16,9 @@ const screens = {
 };
 
 const mainStack = createStackNavigator(screens, {
-	defaultNavigationOptions: {
-		headerTintColor: "#444",
-		headerStyle: { backgroundColor: "#eee", height: 60 },
+	headerMode: "none",
+	navigationOptions: {
+		headerVisible: false,
 	},
 });
 
