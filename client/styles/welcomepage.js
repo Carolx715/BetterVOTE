@@ -18,7 +18,14 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		maxHeight: screenHeight,
 		height: "auto",
-		paddingBottom: vh(5)
+		paddingBottom: vh(15),
+		paddingTop: vh(10)
+	}, flatlistContainer: {
+		flex: 1,
+		backgroundColor: "#dab",
+		maxHeight: screenHeight,
+		height: "auto",
+		paddingBottom: vh(15)
 	}, 
 
 	backgroundImage: {

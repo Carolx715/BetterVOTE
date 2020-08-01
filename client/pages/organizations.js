@@ -48,13 +48,14 @@ export default function organizations(props) {
 	);
 
 	return (
-		<View style={styles.container}>
+		<View style={styles.container2}>
 			<Text style={styles.textTitle2}> Organizations </Text>
 			<FlatList
+				style={styles.flatlistContainer}
 				data={data}
 				renderItem={renderItem}
 				keyExtractor={(item) => item.id}
-			/>s
+			/>
 			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
 			<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
 		</View>
