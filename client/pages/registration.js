@@ -12,6 +12,7 @@ import {
 import styles from "../styles/welcomepage";
 import { Formik } from "formik";
 import * as yup from "yup";
+import axios from 'axios'; 
 
 const validationSchema = yup.object().shape({
 	name: yup.string().label("Name").required(),
@@ -36,6 +37,9 @@ export default () => (
 		<Formik
 			initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
 			onSubmit={(values, actions) => {
+                console.log(values);
+                axios.post('http://localhost:8000/users/register', user)
+                .then(res => console.log(res.data));    
 				alert(JSON.stringify(values));
 				setTimeout(() => {
 					actions.setSubmitting(false);

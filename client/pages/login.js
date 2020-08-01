@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import {
 	SafeAreaView,
 	TextInput,
@@ -28,6 +29,9 @@ export default () => (
 		<Formik
 			initialValues={{ email: "", password: "" }}
 			onSubmit={(values, actions) => {
+                console.log(values); 
+                axios.post('http://localhost:8000/users/authenticate', values)
+                .then(res => console.log(JSON.stringify(res.data))); 
 				alert(JSON.stringify(values));
 				setTimeout(() => {
 					actions.setSubmitting(false);
