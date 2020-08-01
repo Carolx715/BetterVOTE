@@ -11,19 +11,32 @@ import NewOrgBtn from "../components/addNewOrgBtn";
 import AddOrgMenu from "../components/addNewOrgMenu";
 
 export default function organizations(props) {
-	// dummy data needs to be replaced...
-	const organizations = [
-		{
-			name: "Random Name1",
-			description: "Random Description 1",
-			representatives: "Random Representative 1",
-		},
-		{
-			name: "Random Name 2",
-			description: "Random Description 2 ",
-			representatives: "Random Representative 2",
-		},
-	];
+	const [data, setData] = useState();
+	const url = "https://localhost:8000/organizations/getList";
+	async function retrieveData() {
+		try {
+			let response = await fetch(url);
+			let responseJson = await response.json();
+			console.log("Hi");
+			console.log(responseJson); //data
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	retrieveData();
+
+	// const organizations = [
+	// 	{
+	// 		name: "Random Name1",
+	// 		description: "Random Description 1",
+	// 		representatives: "Random Representative 1",
+	// 	},
+	// 	{
+	// 		name: "Random Name 2",
+	// 		description: "Random Description 2 ",
+	// 		representatives: "Random Representative 2",
+	// 	},
+	// ];
 
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -34,10 +47,10 @@ export default function organizations(props) {
 
 	return (
 		<View>
-			<Text> Organizations </Text>
+			{/* <Text> Organizations </Text>
 			<FlatList
 				data={organizations}
-				renderItem={({ item }) => (
+				renderItem={({ data }) => (
 					<TouchableOpacity
 						onPress={() =>
 							props.navigation.navigate("OrganizationDetails", item)
@@ -52,7 +65,7 @@ export default function organizations(props) {
 				)}
 			/>
 			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
-			<AddOrgMenu visible={isVisible}></AddOrgMenu>
+			<AddOrgMenu isVisible={isVisible}></AddOrgMenu> */}
 		</View>
 	);
 }
