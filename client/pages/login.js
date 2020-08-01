@@ -1,5 +1,4 @@
-import React from "react";
-import axios from 'axios';
+import React, { useState } from "react";
 import {
 	SafeAreaView,
 	TextInput,
@@ -11,88 +10,117 @@ import {
 
 import styles from "../styles/welcomepage";
 import formStyles from "../styles/formStyling";
-
 import { Formik } from "formik";
 import * as yup from "yup";
 import Button from "../components/button";
-import { withOrientation } from "react-navigation";
 
-const validationSchema = yup.object().shape({
-	email: yup.string().label("Email").email().required(),
-	password: yup
-		.string()
-		.label("Password")
-		.required()
-		.min(5, "Seems a bit short..."),
-});
+export default function Login() {
+	const validationSchema = yup.object().shape({
+		email: yup.string().label("Email").email().required(),
+		password: yup
+			.string()
+			.label("Password")
+			.required()
+			.min(5, "Seems a bit short..."),
+	});
 
-export default () => (
-	<SafeAreaView style={{ marginTop: 90 }}>
-		<Image
-			source={require("../assets/background.jpg")}
-			style={styles.backgroundImage}
-		/>
-		<Text> Login </Text>
-		<View>
-		<Formik
-			initialValues={{ email: "", password: "" }}
-			onSubmit={(values, actions) => {
-                console.log(values); 
-                axios.post('http://localhost:8000/users/authenticate', values)
-                .then(res => console.log(JSON.stringify(res.data))); 
-				alert(JSON.stringify(values));
-				setTimeout(() => {
-					actions.setSubmitting(false);
-				}, 1000);
-			}}
-			validationSchema={validationSchema}>
+	const [jwt, setJwt] = useState("");
+	const url = "http://159.203.16.113:3000/users/authenticate";
 
-			{(formikProps) => (
-				<React.Fragment>
-					<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-						<Text style={{ marginBottom: 3 }}>Email</Text>
-						<TextInput
-							placeholder="johndoe@example.com"
-							style={{
-								borderWidth: 1,
-								borderColor: "black",
-								padding: 10,
-								marginBottom: 3,
-							}}
-							onChangeText={formikProps.handleChange("email")}
-							onBlur={formikProps.handleBlur("email")}
-							autoFocus
-						/>
-						<Text style={{ color: "red" }}>
-							{formikProps.touched.email && formikProps.errors.email}
-						</Text>
-					</View>
+	async function authenticate(info) {
+		try {
+			return fetch(url, {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify(info),
+			}).then((response) => response.json());
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
-						<View style={formStyles.formComponent}>
-							<Text style={formStyles.formText}>Password</Text>
-							<TextInput
-								placeholder="Password"
-								placeholderTextColor = "#AAAAAA"
-								style={formStyles.textbox}
-								onChangeText={formikProps.handleChange("password")}
-								onBlur={formikProps.handleBlur("password")}
-								secureTextEntry
-							/>
-							<Text style={{ color: "red" }}>
-								{formikProps.touched.password && formikProps.errors.password}
-							</Text>
-						</View>
+	return (
+		<SafeAreaView style={styles.container}>
+			<Image
+				source={require("../assets/background.jpg")}
+				style={styles.backgroundImage}
+			/>
+			<View style={formStyles.formContainer}>
+				<Text style={formStyles.formTitle}>Login</Text>
+				<Formik
+					initialValues={{ email: "", password: "" }}
+					onSubmit={(values, actions) => {
+						alert(JSON.stringify(values));
+						actions.resetForm();
+						setTimeout(() => {
+							actions.setSubmitting(false);
+						}, 1000);
+					}}
+					validationSchema={validationSchema} //validate input information based upon above schema
+				>
+					{(formikProps) => (
+						<React.Fragment>
+							<View style={formStyles.formComponent}>
+								<Text style={formStyles.formText}>Email</Text>
+								<TextInput
+									placeholder="johndoe@example.com"
+									placeholderTextColor="#AAAAAA"
+									style={formStyles.textbox}
+									onChangeText={formikProps.handleChange("email")} //
+									onBlur={formikProps.handleBlur("email")}
+									autoFocus
+									value={formikProps.values.email}
+								/>
+								<Text style={{ color: "red" }}>
+									{formikProps.touched.email && formikProps.errors.email}
+								</Text>
+							</View>
 
-						<View style={formStyles.formComponent}></View>
-						{formikProps.isSubmitting ? (
-							<ActivityIndicator />
-						) : (
-							<Button text="Submit" onPress={formikProps.handleSubmit} />
-						)}
-					</React.Fragment>
-				)}
-			
-			</Formik>
-		</View>
-	</SafeAreaView>
-);
+							<View style={formStyles.formComponent}>
+								<Text style={formStyles.formText}>Password</Text>
+								<TextInput
+									placeholder="Password"
+									placeholderTextColor="#AAAAAA"
+									style={formStyles.textbox}
+									onChangeText={formikProps.handleChange("password")}
+									onBlur={formikProps.handleBlur("password")}
+									secureTextEntry
+									value={formikProps.values.password}
+								/>
+								<Text style={{ color: "red" }}>
+									{formikProps.touched.password && formikProps.errors.password}
+								</Text>
+							</View>
+
+							<View style={formStyles.formComponent}></View>
+							{formikProps.isSubmitting ? (
+								<ActivityIndicator />
+							) : (
+								<Button
+									text="Submit"
+									onPress={() => {
+										try {
+											authenticate(formikProps.values).then((response) => {
+												if (response.jwt) {
+													setJwt(response.jwt);
+													console.log(jwt);
+													formikProps.handleSubmit; //submit form
+												} else {
+													alert("Unknown Error");
+												}
+											});
+										} catch (err) {
+											console.log(err);
+										}
+									}}
+								/>
+							)}
+						</React.Fragment>
+					)}
+				</Formik>
+			</View>
+		</SafeAreaView>
+	);
+}
