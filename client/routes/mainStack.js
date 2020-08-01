@@ -9,8 +9,12 @@ import Home from "../pages/home";
 import Organizations from "../pages/organizations";
 import OrganizationDetails from "../pages/organizationDetails";
 import Registration from "../pages/registration";
+import CreateOrg from "../pages/createOrganization";
 
 const screens = {
+	CreateOrganization: {
+		screen: CreateOrg,
+	},
 	Welcome: {
 		screen: Welcome,
 	},
