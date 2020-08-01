@@ -39,7 +39,7 @@ export default function welcome(props) {
 				<Button
 					text="Organizations"
 					onPress={() =>
-						props.navigation.navigate("Organization", { token: jwt })
+						props.navigation.navigate("Organizations", { token: jwt })
 					}
 				/>
 				{/*<Button text = "Terms of Service" onPress = {() => onPress("TOS")} /> */}
