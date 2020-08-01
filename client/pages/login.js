@@ -29,6 +29,7 @@ const validationSchema = yup.object().shape({
 export default () => (
 	<SafeAreaView style={{ marginTop: 90 }}>
 		<Text> Login </Text>
+		<View>
 		<Formik
 			initialValues={{ email: "", password: "" }}
 			onSubmit={(values, actions) => {
@@ -40,8 +41,8 @@ export default () => (
 					actions.setSubmitting(false);
 				}, 1000);
 			}}
-			validationSchema={validationSchema}
-		>
+			validationSchema={validationSchema}>
+
 			{(formikProps) => (
 				<React.Fragment>
 					<View style={{ marginHorizontal: 20, marginVertical: 5 }}>

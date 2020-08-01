@@ -7,6 +7,7 @@ import {
 	ActivityIndicator,
 	Text,
 	Image,
+	CheckBox,
 } from "react-native";
 
 import styles from "../styles/welcomepage";
@@ -43,7 +44,7 @@ export default () => (
 		<ScrollView style={formStyles.formContainerRegister}>
 			<Text style={formStyles.formTitleRegister}>Registration</Text>
 			<Formik
-				initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
+				initialValues={{ name: "", email: "", password: "", confirmPassword: "", isAgree: false }}
 				onSubmit={(values, actions) => {
 					alert(JSON.stringify(values));
 					setTimeout(() => {
@@ -113,6 +114,13 @@ export default () => (
 								{formikProps.touched.confirmPassword &&
 									formikProps.errors.confirmPassword}
 							</Text>
+						</View>
+
+						<View style = {{flexDircetion: "row", alignItems: "center"}}>
+							<CheckBox 
+								value = {formikProps.values['isAgreed']}
+								onValueChange = {valye => formikProps.setFieldValue('isAgree', value)}/>
+							<Text>I agree with the TOS. </Text>
 						</View>
 
 						{formikProps.isSubmitting ? (

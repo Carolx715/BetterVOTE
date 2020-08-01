@@ -24,6 +24,7 @@ export default function welcome(props) {
 				<Button text="Login" onPress={() => onPress("Login")} />
 				<Button text="Register" onPress={() => onPress("Registration")} />
 				<Button text="Organizations" onPress={() => onPress("Organizations")} />
+				{/*<Button text = "Terms of Service" onPress = {() => onPress("TOS")} /> */}
 			</View>
 		</View>
 	);
