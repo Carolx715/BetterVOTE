@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from 'react-native';
 var {vw, vh, vmin, vmax} = require('react-native-expo-viewport-units');
+const screenHeight = Dimensions.get('window').height;
 
 const formStyling = StyleSheet.create({
     formTitle: {
@@ -13,6 +15,13 @@ const formStyling = StyleSheet.create({
 		fontWeight: "bold",
 		color: "white",
         fontSize: 40,
+        textAlign: "center",
+    },
+    formTitleCreateNew: {
+		fontWeight: "bold",
+		color: "white",
+        fontSize: 35,
+        marginBottom: vh(3),
         textAlign: "center",
     },
 
@@ -39,7 +48,12 @@ const formStyling = StyleSheet.create({
 		color: "white",
 		position: "absolute", // child
 		top: vh(10),
-		marginLeft: vw(3),
+        marginLeft: vw(3),
+        flex: 1,
+        height: "auto",
+        maxHeight: screenHeight,
+
+        width: "100%",
     },
 
     textbox: {
@@ -48,11 +62,35 @@ const formStyling = StyleSheet.create({
         color: "white",
         padding: 10,
         marginBottom: 3,
+
+        maxWidth: "90%"
+    },
+
+    textarea: {
+        borderWidth: 1,
+        borderColor: "white",
+        color: "white",
+        padding: 10,
+        marginBottom: 3,
+        minHeight: vh(10),
+        maxHeight: vh(30),
+        maxWidth: "90%",
+        minWidth: "90%",
+
     },
     
 	formComponent: {
-		marginBottom: vh(1),
-	},
+        marginBottom: vh(1),
+    },
+	formTextboxes: {
+        marginBottom: vh(1),
+        paddingLeft: vw(6),
+    },
+    btnComponent: {
+        marginBottom: vh(1),
+        justifyContent: "center",
+        alignItems: "center",
+    }
 
 
 

@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from 'react-native';
 var {vw, vh, vmin, vmax} = require('../node_modules/react-native-expo-viewport-units');
+const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
 	container: {
@@ -7,6 +9,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#dab",
 		alignItems: "center",
 		justifyContent: "center",
+		maxHeight: screenHeight,
+		height: "auto",
 	},
 
 	backgroundImage: {
