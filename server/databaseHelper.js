@@ -105,8 +105,41 @@ async function getOrganizationByCode(code) {
 	})
 }
 
+async function joinOrganizationByCode(code, username, email) {
+	return new Promise((resolve, reject) => {
+		const userData = { 
+			username: username, 
+			email: email 
+		}
+		try {
+			// check if user is already in organization
+			db.collection("organizations").findOne({ $and: [{ "inviteCode": code }, { "users.email": email }] },
+			function (err, result) {
+				if (err) throw err;
+				if (result) {
+					resolve({ error: 'You have already joined this organization' });
+				} else {
+					// find document with given invite code, push the user to the list of users and increment userCount
+					db.collection("organizations").updateOne({ "inviteCode": code }, { $push: { users: userData }, $inc: { userCount: 1 } }, function (err, result) {
+						if (err) throw err;
+						if (result.result.nModified > 0) {
+							resolve("success");
+						} else {
+							resolve({ error: 'Organization does not exist' })
+						}
+						resolve(result.result.nModified);
+					})
+				}
+			});
+		} catch (err) {
+			reject({ error: err });
+		}
+	})
+}
+
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
 exports.getOrganizations = getOrganizations;
 exports.getOrganizationByCode = getOrganizationByCode;
+exports.joinOrganizationByCode = joinOrganizationByCode;
