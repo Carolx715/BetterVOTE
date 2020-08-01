@@ -7,6 +7,7 @@ import {
 	ActivityIndicator,
 	Text,
 	Image,
+	CheckBox,
 } from "react-native";
 
 import styles from "../styles/welcomepage";
@@ -15,6 +16,7 @@ import Button from "../components/button";
 
 import { Formik } from "formik";
 import * as yup from "yup";
+import axios from "axios";
 
 export default function Registration() {
 	const validationSchema = yup.object().shape({
@@ -138,30 +140,37 @@ export default function Registration() {
 									{formikProps.touched.confirmPassword &&
 										formikProps.errors.confirmPassword}
 								</Text>
-							</View>
+								{/* 
+						<View style = {{flexDircetion: "row", alignItems: "center"}}>
+							<CheckBox 
+								value = {formikProps.values['isAgreed']}
+								onValueChange = {valye => formikProps.setFieldValue('isAgree', value)}/>
+							<Text>I agree with the TOS. </Text>
+						</View> */}
 
-							{formikProps.isSubmitting ? (
-								<ActivityIndicator />
-							) : (
-								<View>
-									<Button
-										text="Register"
-										onPress={() => {
-											try {
-												register(formikProps.values).then((response) => {
-													if (response.jwt) {
-														formikProps.handleSubmit; //submit form
-													} else {
-														alert("Unsuccessful Registration");
-													}
-												});
-											} catch (err) {
-												console.log(err);
-											}
-										}}
-									/>
-								</View>
-							)}
+								{formikProps.isSubmitting ? (
+									<ActivityIndicator />
+								) : (
+									<View>
+										<Button
+											text="Register"
+											onPress={() => {
+												try {
+													register(formikProps.values).then((response) => {
+														if (response.jwt) {
+															formikProps.handleSubmit; //submit form
+														} else {
+															alert("Unsuccessful Registration");
+														}
+													});
+												} catch (err) {
+													console.log(err);
+												}
+											}}
+										/>
+									</View>
+								)}
+							</View>
 						</React.Fragment>
 					)}
 				</Formik>

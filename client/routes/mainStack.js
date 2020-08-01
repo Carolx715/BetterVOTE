@@ -9,6 +9,8 @@ import Home from "../pages/home";
 import Organizations from "../pages/organizations";
 import OrganizationDetails from "../pages/organizationDetails";
 import Registration from "../pages/registration";
+import CreateOrg from "../pages/createOrganization";
+import TOS from "../pages/TOS";
 
 const screens = {
 	Welcome: {
@@ -17,11 +19,17 @@ const screens = {
 	Login: {
 		screen: Login,
 	},
+	Register: {
+		screen: Registration,
+	},
 	Home: {
 		screen: Home,
 	},
 	Organizations: {
 		screen: Organizations,
+	},
+	CreateOrganization: {
+		screen: CreateOrg,
 	},
 	OrganizationDetails: {
 		screen: OrganizationDetails,
@@ -29,6 +37,9 @@ const screens = {
 	Registration: {
 		screen: Registration,
 	},
+	TOS: {
+		screen: TOS,
+	}
 };
 
 const mainStack = createStackNavigator(screens, {
