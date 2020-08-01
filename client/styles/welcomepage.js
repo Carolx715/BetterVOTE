@@ -41,13 +41,16 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginVertical: 0,
 	},
-
 	textTitle: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 50,
 		margin: vw(2.2),
 		marginTop: 0,
+	},
+	subText: {
+		color: "white",
+		marginBottom: vh(2)
 	},
 
 	buttonContainer: {
