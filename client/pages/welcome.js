@@ -5,7 +5,12 @@ import Button from "../components/button";
 import { useState } from "react";
 
 export default function welcome(props) {
-	const onPress = (route) => props.navigation.navigate(route);
+	const [jwt, setJwt] = useState("");
+
+	const transferJwt = (jwt) => {
+		setJwt(jwt);
+	};
+
 	return (
 		<View style={styles.container}>
 			<Image
@@ -21,9 +26,22 @@ export default function welcome(props) {
 			</View>
 
 			<View style={styles.buttonContainer}>
-				<Button text="Login" onPress={() => onPress("Login")} />
-				<Button text="Register" onPress={() => onPress("Registration")} />
-				<Button text="Organizations" onPress={() => onPress("Organizations")} />
+				<Button
+					text="Login"
+					onPress={() =>
+						props.navigation.navigate("Login", { transferJwt: transferJwt })
+					}
+				/>
+				<Button
+					text="Register"
+					onPress={() => props.navigation.navigate("Registration")}
+				/>
+				<Button
+					text="Organizations"
+					onPress={() =>
+						props.navigation.navigate("Organization", { token: jwt })
+					}
+				/>
 				{/*<Button text = "Terms of Service" onPress = {() => onPress("TOS")} /> */}
 			</View>
 		</View>

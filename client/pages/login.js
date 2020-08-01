@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	SafeAreaView,
 	TextInput,
@@ -24,7 +24,6 @@ export default function Login() {
 			.min(5, "Seems a bit short..."),
 	});
 
-	const [jwt, setJwt] = useState("");
 	const url = "http://159.203.16.113:3000/users/authenticate";
 
 	async function authenticate(info) {
@@ -104,7 +103,9 @@ export default function Login() {
 										try {
 											authenticate(formikProps.values).then((response) => {
 												if (response.jwt) {
-													setJwt(response.jwt);
+													props.navigation.getParam("transferJwt")(
+														response.jwt
+													);
 													console.log(jwt);
 													formikProps.handleSubmit; //submit form
 												} else {
