@@ -1,15 +1,18 @@
 import React from "react";
 import {
 	SafeAreaView,
+	ScrollView,
+	View,
 	TextInput,
-	Button,
 	ActivityIndicator,
 	Text,
-	View,
-	ImageBackground,
 	Image,
 } from "react-native";
+
 import styles from "../styles/welcomepage";
+import formStyles from "../styles/formStyling";
+import Button from "../components/button";
+
 import { Formik } from "formik";
 import * as yup from "yup";
 import axios from 'axios'; 
@@ -32,108 +35,96 @@ const validationSchema = yup.object().shape({
 });
 
 export default () => (
-	<SafeAreaView style={{ marginTop: 90 }}>
-		<Text> Registration </Text>
-		<Formik
-			initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
-			onSubmit={(values, actions) => {
-                console.log(values);
-                axios.post('http://localhost:8000/users/register', user)
-                .then(res => console.log(res.data));    
-				alert(JSON.stringify(values));
-				setTimeout(() => {
-					actions.setSubmitting(false);
-				}, 1000);
-			}}
-			validationSchema={validationSchema}
-		>
-			{(formikProps) => (
-				<React.Fragment>
-					<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-						<Text style={{ marginBottom: 3 }}>Name</Text>
-						<TextInput
-							placeholder="John Doe"
-							style={{
-								borderWidth: 1,
-								borderColor: "black",
-								padding: 10,
-								marginBottom: 3,
-							}}
-							onChangeText={formikProps.handleChange("name")}
-							onBlur={formikProps.handleBlur("name")}
-							autoFocus
-						/>
-						<Text style={{ color: "red" }}>
-							{formikProps.touched.name && formikProps.errors.name}
-						</Text>
-					</View>
-
-					<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-						<Text style={{ marginBottom: 3 }}>Email</Text>
-						<TextInput
-							placeholder="johndoe@example.com"
-							style={{
-								borderWidth: 1,
-								borderColor: "black",
-								padding: 10,
-								marginBottom: 3,
-							}}
-							onChangeText={formikProps.handleChange("email")}
-							onBlur={formikProps.handleBlur("email")}
-							autoFocus
-						/>
-						<Text style={{ color: "red" }}>
-							{formikProps.touched.email && formikProps.errors.email}
-						</Text>
-					</View>
-
-					<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-						<Text style={{ marginBottom: 3 }}>Password</Text>
-						<TextInput
-							placeholder="password"
-							style={{
-								borderWidth: 1,
-								borderColor: "black",
-								padding: 10,
-								marginBottom: 3,
-							}}
-							onChangeText={formikProps.handleChange("password")}
-							onBlur={formikProps.handleBlur("password")}
-							secureTextEntry
-						/>
-						<Text style={{ color: "red" }}>
-							{formikProps.touched.password && formikProps.errors.password}
-						</Text>
-					</View>
-					<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-						<Text style={{ marginBottom: 3 }}>Confirm Password</Text>
-						<TextInput
-							placeholder="password"
-							style={{
-								borderWidth: 1,
-								borderColor: "black",
-								padding: 10,
-								marginBottom: 3,
-							}}
-							onChangeText={formikProps.handleChange("confirmPassword")}
-							onBlur={formikProps.handleBlur("confirmPassword")}
-							secureTextEntry
-						/>
-						<Text style={{ color: "red" }}>
-							{formikProps.touched.confirmPassword &&
-								formikProps.errors.confirmPassword}
-						</Text>
-					</View>
-
-					{formikProps.isSubmitting ? (
-						<ActivityIndicator />
-					) : (
-						<View style={styles.formGroup}>
-							<Button title="Register" onPress={formikProps.handleSubmit} />
+	<SafeAreaView style={styles.container}>
+		<Image
+			source={require("../assets/background.jpg")}
+			style={styles.backgroundImage}
+		/>
+		<ScrollView style={formStyles.formContainerRegister}>
+			<Text style={formStyles.formTitleRegister}>Registration</Text>
+			<Formik
+				initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
+				onSubmit={(values, actions) => {
+					alert(JSON.stringify(values));
+					setTimeout(() => {
+						actions.setSubmitting(false);
+					}, 1000);
+				}}
+				validationSchema={validationSchema}
+			>
+				{(formikProps) => (
+					<React.Fragment>
+						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+							<Text style={formStyles.formTextRegister}>Name</Text>
+							<TextInput
+								placeholder="John Doe"
+								placeholderTextColor="#AAAAAA"
+								style={formStyles.textbox}
+								onChangeText={formikProps.handleChange("name")}
+								onBlur={formikProps.handleBlur("name")}
+								autoFocus
+							/>
+							<Text style={{ color: "red" }}>
+								{formikProps.touched.name && formikProps.errors.name}
+							</Text>
 						</View>
-					)}
-				</React.Fragment>
-			)}
-		</Formik>
+
+						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+							<Text style={formStyles.formTextRegister}>Email</Text>
+							<TextInput
+								placeholder="johndoe@example.com"
+								placeholderTextColor="#AAAAAA"
+								style={formStyles.textbox}
+								onChangeText={formikProps.handleChange("email")}
+								onBlur={formikProps.handleBlur("email")}
+								autoFocus
+							/>
+							<Text style={{ color: "red" }}>
+								{formikProps.touched.email && formikProps.errors.email}
+							</Text>
+						</View>
+
+						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+							<Text style={formStyles.formTextRegister}>Password</Text>
+							<TextInput
+								placeholder="Password"
+								placeholderTextColor="#AAAAAA"
+								style={formStyles.textbox}
+								onChangeText={formikProps.handleChange("password")}
+								onBlur={formikProps.handleBlur("password")}
+								secureTextEntry
+							/>
+							<Text style={{ color: "red" }}>
+								{formikProps.touched.password && formikProps.errors.password}
+							</Text>
+						</View>
+
+						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+							<Text style={formStyles.formTextRegister}>Confirm Password</Text>
+							<TextInput
+								placeholder="Password"
+								placeholderTextColor="#AAAAAA"
+								style={formStyles.textbox}
+								onChangeText={formikProps.handleChange("confirmPassword")}
+								onBlur={formikProps.handleBlur("confirmPassword")}
+								secureTextEntry
+							/>
+							<Text style={{ color: "red" }}>
+								{formikProps.touched.confirmPassword &&
+									formikProps.errors.confirmPassword}
+							</Text>
+						</View>
+
+						{formikProps.isSubmitting ? (
+							<ActivityIndicator />
+						) : (
+							<View>
+								<Button text="Register" onPress={formikProps.handleSubmit} />
+							</View>
+						)}
+					</React.Fragment>
+				)}
+			</Formik>
+		</ScrollView>
 	</SafeAreaView>
 );
