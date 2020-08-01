@@ -39,7 +39,7 @@ const screens = {
 	},
 	TOS: {
 		screen: TOS,
-	}
+	},
 };
 
 const mainStack = createStackNavigator(screens, {

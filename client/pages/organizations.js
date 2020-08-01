@@ -7,11 +7,9 @@ import styles from "../styles/welcomepage";
 
 export default function organizations(props) {
 	const [data, setData] = useState();
-
 	const url = "http://159.203.16.113:3000/organizations/getList";
 	async function retrieveData() {
-		let jwt =
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkYW0gU21pdGgiLCJlbWFpbCI6ImNhcHRpYWxpc21AZ21haWwuY29tIiwiaWF0IjoxNTk2MjI2NTM4fQ.b9LId0Y192Ii5uqjPCsJAkBxkf2RxlTWiLNNXgTntto";
+		let jwt = props.navigation.getParam("token");
 		try {
 			let response = await fetch(url, {
 				method: "GET",

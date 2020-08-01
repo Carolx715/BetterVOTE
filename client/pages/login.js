@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	SafeAreaView,
 	TextInput,
@@ -14,7 +14,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import Button from "../components/button";
 
-export default function Login() {
+export default function Login(props) {
 	const validationSchema = yup.object().shape({
 		email: yup.string().label("Email").email().required(),
 		password: yup
@@ -24,7 +24,6 @@ export default function Login() {
 			.min(5, "Seems a bit short..."),
 	});
 
-	const [jwt, setJwt] = useState("");
 	const url = "http://159.203.16.113:3000/users/authenticate";
 
 	async function authenticate(info) {
@@ -52,7 +51,7 @@ export default function Login() {
 				<Formik
 					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, actions) => {
-						alert(JSON.stringify(values));
+						alert("You are logged in!");
 						actions.resetForm();
 						setTimeout(() => {
 							actions.setSubmitting(false);
@@ -104,8 +103,10 @@ export default function Login() {
 										try {
 											authenticate(formikProps.values).then((response) => {
 												if (response.jwt) {
-													setJwt(response.jwt);
-													console.log(jwt);
+													props.navigation.getParam("transferJwt")(
+														response.jwt
+													);
+													console.log(response.jwt);
 													formikProps.handleSubmit; //submit form
 												} else {
 													alert("Unknown Error");
