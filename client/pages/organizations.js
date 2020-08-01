@@ -4,12 +4,23 @@ import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
 import AddOrgMenu from "../components/addNewOrgMenu";
 import styles from "../styles/welcomepage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default function organizations(props) {
 	const [data, setData] = useState();
 	const url = "http://159.203.16.113:3000/organizations/getList";
+
+	const getToken = async () => {
+		try {
+			//item is given back as string
+			return AsyncStorage.getItem("Token");
+		} catch (error) {
+			console.log("Something went wrong", error);
+		}
+	};
+
 	async function retrieveData() {
-		let jwt = props.navigation.getParam("token");
+		let jwt = await getToken();
 		try {
 			let response = await fetch(url, {
 				method: "GET",

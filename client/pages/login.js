@@ -28,19 +28,9 @@ export default function Login(props) {
 	const storeToken = async (key, value) => {
 		try {
 			//token must be stored as a string
-			AsyncStorage.setItem(key, value);
+			return AsyncStorage.setItem(key, value);
 		} catch (error) {
 			console.log("Token was not stored", error);
-		}
-	};
-
-	const getToken = async () => {
-		try {
-			//item is given back as string
-			let data = await AsyncStorage.getItem("Token");
-			return data;
-		} catch (error) {
-			console.log("Something went wrong", error);
 		}
 	};
 
@@ -60,11 +50,7 @@ export default function Login(props) {
 		}
 	}
 
-	const data = await getToken()
-	
-	return data ? (
-		props.navigation.navigate("Organizations")
-	) : (
+	return (
 		<SafeAreaView style={styles.container}>
 			<Image
 				source={require("../assets/background.jpg")}
@@ -75,8 +61,6 @@ export default function Login(props) {
 				<Formik
 					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, actions) => {
-						alert("You are logged in!");
-						actions.resetForm();
 						setTimeout(() => {
 							actions.setSubmitting(false);
 						}, 1000);
@@ -130,7 +114,8 @@ export default function Login(props) {
 												if (response.jwt) {
 													console.log(response.jwt);
 													storeToken("Token", response.jwt).then(() => {
-														formikProps.handleSubmit; //submit form
+														alert("You are logged in!");
+														props.navigation.navigate("Organizations");
 													});
 												} else if (response.error) {
 													alert(response.error);
@@ -149,5 +134,5 @@ export default function Login(props) {
 				</Formik>
 			</View>
 		</SafeAreaView>
-	)
+	);
 }

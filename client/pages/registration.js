@@ -158,7 +158,6 @@ export default function Registration() {
 													register(formikProps.values).then((response) => {
 														if (response.jwt) {
 															alert("You are registered!");
-															formikProps.handleSubmit;
 															props.navigation.navigate("Organizations");
 														} else if (response.error) {
 															alert(response.error);
