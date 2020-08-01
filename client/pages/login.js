@@ -28,6 +28,10 @@ const validationSchema = yup.object().shape({
 
 export default () => (
 	<SafeAreaView style={{ marginTop: 90 }}>
+		<Image
+			source={require("../assets/background.jpg")}
+			style={styles.backgroundImage}
+		/>
 		<Text> Login </Text>
 		<View>
 		<Formik

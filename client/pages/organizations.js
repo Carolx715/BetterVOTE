@@ -78,9 +78,3 @@ export default function organizations(props) {
 		</View>
 	);
 }
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		//Carol Fill this in
-// 	},
-// });

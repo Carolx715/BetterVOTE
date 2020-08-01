@@ -55,7 +55,7 @@ export default () => (
 			>
 				{(formikProps) => (
 					<React.Fragment>
-						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+						<View style={formStyles.formTextboxes}>
 							<Text style={formStyles.formTextRegister}>Name</Text>
 							<TextInput
 								placeholder="John Doe"
@@ -70,7 +70,7 @@ export default () => (
 							</Text>
 						</View>
 
-						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+						<View style={formStyles.formTextboxes}>
 							<Text style={formStyles.formTextRegister}>Email</Text>
 							<TextInput
 								placeholder="johndoe@example.com"
@@ -85,7 +85,7 @@ export default () => (
 							</Text>
 						</View>
 
-						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+						<View style={formStyles.formTextboxes}>
 							<Text style={formStyles.formTextRegister}>Password</Text>
 							<TextInput
 								placeholder="Password"
@@ -100,7 +100,7 @@ export default () => (
 							</Text>
 						</View>
 
-						<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
+						<View style={formStyles.formTextboxes}>
 							<Text style={formStyles.formTextRegister}>Confirm Password</Text>
 							<TextInput
 								placeholder="Password"
@@ -120,13 +120,13 @@ export default () => (
 							<CheckBox 
 								value = {formikProps.values['isAgreed']}
 								onValueChange = {valye => formikProps.setFieldValue('isAgree', value)}/>
-							<Text>I agree with the TOS. </Text>
+							<Text style={styles.subText}>I agree with the Terms Of Service.</Text>
 						</View>
 
 						{formikProps.isSubmitting ? (
 							<ActivityIndicator />
 						) : (
-							<View>
+							<View style={formStyles.btnComponent}>
 								<Button text="Register" onPress={formikProps.handleSubmit} />
 							</View>
 						)}

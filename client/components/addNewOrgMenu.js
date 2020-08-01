@@ -2,7 +2,7 @@ import styles from "../styles/organizations";
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
-export default function modal({ props, isVisible }) {
+export default function menu({ props, isVisible }) {
 	return isVisible ? (
 		<View style={styles.centeredView}>
 			<View style={styles.modal}>
