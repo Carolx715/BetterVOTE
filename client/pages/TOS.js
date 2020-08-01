@@ -1,9 +1,14 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
+import styles from "../styles/welcomepage";
 
 export default function TOS() {
 	return (
-		<View>
+		<View style = {styles.container}>
+            <Image
+				source={require("../assets/background.jpg")}
+				style={styles.backgroundImage}
+			/>
 			<Text>This is the TOS page. </Text>
 		</View>
 	);
