@@ -1,14 +1,18 @@
-import styles from "../styles/organizations";
-import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { StyleSheet, Text, View, Image, Modal } from "react-native";
+import Button from "./button";
+import { useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+import styles from "../styles/formStyling"
 
-export default function popup({ props, modalOpen }) {
-	return modalOpen ? (
-		<View style={styles.centeredView}>
-			<View style={styles.modal}>
-                <Text style={styles.text}>Join Organization By Code</Text>
+import { Formik } from "formik";
+import { TouchableOpacity, TextInput } from "react-native";
 
-                <Formik 
+export default function form() {
+
+    return(
+        <View >
+            <Formik 
                 initialValues={{ joinCode: "" }}
                 onSubmit={(value) => {
                     console.log(value);
@@ -16,19 +20,23 @@ export default function popup({ props, modalOpen }) {
                     {(formikprops) => (
                         <View>
                             <TextInput
-                                style={styless.input}
+                                style={styles.textboxModal}
                                 placeholder="Enter code here"
                                 onChangeText={formikprops.handleChange('joinCode')}
                                 value={formikprops.values.joinCode}>
-                                
+                    
                             </TextInput>
                             <Button text="Send Join Request" onPress={formikprops.handleSubmit}>
                             </Button>
                         </View>
                     )}
-                </Formik>
+            </Formik>
 
-			</View>
-		</View>
-	) : null;
+        </View>
+        
+    )
 }
+
+const styless = StyleSheet.create({ 
+
+})

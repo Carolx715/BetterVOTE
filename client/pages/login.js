@@ -108,6 +108,8 @@ export default function Login(props) {
 													);
 													console.log(response.jwt);
 													formikProps.handleSubmit; //submit form
+												} else if (response.error) {
+													alert(response.error);
 												} else {
 													alert("Unknown Error");
 												}

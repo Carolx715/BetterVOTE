@@ -64,7 +64,13 @@ const formStyling = StyleSheet.create({
 		marginBottom: 3,
 
 		maxWidth: "90%",
-	},
+	}, textboxModal: {
+        borderWidth: 1,
+        borderColor: "#DBD",
+        padding: 10,
+        fontSize: 18,
+        margin: vh(2)
+    },
 
 	textarea: {
 		borderWidth: 1,

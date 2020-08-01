@@ -70,6 +70,29 @@ const styles = StyleSheet.create({
         position: "absolute",
     },
 
+    modalContentContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    modalContent: {
+        width: "90%",
+        height: "50%",
+        padding: vw(10),
+        backgroundColor: "white",
+        borderRadius: 10,
+        shadowColor: "black",
+        shadowOpacity: 0.3,
+        shadowOffset: { width: 1, height: 1 }
+    },
+    close: {
+        position: "absolute",
+        top: vh(2),
+        right: vh(2)
+    }
+
 });
 
 export default styles;
