@@ -9,6 +9,7 @@ import {
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
 import AddOrgMenu from "../components/addNewOrgMenu";
+import styles from "../styles/welcomepage";
 
 export default function organizations(props) {
 	const [data, setData] = useState();
@@ -46,8 +47,8 @@ export default function organizations(props) {
 	};
 
 	return (
-		<View>
-			{/* <Text> Organizations </Text>
+		<View style={styles.container}>
+			<Text style={{marginTop: 100}}> Organizations </Text>{/* 
 			<FlatList
 				data={organizations}
 				renderItem={({ data }) => (
@@ -62,16 +63,16 @@ export default function organizations(props) {
 							<Text>{item.representatives}</Text>
 						</Card>
 					</TouchableOpacity>
-				)}
-			/>
+				)} 
+			/>*/}
 			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
-			<AddOrgMenu isVisible={isVisible}></AddOrgMenu> */}
+			<AddOrgMenu isVisible={isVisible}></AddOrgMenu> 
 		</View>
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		//Carol Fill this in
-	},
-});
+// const styles = StyleSheet.create({
+// 	container: {
+// 		//Carol Fill this in
+// 	},
+// });
