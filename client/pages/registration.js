@@ -7,7 +7,6 @@ import {
 	ActivityIndicator,
 	Text,
 	Image,
-	CheckBox,
 } from "react-native";
 
 import styles from "../styles/welcomepage";
@@ -16,7 +15,6 @@ import Button from "../components/button";
 
 import { Formik } from "formik";
 import * as yup from "yup";
-import axios from "axios";
 
 export default function Registration() {
 	const validationSchema = yup.object().shape({

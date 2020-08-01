@@ -7,6 +7,7 @@ import styles from "../styles/welcomepage";
 
 export default function organizations(props) {
 	const [data, setData] = useState();
+
 	const url = "http://159.203.16.113:3000/organizations/getList";
 	async function retrieveData() {
 		let jwt =

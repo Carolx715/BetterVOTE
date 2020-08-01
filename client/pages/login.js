@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
 	SafeAreaView,
 	TextInput,
@@ -24,6 +23,7 @@ export default function Login() {
 			.required()
 			.min(5, "Seems a bit short..."),
 	});
+
 	const [jwt, setJwt] = useState("");
 	const url = "http://159.203.16.113:3000/users/authenticate";
 
@@ -104,7 +104,8 @@ export default function Login() {
 										try {
 											authenticate(formikProps.values).then((response) => {
 												if (response.jwt) {
-													setJwt(response);
+													setJwt(response.jwt);
+													console.log(jwt);
 													formikProps.handleSubmit; //submit form
 												} else {
 													alert("Unknown Error");
