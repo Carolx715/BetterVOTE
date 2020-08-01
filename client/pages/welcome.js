@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Modal } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
 import { useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 export default function welcome(props) {
+
 	const [jwt, setJwt] = useState("");
 
 	const transferJwt = (jwt) => {
