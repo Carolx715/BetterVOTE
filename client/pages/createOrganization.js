@@ -22,6 +22,24 @@ const validationSchema = yup.object().shape({
 	description: yup.string().required(),
 });
 
+const url = "http://159.203.16.113:3000/organizations/create";
+
+async function createNewOrg(info) {
+    try {
+        return fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkYW0gU21pdGgiLCJlbWFpbCI6ImNhcGl0YWxpc21AZ21haWwuY29tIiwiaWF0IjoxNTk2MzE3MTUyfQ.aPfLjjQRp1f8wMGu2SuXqlcKaC26k-Sl95bA-cyLwIg'
+            },
+            body: JSON.stringify(info),
+        }).then((response) => response.json());
+        console.log("this runs");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export default () => (
 	<SafeAreaView style={styles.container}>
 		<Image
@@ -73,12 +91,30 @@ export default () => (
 						</View>
 
 						<View style={formStyles.btnComponent}>
-						{formikProps.isSubmitting ? (
-							<ActivityIndicator />
-						) : (
-							<Button text="Create" onPress={formikProps.handleSubmit} />
-						)}
+                            {formikProps.isSubmitting ? (
+                                <ActivityIndicator />
+                            ) : (
+                                <Button 
+                                    text="Create" 
+                                    onPress={() => {
+                                        console.log(formikProps.values);
+                                        try {
+                                            createNewOrg(formikProps.values).then((response) => {
+												if (!response.error) {
+													formikProps.handleSubmit; //submit form
+                                                    console.log(response);
+												} else {
+                                                    console.log(response.error.message);
+												}
+											});
+                                        } catch {
+											alert("Unknown Error");
+                                        }
+                                    }} 
+                                />
+                            )}
                         </View>
+
 					</React.Fragment>
 				)}
 			</Formik>
