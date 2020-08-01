@@ -17,11 +17,13 @@ router.use((err, req, res, next) => {
 });
 
 router.post("/create", create);
+router.post("/join", joinOrganization);
 router.get("/getList", getOrganizations);
 
 async function create(req, res) {
 	if (!req.body.name || !req.body.description) {
 		res.status(400).send({ error: "Not all fields were filled" });
+		return;
 	}
 
 	const data = {
@@ -73,6 +75,20 @@ async function getOrganizations(req, res) {
 			);
 		}
 	});
+}
+
+async function joinOrganization(req, res) {
+	if (!req.body.inviteCode) {
+		res.status(400).send({ error: 'Not all fields were filled'});
+		return;
+	};
+	database.joinOrganizationByCode(req.body.inviteCode, req.user.username, req.user.email).then((result) => {
+		if (!result.error) {
+			res.status(200).send("success");
+		} else {
+			res.status(403).send(result);
+		}
+	})
 }
 
 module.exports = router;
