@@ -38,7 +38,7 @@ export default function Registration() {
 	async function register(info) {
 		try {
 			return fetch(url, {
-				method: "GET",
+				method: "POST",
 				headers: {
 					"Content-type": "application/json",
 				},
@@ -59,13 +59,14 @@ export default function Registration() {
 				<Text style={formStyles.formTitleRegister}>Registration</Text>
 				<Formik
 					initialValues={{
-						name: "",
+						username: "",
 						email: "",
 						password: "",
 						confirmPassword: "",
 					}}
 					onSubmit={(values, actions) => {
-						alert(JSON.stringify(values));
+						alert("You are registered!");
+						actions.resetForm();
 						setTimeout(() => {
 							actions.setSubmitting(false);
 						}, 1000);
@@ -80,13 +81,13 @@ export default function Registration() {
 									placeholder="John Doe"
 									placeholderTextColor="#AAAAAA"
 									style={formStyles.textbox}
-									onChangeText={formikProps.handleChange("name")}
-									onBlur={formikProps.handleBlur("name")}
+									onChangeText={formikProps.handleChange("username")}
+									onBlur={formikProps.handleBlur("username")}
 									autoFocus
-									value={formikProps.values.name}
+									value={formikProps.values.username}
 								/>
 								<Text style={{ color: "red" }}>
-									{formikProps.touched.name && formikProps.errors.name}
+									{formikProps.touched.username && formikProps.errors.username}
 								</Text>
 							</View>
 
@@ -158,6 +159,7 @@ export default function Registration() {
 														if (response.jwt) {
 															formikProps.handleSubmit; //submit form
 														} else {
+															console.log(response);
 															alert("Unsuccessful Registration");
 														}
 													});
