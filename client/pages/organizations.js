@@ -11,6 +11,7 @@ import NewOrgBtn from "../components/addNewOrgBtn";
 import AddOrgMenu from "../components/addNewOrgMenu";
 
 export default function organizations(props) {
+	const [data, setData] = useState();
 	const url = "https://localhost:8000/organizations/getList";
 	async function retrieveData() {
 		try {
