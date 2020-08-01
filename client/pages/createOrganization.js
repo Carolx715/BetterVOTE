@@ -43,7 +43,7 @@ export default () => (
 
 				{(formikProps) => (
 					<React.Fragment>
-						<View style={formStyles.formComponent}>
+						<View style={formStyles.formTextboxes}>
 							<Text style={formStyles.formText}>Name of Organization</Text>
 							<TextInput
 								placeholder="Name your organization!"
@@ -56,9 +56,7 @@ export default () => (
 							<Text style={{ color: "red" }}>
 								{formikProps.touched.name && formikProps.errors.name}
 							</Text>
-						</View>
 
-						<View style={formStyles.formComponent}>
 							<Text style={formStyles.formText}>Description</Text>
 							<TextInput
 								placeholder="Describe your organization here..."

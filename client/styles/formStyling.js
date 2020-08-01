@@ -49,7 +49,6 @@ const formStyling = StyleSheet.create({
 		position: "absolute", // child
 		top: vh(10),
         marginLeft: vw(3),
-        paddingLeft: vw(6),
         flex: 1,
         height: "auto",
         maxHeight: screenHeight,
@@ -82,6 +81,10 @@ const formStyling = StyleSheet.create({
     
 	formComponent: {
         marginBottom: vh(1),
+    },
+	formTextboxes: {
+        marginBottom: vh(1),
+        paddingLeft: vw(6),
     },
     btnComponent: {
         marginBottom: vh(1),
