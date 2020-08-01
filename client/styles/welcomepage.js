@@ -47,6 +47,11 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		margin: vw(2.2),
 		marginTop: 0,
+	},textTitle2: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 40,
+		margin: vw(2.2),
 	},
 	subText: {
 		color: "white",

@@ -67,7 +67,7 @@ export default function organizations(props) {
 
 	return (
 		<View style={styles.container}>
-			<Text style={{marginTop: 100}}> Organizations </Text>
+			<Text style={styles.textTitle2}> Organizations </Text>
 			<FlatList
 				data={data}
 				renderItem={renderItem}
