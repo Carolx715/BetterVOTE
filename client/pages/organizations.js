@@ -54,7 +54,7 @@ export default function organizations(props) {
 				data={data}
 				renderItem={renderItem}
 				keyExtractor={(item) => item.id}
-			/>
+			/>s
 			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
 			<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
 		</View>
