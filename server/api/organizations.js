@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const crypto = require("crypto");
 const expressJWT = require("express-jwt");
 const database = require("../databaseHelper");
 
@@ -34,11 +35,23 @@ async function create(req, res) {
 			},
 		],
 		users: [{ username: req.user.username, email: req.user.email }],
+		memberCount: 1,
+		createdDate: Date.now(),
+		inviteCode: crypto.randomBytes(4).toString('hex') // generate random 8 character code (1 byte -> 2 hex characters)
 	};
+
+	// check to make sure no organization already has the invite code
+	let organization = await database.getOrganizationByCode(data.inviteCode);
+	while (organization) {
+		console.log(`org code ${data.inviteCode} already exists`)
+		data.inviteCode = crypto.randomBytes(4).toString('hex')
+		organization = await database.getOrganizationByCode(data.inviteCode);
+	}
 
 	// use previously made addOrganization function to add organization
 	database.addOrganization(data).then((result) => {
 		if (result === "success") {
+			console.log(`Created organization: ${JSON.stringify(data)}`)
 			res.sendStatus(200);
 		} else {
 			res.status(500).send({ error: "Internal server error" });
