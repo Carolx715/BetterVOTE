@@ -12,9 +12,6 @@ import Registration from "../pages/registration";
 import CreateOrg from "../pages/createOrganization";
 
 const screens = {
-	CreateOrganization: {
-		screen: CreateOrg,
-	},
 	Welcome: {
 		screen: Welcome,
 	},
@@ -26,6 +23,9 @@ const screens = {
 	},
 	Organizations: {
 		screen: Organizations,
+	},
+	CreateOrganization: {
+		screen: CreateOrg,
 	},
 	OrganizationDetails: {
 		screen: OrganizationDetails,

@@ -4,7 +4,6 @@ import {
 	View,
 	FlatList,
 	TouchableOpacity,
-	StyleSheet,
 } from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
@@ -75,7 +74,7 @@ export default function organizations(props) {
 				keyExtractor={(item) => item.id}
 			/>
 			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
-			<AddOrgMenu isVisible={isVisible}></AddOrgMenu> 
+			<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu> 
 		</View>
 	);
 }
