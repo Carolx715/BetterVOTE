@@ -13,6 +13,7 @@ import formStyles from "../styles/formStyling";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Button from "../components/button";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default function Login(props) {
 	const validationSchema = yup.object().shape({
@@ -24,6 +25,25 @@ export default function Login(props) {
 			.min(5, "Seems a bit short..."),
 	});
 
+	const storeToken = async (key, value) => {
+		try {
+			//token must be stored as a string
+			AsyncStorage.setItem(key, value);
+		} catch (error) {
+			console.log("Token was not stored", error);
+		}
+	};
+
+	const getToken = async () => {
+		try {
+			//item is given back as string
+			let data = await AsyncStorage.getItem("Token");
+			return data;
+		} catch (error) {
+			console.log("Something went wrong", error);
+		}
+	};
+
 	const url = "http://159.203.16.113:3000/users/authenticate";
 
 	async function authenticate(info) {
@@ -34,13 +54,17 @@ export default function Login(props) {
 					"Content-type": "application/json",
 				},
 				body: JSON.stringify(info),
-			}).then((response) => response.json());
+			}).then((response) => response.json()); //response will be a json object (that has a token)
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	return (
+	const data = await getToken()
+	
+	return data ? (
+		props.navigation.navigate("Organizations")
+	) : (
 		<SafeAreaView style={styles.container}>
 			<Image
 				source={require("../assets/background.jpg")}
@@ -102,12 +126,12 @@ export default function Login(props) {
 									onPress={() => {
 										try {
 											authenticate(formikProps.values).then((response) => {
+												//response is an object that has the jwt token
 												if (response.jwt) {
-													props.navigation.getParam("transferJwt")(
-														response.jwt
-													);
 													console.log(response.jwt);
-													formikProps.handleSubmit; //submit form
+													storeToken("Token", response.jwt).then(() => {
+														formikProps.handleSubmit; //submit form
+													});
 												} else if (response.error) {
 													alert(response.error);
 												} else {
@@ -125,5 +149,5 @@ export default function Login(props) {
 				</Formik>
 			</View>
 		</SafeAreaView>
-	);
+	)
 }

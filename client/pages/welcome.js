@@ -1,16 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Modal } from "react-native";
+import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
-import { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
 
 export default function welcome(props) {
-	const [jwt, setJwt] = useState("");
-	const transferJwt = (jwt) => {
-		setJwt(jwt);
-	};
-
 	return (
 		<View style={styles.container}>
 			<Image
@@ -28,20 +21,16 @@ export default function welcome(props) {
 			<View style={styles.buttonContainer}>
 				<Button
 					text="Login"
-					onPress={() =>
-						props.navigation.navigate("Login", { transferJwt: transferJwt })
-					}
+					onPress={() => props.navigation.navigate("Login")}
 				/>
 				<Button
 					text="Register"
 					onPress={() => props.navigation.navigate("Registration")}
 				/>
-				<Button
+				{/* <Button
 					text="Organizations"
-					onPress={() =>
-						props.navigation.navigate("Organizations", { token: jwt })
-					}
-				/>
+					onPress={() => props.navigation.navigate("Organizations")}
+				/> */}
 				{/*<Button text = "Terms of Service" onPress = {() => onPress("TOS")} /> */}
 			</View>
 		</View>

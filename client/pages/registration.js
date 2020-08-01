@@ -36,6 +36,7 @@ export default function Registration() {
 	});
 
 	const url = "http://159.203.16.113:3000/users/register";
+
 	async function register(info) {
 		try {
 			return fetch(url, {
@@ -65,9 +66,7 @@ export default function Registration() {
 						password: "",
 						confirmPassword: "",
 					}}
-					onSubmit={(values, actions) => {
-						alert("You are registered!");
-						actions.resetForm();
+					onSubmit={(actions) => {
 						setTimeout(() => {
 							actions.setSubmitting(false);
 						}, 1000);
@@ -158,10 +157,13 @@ export default function Registration() {
 												try {
 													register(formikProps.values).then((response) => {
 														if (response.jwt) {
-															formikProps.handleSubmit; //submit form
+															alert("You are registered!");
+															formikProps.handleSubmit;
+															props.navigation.navigate("Organizations");
+														} else if (response.error) {
+															alert(response.error);
 														} else {
-															console.log(response);
-															alert("Unsuccessful Registration");
+															alert("Unknown Registration Error");
 														}
 													});
 												} catch (err) {
