@@ -5,11 +5,8 @@ import Button from "../components/button";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
-
 export default function welcome(props) {
-
 	const [jwt, setJwt] = useState("");
-
 	const transferJwt = (jwt) => {
 		setJwt(jwt);
 	};
