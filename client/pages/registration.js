@@ -12,7 +12,6 @@ import {
 import styles from "../styles/welcomepage";
 import formStyles from "../styles/formStyling";
 import Button from "../components/button";
-
 import { Formik } from "formik";
 import * as yup from "yup";
 
@@ -29,7 +28,9 @@ export default function Registration() {
 			.string()
 			.label("Confirm Password")
 			.required()
-			.test("cek-confirmpassword", "Password doesn't match", function (value) {
+			.test("check-confirmpassword", "Password doesn't match", function (
+				value
+			) {
 				return this.parent.password === value;
 			}),
 	});
