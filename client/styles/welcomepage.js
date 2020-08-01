@@ -11,7 +11,15 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		maxHeight: screenHeight,
 		height: "auto",
-	},
+	}, container2: {
+		flex: 1,
+		backgroundColor: "#dab",
+		alignItems: "center",
+		justifyContent: "center",
+		maxHeight: screenHeight,
+		height: "auto",
+		paddingBottom: vh(5)
+	}, 
 
 	backgroundImage: {
 		flex: 1,
