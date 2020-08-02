@@ -102,6 +102,15 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: 10
 	},
+	text3:
+	{
+		fontWeight: "bold",
+		color: "black",
+		fontSize: 10,
+		margin: vw(2.2),
+		marginVertical: 0,
+		marginBottom: 10
+	},
 	buttonContainer: {
 		marginBottom: vh(13.3),
 	},
