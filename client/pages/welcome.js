@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
-	AsyncStorage.getItem("Token")
-		.then((response) => {
-			if (response) {
-				props.navigation.navigate("Organizations");
-			}
-		})
-		.catch((err) => {
-			console.log(`Error when checking if token exists: ${err}`);
-		});
+	useEffect(() => {
+		AsyncStorage.getItem("Token")
+			.then((response) => {
+				if (response) {
+					props.navigation.navigate("Organizations");
+				}
+			})
+			.catch((err) => {
+				console.log(`Error when checking if token exists: ${err}`);
+			});
+	});
 
 	return (
 		<View style={styles.container}>

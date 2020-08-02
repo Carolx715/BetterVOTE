@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Text,
 	View,
@@ -16,6 +16,10 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Button from "../components/button";
 
 export default function organizations(props) {
+	useEffect(() => {
+		retrieveData();
+	});
+
 	const [data, setData] = useState();
 	const url = "http://159.203.16.113:3000/organizations/getList";
 
@@ -35,11 +39,6 @@ export default function organizations(props) {
 		} catch (error) {
 			console.log(error);
 		}
-	}
-
-	//retrieve data from database
-	if (!data) {
-		retrieveData();
 	}
 
 	const [isVisible, setIsVisible] = useState(false);
