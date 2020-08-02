@@ -88,7 +88,6 @@ export default function Registration(props) {
 										style={formStyles.textbox}
 										onChangeText={formikProps.handleChange("username")}
 										onBlur={formikProps.handleBlur("username")}
-										autoFocus
 										value={formikProps.values.username}
 									/>
 									<Text style={{ color: "red" }}>
