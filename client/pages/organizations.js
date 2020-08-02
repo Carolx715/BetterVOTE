@@ -18,7 +18,7 @@ import Button from "../components/button";
 export default function organizations(props) {
 	useEffect(() => {
 		retrieveData();
-	}, []);
+	});
 
 	const [data, setData] = useState();
 	const url = "http://159.203.16.113:3000/organizations/getList";
