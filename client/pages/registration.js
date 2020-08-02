@@ -102,7 +102,7 @@ export default function Registration() {
 									onChangeText={formikProps.handleChange("email")}
 									onBlur={formikProps.handleBlur("email")}
 									autoFocus
-									value={formikProps.values.email}
+									value={formikProps.values.email.toLowerCase()}
 								/>
 								<Text style={{ color: "red" }}>
 									{formikProps.touched.email && formikProps.errors.email}

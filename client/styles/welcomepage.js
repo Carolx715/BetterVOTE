@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
 		maxHeight: screenHeight,
 		height: "auto",
 		paddingBottom: vh(15),
-		paddingTop: vh(10)
 	}, flatlistContainer: {
 		flex: 1,
-		backgroundColor: "#dab",
+		backgroundColor: "rgba(0, 0, 0, 0)",
 		maxHeight: screenHeight,
+		
 		height: "auto",
-		paddingBottom: vh(15)
+		paddingBottom: vh(8)
 	}, 
 
 	backgroundImage: {
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 	},textTitle2: {
 		fontWeight: "bold",
 		color: "white",
-		fontSize: 40,
+		fontSize: 30,
 		margin: vw(2.2),
 	},
 	subText: {
