@@ -9,16 +9,19 @@ export default function menu({ props, isVisible, setIsVisible }) {
 	return (
 		<View>
 			{isVisible ? (
-				<View style={styles.centeredView}>
+				<View style={styles.menuView}>
 					<View style={styles.modal}>
 						<TouchableOpacity
-							style={styles.menuitem}
-							onPress={() => props.navigation.navigate("CreateOrganization")}
+							// style={styles.menuitem}
+							onPress={() => {
+								setIsVisible(false);
+								props.navigation.navigate("CreateOrganization");
+							}}
 						>
 							<Text style={styles.text}>Create New Organization</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
-							style={styles.menuitem}
+							// style={styles.menuitem}
 							onPress={() => {
 								setModalOpen(true);
 								setIsVisible(false);
@@ -30,7 +33,6 @@ export default function menu({ props, isVisible, setIsVisible }) {
 				</View>
 			) : null}
 			{modalOpen ? (
-				<View style={styles.centeredView}>
 					<Modal transparent={true} visible={modalOpen} animationType="fade">
 						<View style={styles.modalContentContainer}>
 							<View style={styles.modalContent}>
@@ -45,7 +47,6 @@ export default function menu({ props, isVisible, setIsVisible }) {
 							</View>
 						</View>
 					</Modal>
-				</View>
 			) : null}
 		</View>
 	);
