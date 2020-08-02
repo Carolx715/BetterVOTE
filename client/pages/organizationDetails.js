@@ -9,32 +9,37 @@ import {
 } from "react-native";
 import Card from "../components/card";
 import styles from "../styles/welcomepage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default function OrganizationDetails(props) {
-	useEffect(() => {
-		retrieveDataDetails();
-	});
-
 	const [data, setData] = useState();
 	id = props.navigation.getParam("_id");
-	const url = `http://159.203.16.113:3000/organizations/getOrg?id=${id}`;
+	useEffect(() => {
+		const fetchData = async () => {
+			const url = `http://159.203.16.113:3000/organizations/getOrg?id=${id}`;
 
-	async function retrieveDataDetails() {
-		let jwt = await AsyncStorage.getItem("Token").catch((err) => {
-			console.log(err);
-		});
-		try {
-			let response = await fetch(url, {
-				method: "GET",
-				headers: {
-					Authorization: `Bearer ${jwt}`,
-				},
+			let jwt = await AsyncStorage.getItem("Token").catch((err) => {
+				console.log(err);
 			});
-			console.log(response.json());
-			setData(response.json());
-		} catch (error) {
-			console.log(error);
+			try {
+				let response = await fetch(url, {
+					method: "GET",
+					headers: {
+						Authorization: `Bearer ${jwt}`,
+					},
+				});
+				let data = await response.json();
+				setData(data);
+			} catch (error) {
+				console.log(error);
+			}
 		}
+
+		fetchData();
+	}, []);
+
+	if (!data) {
+		return null;
 	}
 
 	return (
