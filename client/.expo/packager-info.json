@@ -1,1 +1,6 @@
-{}
+{
+  "devToolsPort": 19007,
+  "expoServerPort": 19008,
+  "packagerPort": 19009,
+  "packagerPid": 19128
+}
