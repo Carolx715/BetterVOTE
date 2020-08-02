@@ -26,7 +26,9 @@ const url = "http://159.203.16.113:3000/organizations/create";
 
 async function createNewOrg(info) {
 	try {
-		const jwt = await getToken();
+		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
+			console.log("Error accessing jwt token", error)
+		});
 		return fetch(url, {
 			method: "POST",
 			headers: {
@@ -34,23 +36,25 @@ async function createNewOrg(info) {
 				Authorization: `Bearer ${jwt}`,
 			},
 			body: JSON.stringify(info),
-		}).then((response) => response.json());
-		console.log("this runs");
+		}).then((response) => {
+			if (response.ok) {
+				return {
+					success: true
+				}
+			} else if (response.json()) {
+				return response.json();
+			} else {
+				return {
+					error: 'Unknown Error'
+				}
+			}
+		});
 	} catch (error) {
 		console.log(error);
 	}
 }
 
-const getToken = async () => {
-	try {
-		//item is given back as string
-		return AsyncStorage.getItem("Token");
-	} catch (error) {
-		console.log("Something went wrong", error);
-	}
-};
-
-export default () => (
+export default (props) => (
 	<SafeAreaView style={styles.container}>
 		<Image
 			source={require("../assets/background.jpg")}
@@ -118,6 +122,7 @@ export default () => (
 												if (!response?.error) {
 													formikProps.handleSubmit; //submit form
 													alert("Successfully submitted", response);
+													props.navigation.navigate("Organizations");
 												} else {
 													alert(response.error.message);
 												}
