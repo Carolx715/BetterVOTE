@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, Image } from "react-native";
 import styles from "../styles/welcomepage";
 import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
-	AsyncStorage.getItem("Token").then((response) => {
-		if (response) {
-			props.navigation.navigate("Organizations");
-		}
-	}).catch((err) => {
-		console.log(`Error when checking if token exists: ${err}`);
+	useEffect(() => {
+		AsyncStorage.getItem("Token")
+			.then((response) => {
+				if (response) {
+					props.navigation.navigate("Organizations");
+				}
+			})
+			.catch((err) => {
+				console.log(`Error when checking if token exists: ${err}`);
+			});
 	});
 
 	return (
@@ -24,7 +28,7 @@ export default function welcome(props) {
 				<Text style={styles.textTitle}>BetterVOTE</Text>
 				<Text style={styles.text}>
 					Organizing communities, one vote at a time
-						</Text>
+				</Text>
 			</View>
 
 			<View style={styles.buttonContainer}>
@@ -36,10 +40,7 @@ export default function welcome(props) {
 					text="Register"
 					onPress={() => props.navigation.navigate("Registration")}
 				/>
-				{/* <Button
-							text="Organizations"
-							onPress={() => props.navigation.navigate("Organizations")}
-						/> */}
+
 				{/*<Button text = "Terms of Service" onPress = {() => onPress("TOS")} /> */}
 			</View>
 		</View>
