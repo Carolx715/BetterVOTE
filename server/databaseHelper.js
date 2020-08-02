@@ -181,6 +181,19 @@ async function createBallot(ballot) {
 		.then(result => result.ops[0]._id)
 }
 
+async function getBallots(org, status = null) {
+	if (status) {
+		return db.collection("ballots").find({
+			$and: [
+				{ organizationID: org },
+				{ status: status }
+			]
+		}).toArray();
+	} else {
+		return db.collection("ballots").find({ organizationID: org }).toArray();
+	}
+}
+
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
@@ -189,3 +202,4 @@ exports.getOrganizationByID = getOrganizationByID;
 exports.getOrganizationByCode = getOrganizationByCode;
 exports.joinOrganizationByCode = joinOrganizationByCode;
 exports.createBallot = createBallot;
+exports.getBallots = getBallots;

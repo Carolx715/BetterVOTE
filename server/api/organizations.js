@@ -102,8 +102,7 @@ async function getOrganizationByID(req, res) {
 		res.status(400).send({ Error: "No ID was given" });
 		return;
 	}
-	let organization = await database
-		.getOrganizationByID(req.query.id)
+	let organization = await database.getOrganizationByID(req.query.id)
 		.catch((err) => {
 			console.log(`Error finding database by ID ${req.query.id}: ${err}`);
 			res.status(400).send({ error: "Invalid organization ID" });
@@ -112,6 +111,7 @@ async function getOrganizationByID(req, res) {
 
 	if (organization) {
 		let userExists = false;
+		// check to see if user is part of the organization
 		for (let i = 0; i < Object.keys(organization.users).length; i++) {
 			if (organization.users[i].email === req.user.email) {
 				userExists = true;
@@ -120,7 +120,31 @@ async function getOrganizationByID(req, res) {
 		}
 
 		if (userExists) {
-			res.status(200).send(organization); //organization is an object
+			database.getBallots(req.query.id, "active")
+			.then(response => {
+				let ballots = [];
+
+				// iterate through each document returned in the response
+				response.forEach(ballot => {
+					// check if the user requesting has voted to set a boolean
+					if (ballot.voters.includes(req.user.email)) {
+						ballot.hasVoted = true;
+					} else {
+						ballot.hasVoted = false;
+					}
+					// rebuild the document to only include the fields we need
+					ballots.push({
+						_id: ballot._id,
+						status: ballot.status,
+						title: ballot.title,
+						description: ballot.description,
+						endTime: ballot.endTime,
+						hasVoted: ballot.hasVoted
+					})
+				});
+				organization.activeBallots = ballots;
+				res.status(200).send(organization); //organization is an object
+			});
 		} else {
 			res.status(403).send({ Error: "You are not apart of that organization" });
 		}
