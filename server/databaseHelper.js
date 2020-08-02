@@ -105,13 +105,7 @@ async function addOrganization(data) {
 async function getOrganizationByID(id) {
 	return new Promise((resolve, reject) => {
 		try {
-			{
-				/* ObejctID function returns an ObjectId value()
-			- a 4-byte timestamp value
-			- a 5-byte random value
-			- a 3-byte incrementing counter, initialized to a random value	
-			*/
-			}
+			// ObjectID is used to convert a string objectID to the proper mongoDB ObjectID format
 			db.collection("organizations").findOne({ _id: ObjectID(id) }, function (
 				err,
 				result
