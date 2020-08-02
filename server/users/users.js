@@ -100,7 +100,7 @@ async function authenticate(req, res) {
 }
 
 async function isLoggedIn(req, res) {
-	res.sendStatus(200);
+	res.status(200).send({ username: req.user.username, email: req.user.email })
 }
 
 module.exports = router;
