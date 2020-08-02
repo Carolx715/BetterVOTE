@@ -18,6 +18,7 @@ router.use((err, req, res, next) => {
 
 router.post("/create", create);
 router.post("/join", joinOrganization);
+router.get("/getOrg", getOrganizationByID);
 router.get("/getList", getOrganizations);
 
 async function create(req, res) {
@@ -77,6 +78,37 @@ async function getOrganizations(req, res) {
 	});
 }
 
+async function getOrganizationByID(req, res) {
+	if (!req.query.id) {
+		res.status(400).send({ Error: 'No ID was given' });
+		return;
+	}
+	let organization = await database.getOrganizationByID(req.query.id).catch((err) => {
+		console.log(`Error finding database by ID ${req.query.id}: ${err}`);
+		res.status(400).send({ error: 'Invalid organization ID'});
+		return;
+	});
+
+	if (organization) {
+		let userExists = false;
+		for (let i = 0; i < Object.keys(organization.users).length; i++) {
+			if (organization.users[i].email === req.user.email) {
+				userExists = true;
+				break;
+			}
+		}
+
+		if (userExists) {
+			res.status(200).send(organization);
+		}
+		else {
+			res.status(403).send({ Error: 'You are not apart of that organization'})
+		}
+	} else {
+		res.status(400).send({ Error: 'No organization was found' });
+	}
+}
+
 async function joinOrganization(req, res) {
 	if (!req.body.inviteCode) {
 		res.status(400).send({ error: 'Not all fields were filled'});
@@ -88,6 +120,11 @@ async function joinOrganization(req, res) {
 		} else {
 			res.status(403).send(result);
 		}
+	}).catch((err) => {
+		res.status(500).send({ error: "Internal server error" });
+		console.log(
+			`Internal server error ${result} with ${JSON.stringify(req.body)} input`
+		);
 	})
 }
 

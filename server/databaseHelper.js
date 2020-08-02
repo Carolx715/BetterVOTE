@@ -1,4 +1,5 @@
 const dotenv = require("dotenv").config();
+const ObjectID = require('mongodb').ObjectID;
 const MongoClient = require("mongodb").MongoClient;
 const mongoClient = new MongoClient(process.env.DB_URL, {
 	useNewUrlParser: true,
@@ -92,6 +93,19 @@ async function addOrganization(data) {
 	});
 }
 
+async function getOrganizationByID(id) {
+	return new Promise((resolve, reject) => {
+		try {
+			db.collection("organizations").findOne({ "_id": ObjectID(id) }, function (err, result) {
+				if (err) throw err;
+				resolve(result);
+			});
+		} catch (err) {
+			reject(err);
+		}
+	});
+}
+
 async function getOrganizationByCode(code) {
 	return new Promise((resolve, reject) => {
 		try {
@@ -102,7 +116,7 @@ async function getOrganizationByCode(code) {
 		} catch (err) {
 			reject(err);
 		}
-	})
+	});
 }
 
 async function joinOrganizationByCode(code, username, email) {
@@ -132,7 +146,7 @@ async function joinOrganizationByCode(code, username, email) {
 				}
 			});
 		} catch (err) {
-			reject({ error: err });
+			reject(err);
 		}
 	})
 }
@@ -141,5 +155,6 @@ exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
 exports.getOrganizations = getOrganizations;
+exports.getOrganizationByID = getOrganizationByID;
 exports.getOrganizationByCode = getOrganizationByCode;
 exports.joinOrganizationByCode = joinOrganizationByCode;
