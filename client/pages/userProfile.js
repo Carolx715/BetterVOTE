@@ -48,7 +48,6 @@ export default function welcome(props) {
                 placeholder={item.username}
                 placeholderTextColor="#AAAAAA"
                 style={formStyles.textbox2}
-                // value={formikProps.values.email.toLowerCase()}
             />
             <Text style={styles.text}>Email: </Text>
             <TextInput
@@ -56,7 +55,6 @@ export default function welcome(props) {
                 placeholder={item.email}
                 placeholderTextColor="#AAAAAA"
                 style={formStyles.textbox2}
-                // value={formikProps.values.email.toLowerCase()}
             />
 		</View>
 	);
