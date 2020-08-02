@@ -10,17 +10,10 @@ export default function organizations(props) {
 	const [data, setData] = useState();
 	const url = "http://159.203.16.113:3000/organizations/getList";
 
-	const getToken = async () => {
-		try {
-			//item is given back as string
-			return AsyncStorage.getItem("Token");
-		} catch (error) {
-			console.log("Something went wrong", error);
-		}
-	};
-
 	async function retrieveData() {
-		let jwt = await getToken();
+		let jwt = await AsyncStorage.getItem("Token").catch((err) => {
+			console.log(err);
+		});
 		try {
 			let response = await fetch(url, {
 				method: "GET",
