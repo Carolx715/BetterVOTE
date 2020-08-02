@@ -67,18 +67,15 @@ export default function organizations(props) {
 					style={orgStyles.backgroundImage}
 				/>
 				<View style={orgStyles.textContainer}>
-					<Text style={styles.textTitle2}> Organizations </Text>
+					<Text style={styles.textTitle2}>My Organizations</Text>
 					<View style={styles.flatlistContainer}>
 						<FlatList
-							style={styles.flatlistContainer}
 							data={data}
 							renderItem={renderItem}
 							keyExtractor={(item) => item._id}
 						/>
 					</View>
-				</View>
-				<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
-				<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
+
 				<Button
 					text="Logout"
 					onPress={() => {
@@ -87,6 +84,11 @@ export default function organizations(props) {
 						});
 					}}
 				/>
+
+				</View>
+				<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
+				<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
+				
 			</View>
 		</TouchableWithoutFeedback>
 	);
