@@ -13,6 +13,8 @@ import CreateOrg from "../pages/createOrganization";
 import TOS from "../pages/TOS";
 import userProfile from "../pages/userProfile";
 
+//Main Stack Navigator (all screens listed below get access to navigate prop)
+//Screen on top is displayed first
 const screens = {
 	Welcome: {
 		screen: Welcome,
@@ -43,15 +45,15 @@ const screens = {
 	},
 	Profile: {
 		screen: userProfile,
-	}
+	},
 };
 
 const mainStack = createStackNavigator(screens, {
 	headerMode: "none",
 	navigationOptions: {
 		headerVisible: false,
-		headerLeft: null,
 	},
 });
 
+//createAppContainer compresses stackNavigator into a component that can be imported
 export default createAppContainer(mainStack);

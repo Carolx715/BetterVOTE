@@ -1,3 +1,5 @@
+//main app component run upon render
+
 import React from "react";
 import Navigator from "./routes/mainStack";
 
