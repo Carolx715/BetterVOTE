@@ -16,28 +16,29 @@ export default function menu({ props, isVisible }) {
 				>
 					<Text style={styles.text}>Create New Organization</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.menuitem} onPress={() => setModalOpen(true)}>
+				<TouchableOpacity
+					style={styles.menuitem}
+					onPress={() => setModalOpen(true)}
+				>
 					<Text style={styles.text}>Join Existing Organization</Text>
 				</TouchableOpacity>
 			</View>
 
-            {/* Modal */}
-            <Modal transparent={true} visible={modalOpen} animationType="fade">
-                <View style={styles.modalContentContainer}>
-                    <View style={styles.modalContent}>
-                    <Text style={styles.text}>Join Organization By Code</Text>
-                        <Form></Form>
-                        <MaterialIcons
-                            style={styles.close}
-                            name="close"
-                            size={24}
-                            onPress={() => setModalOpen(false)}
-                        />
-                    </View>
-                </View>
-            </Modal>
+			{/* Modal */}
+			<Modal transparent={true} visible={modalOpen} animationType="fade">
+				<View style={styles.modalContentContainer}>
+					<View style={styles.modalContent}>
+						<Text style={styles.text}>Join Organization By Code</Text>
+						<Form></Form>
+						<MaterialIcons
+							style={styles.close}
+							name="close"
+							size={24}
+							onPress={() => setModalOpen(false)}
+						/>
+					</View>
+				</View>
+			</Modal>
 		</View>
-
-
 	) : null;
 }

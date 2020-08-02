@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import {
+	Text,
+	View,
+	FlatList,
+	TouchableOpacity,
+	TouchableWithoutFeedback,
+} from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
 import AddOrgMenu from "../components/addNewOrgMenu";
 import styles from "../styles/welcomepage";
 import AsyncStorage from "@react-native-community/async-storage";
+import Button from "../components/button";
 
 export default function organizations(props) {
 	const [data, setData] = useState();
@@ -52,16 +59,26 @@ export default function organizations(props) {
 	);
 
 	return (
-		<View style={styles.container2}>
-			<Text style={styles.textTitle2}> Organizations </Text>
-			<FlatList
-				style={styles.flatlistContainer}
-				data={data}
-				renderItem={renderItem}
-				keyExtractor={(item) => item._id}
-			/>
-			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
-			<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
-		</View>
+		<TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
+			<View style={styles.container2}>
+				<Text style={styles.textTitle2}> Organizations </Text>
+				<FlatList
+					style={styles.flatlistContainer}
+					data={data}
+					renderItem={renderItem}
+					keyExtractor={(item) => item._id}
+				/>
+				<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
+				<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
+				<Button
+					text="Logout"
+					onPress={() => {
+						AsyncStorage.removeItem("Token").then(() => {
+							props.navigation.navigate("Welcome");
+						});
+					}}
+				/>
+			</View>
+		</TouchableWithoutFeedback>
 	);
 }

@@ -46,6 +46,7 @@ const mainStack = createStackNavigator(screens, {
 	headerMode: "none",
 	navigationOptions: {
 		headerVisible: false,
+		headerLeft: null,
 	},
 });
 
