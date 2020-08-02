@@ -15,7 +15,7 @@ import AddOrgMenu from "../components/addNewOrgMenu";
 import styles from "../styles/welcomepage";
 import orgStyles from "../styles/organizations";
 import AsyncStorage from "@react-native-community/async-storage";
-import Button from "../components/button";
+import ProfileButton from "../components/profileButton.js";
 
 export default function organizations(props) {
 	useEffect(() => {
@@ -68,8 +68,10 @@ export default function organizations(props) {
 					source={require("../assets/background-logged-in.jpg")}
 					style={orgStyles.backgroundImage}
 				/>
+
+
 				<View style={orgStyles.textContainer}>
-					<Text style={styles.textTitle2}>My Organizations</Text>
+					<Text style={orgStyles.textTitle2}>My Organizations</Text>
 					<View style={styles.flatlistContainer}>
 						<FlatList
 							data={data}
@@ -78,13 +80,12 @@ export default function organizations(props) {
 							showsVerticalScrollIndicator={false}
 						/>
 					</View>
-					<Button
-						text="(Temp) Profile"
-						onPress={() => {
-							props.navigation.navigate("Profile");
-						}}
-					/>
 				</View>
+				<ProfileButton
+					onPress={() => {
+						props.navigation.navigate("Profile");
+					}}
+				/>
 				<NewOrgBtn onPress={onPressPlus} text="+" />
 				<AddOrgMenu
 					props={props}
