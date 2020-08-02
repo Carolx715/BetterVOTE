@@ -48,6 +48,7 @@ export default function OrganizationDetails(props) {
 				<Text style={styles.textTitle2}>{data.name}</Text>
 				<Card>
 					<Text>DESCRIPTION</Text>
+					<Text>Test</Text>
 					<Text>{data.description}</Text>
 				</Card>
 				<Card>
