@@ -1,3 +1,4 @@
+//organizations page
 import React, { useState, useEffect } from "react";
 import {
 	Text,
@@ -6,7 +7,7 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Image,
-	Keyboard
+	Keyboard,
 } from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
@@ -14,15 +15,16 @@ import AddOrgMenu from "../components/addNewOrgMenu";
 import styles from "../styles/welcomepage";
 import orgStyles from "../styles/organizations";
 import AsyncStorage from "@react-native-community/async-storage";
-import Button from "../components/button";
+import ProfileButton from "../components/profileButton.js";
 
 export default function organizations(props) {
 	useEffect(() => {
-		retrieveData();
-	});
+		retrieveData().then((response) => {
+			setData(response);
+		});
+	}, []);
 
 	const [data, setData] = useState();
-
 	const url = "http://159.203.16.113:3000/organizations/getList";
 
 	async function retrieveData() {
@@ -36,8 +38,7 @@ export default function organizations(props) {
 					Authorization: `Bearer ${jwt}`,
 				},
 			});
-			let responseJson = await response.json(); //parses response as json and returns a promise
-			setData(responseJson);
+			return response.json(); //parses response as json and returns a promise
 		} catch (error) {
 			console.log(error);
 		}
@@ -68,8 +69,10 @@ export default function organizations(props) {
 					source={require("../assets/background-logged-in.jpg")}
 					style={orgStyles.backgroundImage}
 				/>
+
+
 				<View style={orgStyles.textContainer}>
-					<Text style={styles.textTitle2}>My Organizations</Text>
+					<Text style={orgStyles.textTitle2}>My Organizations</Text>
 					<View style={styles.flatlistContainer}>
 						<FlatList
 							data={data}
@@ -78,18 +81,19 @@ export default function organizations(props) {
 							showsVerticalScrollIndicator={false}
 						/>
 					</View>
-					<Button
-						text="(Temp) Profile"
-						onPress={() => {
-							props.navigation.navigate("Profile");
-						}}
-					/>
 				</View>
+				<ProfileButton
+					onPress={() => {
+						props.navigation.navigate("Profile");
+					}}
+				/>
 				<NewOrgBtn onPress={onPressPlus} text="+" />
 				<AddOrgMenu
 					props={props}
 					isVisible={isVisible}
 					setIsVisible={setIsVisible}
+					retrieveData={retrieveData}
+					setData={setData}
 				/>
 			</View>
 		</TouchableWithoutFeedback>

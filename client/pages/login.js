@@ -71,7 +71,6 @@ export default function Login(props) {
 										style={formStyles.textbox}
 										onChangeText={formikProps.handleChange("email")} //
 										onBlur={formikProps.handleBlur("email")}
-										autoFocus
 										value={formikProps.values.email.toLowerCase()}
 									/>
 									<Text style={{ color: "red" }}>

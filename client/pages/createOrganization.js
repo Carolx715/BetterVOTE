@@ -7,6 +7,8 @@ import {
 	Text,
 	View,
 	Image,
+	Keyboard,
+	TouchableWithoutFeedback,
 } from "react-native";
 
 import styles from "../styles/welcomepage";
@@ -27,7 +29,7 @@ const url = "http://159.203.16.113:3000/organizations/create";
 async function createNewOrg(info) {
 	try {
 		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
-			console.log("Error accessing jwt token", error)
+			console.log("Error accessing jwt token", error);
 		});
 		return fetch(url, {
 			method: "POST",
@@ -39,14 +41,14 @@ async function createNewOrg(info) {
 		}).then((response) => {
 			if (response.ok) {
 				return {
-					success: true
-				}
+					success: true,
+				};
 			} else if (response.json()) {
 				return response.json();
 			} else {
 				return {
-					error: 'Unknown Error'
-				}
+					error: "Unknown Error",
+				};
 			}
 		});
 	} catch (error) {
@@ -55,88 +57,94 @@ async function createNewOrg(info) {
 }
 
 export default (props) => (
-	<SafeAreaView style={styles.container}>
-		<Image
-			source={require("../assets/background.jpg")}
-			style={styles.backgroundImage}
-		/>
-		<ScrollView
-			style={formStyles.formContainerRegister}
-			contentContainerStyle={{ flexGrow: 1 }}
-		>
-			<Text style={formStyles.formTitleCreateNew}>
-				Create a New Organization
-			</Text>
-			<Formik
-				initialValues={{ name: "", description: "" }}
-				onSubmit={(values, actions) => {
-					alert(JSON.stringify(values));
-					setTimeout(() => {
-						actions.setSubmitting(false);
-					}, 1000);
-				}}
-				validationSchema={validationSchema}
+	<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+		<SafeAreaView style={styles.container}>
+			<Image
+				source={require("../assets/background.jpg")}
+				style={styles.backgroundImage}
+			/>
+			<ScrollView
+				style={formStyles.formContainerRegister}
+				contentContainerStyle={{ flexGrow: 1 }}
 			>
-				{(formikProps) => (
-					<React.Fragment>
-						<View style={formStyles.formTextboxes}>
-							<Text style={formStyles.formText}>Name of Organization</Text>
-							<TextInput
-								placeholder="Name your organization!"
-								placeholderTextColor="#AAAAAA"
-								style={formStyles.textbox}
-								onChangeText={formikProps.handleChange("name")}
-								onBlur={formikProps.handleBlur("name")}
-								autoFocus
-							/>
-							<Text style={{ color: "red" }}>
-								{formikProps.touched.name && formikProps.errors.name}
-							</Text>
-
-							<Text style={formStyles.formText}>Description</Text>
-							<TextInput
-								placeholder="Describe your organization here..."
-								placeholderTextColor="#AAAAAA"
-								multiline={true}
-								style={formStyles.textarea}
-								onChangeText={formikProps.handleChange("description")}
-								onBlur={formikProps.handleBlur("description")}
-								secureTextEntry
-							/>
-							<Text style={{ color: "red" }}>
-								{formikProps.touched.description &&
-									formikProps.errors.description}
-							</Text>
-						</View>
-
-						<View style={formStyles.btnComponent}>
-							{formikProps.isSubmitting ? (
-								<ActivityIndicator />
-							) : (
-								<Button
-									text="Create"
-									onPress={() => {
-										console.log(formikProps.values);
-										try {
-											createNewOrg(formikProps.values).then((response) => {
-												if (!response?.error) {
-													formikProps.handleSubmit; //submit form
-													alert("Successfully submitted", response);
-													props.navigation.navigate("Organizations");
-												} else {
-													alert(response.error.message);
-												}
-											});
-										} catch {
-											alert("Unknown Error");
-										}
-									}}
+				<Text style={formStyles.formTitleCreateNew}>
+					Create a New Organization
+				</Text>
+				<Formik
+					initialValues={{ name: "", description: "" }}
+					onSubmit={(values, actions) => {
+						alert(JSON.stringify(values));
+						setTimeout(() => {
+							actions.setSubmitting(false);
+						}, 1000);
+					}}
+					validationSchema={validationSchema}
+				>
+					{(formikProps) => (
+						<React.Fragment>
+							<View style={formStyles.formTextboxes}>
+								<Text style={formStyles.formText}>Name of Organization</Text>
+								<TextInput
+									placeholder="Name your organization!"
+									placeholderTextColor="#AAAAAA"
+									style={formStyles.textbox}
+									onChangeText={formikProps.handleChange("name")}
+									onBlur={formikProps.handleBlur("name")}
 								/>
-							)}
-						</View>
-					</React.Fragment>
-				)}
-			</Formik>
-		</ScrollView>
-	</SafeAreaView>
+								<Text style={{ color: "red" }}>
+									{formikProps.touched.name && formikProps.errors.name}
+								</Text>
+
+								<Text style={formStyles.formText}>Description</Text>
+								<TextInput
+									placeholder="Describe your organization here..."
+									placeholderTextColor="#AAAAAA"
+									multiline={true}
+									style={formStyles.textarea}
+									onChangeText={formikProps.handleChange("description")}
+									onBlur={formikProps.handleBlur("description")}
+									secureTextEntry
+								/>
+								<Text style={{ color: "red" }}>
+									{formikProps.touched.description &&
+										formikProps.errors.description}
+								</Text>
+							</View>
+
+							<View style={formStyles.btnComponent}>
+								{formikProps.isSubmitting ? (
+									<ActivityIndicator />
+								) : (
+									<Button
+										text="Create"
+										onPress={() => {
+											Keyboard.dismiss();
+											try {
+												createNewOrg(formikProps.values).then((response) => {
+													if (!response?.error) {
+														formikProps.handleSubmit; //submit form
+														props.navigation
+															.getParam("retrieveData")()
+															.then((response) => {
+																props.navigation.getParam("setData")(response);
+																alert("Successfully submitted", response);
+																props.navigation.navigate("Organizations");
+															});
+													} else {
+														alert(response.error.message);
+													}
+												});
+											} catch {
+												alert("Unknown Error");
+											}
+										}}
+									/>
+								)}
+							</View>
+						</React.Fragment>
+					)}
+				</Formik>
+			</ScrollView>
+		</SafeAreaView>
+	</TouchableWithoutFeedback>
 );

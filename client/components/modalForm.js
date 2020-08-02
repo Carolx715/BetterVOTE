@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { Formik } from "formik";
 import { TouchableOpacity, TextInput } from "react-native";
 
-export default function form() {
+export default function form({ setData, retrieveData }) {
 	const validationSchema = yup.object().shape({
 		inviteCode: yup.string().required(),
 	});
@@ -72,7 +72,10 @@ export default function form() {
 									joinOrg(formikprops.values).then((response) => {
 										if (!response?.error) {
 											formikprops.handleSubmit; //submit form
-											alert("Successfully submitted", response);
+											retrieveData().then((response) => {
+												setData(response);
+												alert("Successfully submitted", response);
+											});
 										} else {
 											alert(response.error);
 										}
