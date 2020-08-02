@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Image,
+	Keyboard
 } from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
@@ -73,6 +74,7 @@ export default function organizations(props) {
 							data={data}
 							renderItem={renderItem}
 							keyExtractor={(item) => item._id}
+							showsVerticalScrollIndicator={false}
 						/>
 					</View>
 					<Button
