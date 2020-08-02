@@ -27,17 +27,14 @@ export default function form() {
 					Authorization: `Bearer ${jwt}`,
 				},
 				body: JSON.stringify(info),
-			}).then((response) => {
+			}).then(async (response) => {
 				if (response.ok) {
 					return {
 						success: true,
 					};
-				} else if (response.json()) {
-					return response.json();
 				} else {
-					return {
-						error: "Unknown Error",
-					};
+					let data = await response.json();
+					return data;
 				}
 			});
 		} catch (error) {
