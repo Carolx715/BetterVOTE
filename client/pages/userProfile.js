@@ -49,7 +49,7 @@ export default function welcome(props) {
 				style={baseStyles.backgroundImage2}
 			/>
 
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.textContainer}>
 				<Text style={baseStyles.textTitle}>My Profile</Text>
                 <View>

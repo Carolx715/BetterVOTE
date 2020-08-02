@@ -73,6 +73,7 @@ export default function organizations(props) {
 							data={data}
 							renderItem={renderItem}
 							keyExtractor={(item) => item._id}
+							showsVerticalScrollIndicator={false}
 						/>
 					</View>
 
