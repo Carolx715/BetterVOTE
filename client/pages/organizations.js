@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Image,
+	Keyboard
 } from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
