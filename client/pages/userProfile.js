@@ -52,12 +52,16 @@ export default function welcome(props) {
             <ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.textContainer}>
 				<Text style={baseStyles.textTitle}>My Profile</Text>
+                <Text style={styles.subTitle}>Profile</Text>
                 <View>
-                    <Text style={styles.subTitle}>Profile</Text>
-                    {/* <Image
-                        source={require("../assets/profilepic.png")}
-                        style={styles.userPic}
-                    /> */}
+                    <View style={{justifyContent: "center", alignItems: "center",}}>
+                        <View style={styles.userPicContainer}>
+                            <Image
+                                source={require("../assets/profilepic.png")}
+                                style={styles.userPic}
+                            />
+                        </View>
+                    </View>
                     <Text style={styles.text}>Name: </Text>
                     <TextInput
                         editable={false}
@@ -73,15 +77,18 @@ export default function welcome(props) {
                         style={formStyles.textbox2}
                     />
                 </View>
+                <Text style={styles.text}></Text>
+
+                <Text style={styles.subTitle}>View and Manage Organizations</Text>
             </View>
+                <Text style={styles.text}></Text>
+                <Button text = "My Organizations" onPress = {() => props.navigation.navigate("Organizations")} />
 
-            <Text style={styles.subTitle}>View and Manage Organizations</Text>
-            <Text style={styles.text}></Text>
-			<Button text = "My Organizations" onPress = {() => props.navigation.navigate("Organizations")} />
+                <View style={styles.subTitleContainer}>
+                    <Text style={styles.subTitle}>More Information</Text>
+                </View>
 
-            <View>
-                <Text style={styles.subTitle}>More Information</Text>
-			</View>
+
             
 			<View style={baseStyles.buttonContainer}>
 				<Button text = "Terms of Service" onPress = {() => props.navigation.navigate("TOS")} />

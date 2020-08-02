@@ -16,9 +16,18 @@ const styles = StyleSheet.create({
         top: vh(-10),
     },
     
+    textTitle2: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 30,
+		textAlign: 'center',
+        margin: vw(2.2),
+        // marginTop: vh(10)
+    },
+    
     addNewBtn: {
-        height: vh(10),
-        width: vh(10),
+        height: vh(8),
+        width: vh(8),
         borderRadius: 100,
         backgroundColor: "#66C",
         
@@ -48,11 +57,14 @@ const styles = StyleSheet.create({
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
-        flex: 1
+
+        position: "absolute",
+        left: vw(.4),
+        top: vw(-1),
+
     },
 
     plus: {
-        fontWeight: "bold",
         color: "white",
         fontSize: 56,
         textAlign: "center",

@@ -17,10 +17,31 @@ const styles = StyleSheet.create({
 		maxHeight: screenHeight,
 		height: "auto",
     },
-    
+    subTitleContainer: {
+		fontWeight: "bold",
+        color: "white",
+		marginLeft: vw(3),
+    }, 
+    userPicContainer: {
+        width: vh(11),
+        height: vh(11),
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        right: vh(4),
+        top: vh(-8)
+    },
     userPic: {
-        width: vh(10),
-        height: vh(10),
+        width: vh(11),
+        height: vh(11),
+    },
+    userPicButton: {
+        width: vh(7),
+        height: vh(7),
+    },
+    userPicBtnContainer: {
+        width: vh(7),
+        height: vh(7),
     },
 
     text: {
@@ -35,7 +56,31 @@ const styles = StyleSheet.create({
 		fontSize: 30,
         marginVertical: vh(2.2),
         display: "flex",
-    }
+    }, 
+
+
+	profileButton: {
+        margin: vh(2),
+        
+		alignItems: "center",
+		justifyContent: "center",
+		backgroundColor: "#66C",
+		elevation: 8,
+        borderRadius: 60,
+        
+		shadowColor: "black",
+		shadowOpacity: 0.5,
+        shadowOffset: { width: 5, height: 5 },
+        
+        width: vh(8),
+        height: vh(8),
+        position: "absolute",
+        top: vh(1),
+        left: vh(-22),
+
+
+	},
+
 
 });
 

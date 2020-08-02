@@ -18,6 +18,14 @@ import Vote from "../pages/vote";
 //Main Stack Navigator (all screens listed below get access to navigate prop)
 //Screen on top is displayed first
 const screens = {
+	// votingPage:
+	// {
+	// 	screen: votingPage,
+	// },
+	// Vote:
+	// {
+	// 	screen: Vote,
+	// },
 	Welcome: {
 		screen: Welcome,
 	},
