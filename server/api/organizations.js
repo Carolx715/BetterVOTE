@@ -22,6 +22,7 @@ router.post("/join", joinOrganization);
 router.get("/getOrg", getOrganizationByID);
 router.get("/getList", getOrganizations);
 
+//create new organization
 async function create(req, res) {
 	if (!req.body.name || !req.body.description) {
 		res.status(400).send({ error: "Not all fields were filled" });
@@ -46,6 +47,7 @@ async function create(req, res) {
 
 	// check to make sure no organization already has the invite code
 	let organization = await database.getOrganizationByCode(data.inviteCode);
+	//cycle through code options
 	while (organization) {
 		console.log(`org code ${data.inviteCode} already exists`);
 		data.inviteCode = crypto.randomBytes(4).toString("hex");
@@ -56,7 +58,7 @@ async function create(req, res) {
 	database.addOrganization(data).then((result) => {
 		if (result === "success") {
 			console.log(`Created organization: ${JSON.stringify(data)}`);
-			res.sendStatus(200);
+			res.sendStatus(200); //send back status 200
 		} else {
 			res.status(500).send({ error: "Internal server error" });
 			console.log(
@@ -66,9 +68,23 @@ async function create(req, res) {
 	});
 }
 
+//retrieve a list of organizations
 async function getOrganizations(req, res) {
+	//check user's email address
 	database.getOrganizations(req.user.email).then((result) => {
 		if (!result.error) {
+			{
+				/* result is an array of organization objects as such
+			{
+				"_id": "5f25c231c6b6ba15c0b6ca15",
+				"name": "Athens",
+				"description": "For fair and free elections in Athens!",
+				"userCount": 4,
+				"createdDate": 1596310065023,
+				"inviteCode": "b0a26cd6"
+			}
+			*/
+			}
 			res.status(200).send(result);
 		} else {
 			res.status(500).send({ error: "Internal server error" });
@@ -79,7 +95,9 @@ async function getOrganizations(req, res) {
 	});
 }
 
+//retrieve organization by its id number
 async function getOrganizationByID(req, res) {
+	//id embedded in url
 	if (!req.query.id) {
 		res.status(400).send({ Error: "No ID was given" });
 		return;
@@ -102,7 +120,7 @@ async function getOrganizationByID(req, res) {
 		}
 
 		if (userExists) {
-			res.status(200).send(organization);
+			res.status(200).send(organization); //organization is an object
 		} else {
 			res.status(403).send({ Error: "You are not apart of that organization" });
 		}
@@ -111,6 +129,7 @@ async function getOrganizationByID(req, res) {
 	}
 }
 
+//join organization by invite code
 async function joinOrganization(req, res) {
 	if (!req.body.inviteCode) {
 		res.status(400).send({ error: "Not all fields were filled" });

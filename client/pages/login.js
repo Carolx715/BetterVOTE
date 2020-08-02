@@ -6,6 +6,8 @@ import {
 	Text,
 	View,
 	Image,
+	Keyboard,
+	TouchableWithoutFeedback
 } from "react-native";
 
 import styles from "../styles/welcomepage";
@@ -42,90 +44,93 @@ export default function Login(props) {
 	}
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<Image
-				source={require("../assets/background.jpg")}
-				style={styles.backgroundImage}
-			/>
-			<View style={formStyles.formContainer}>
-				<Text style={formStyles.formTitle}>Login</Text>
-				<Formik
-					initialValues={{ email: "", password: "" }}
-					onSubmit={(values, actions) => {
-						setTimeout(() => {
-							actions.setSubmitting(false);
-						}, 1000);
-					}}
-					validationSchema={validationSchema} //validate input information based upon above schema
-				>
-					{(formikProps) => (
-						<React.Fragment>
-							<View style={formStyles.formComponent}>
-								<Text style={formStyles.formText}>Email</Text>
-								<TextInput
-									placeholder="johndoe@example.com"
-									placeholderTextColor="#AAAAAA"
-									style={formStyles.textbox}
-									onChangeText={formikProps.handleChange("email")} //
-									onBlur={formikProps.handleBlur("email")}
-									autoFocus
-									value={formikProps.values.email.toLowerCase()}
-								/>
-								<Text style={{ color: "red" }}>
-									{formikProps.touched.email && formikProps.errors.email}
-								</Text>
-							</View>
+		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+			<SafeAreaView style={styles.container}>
+				<Image
+					source={require("../assets/background.jpg")}
+					style={styles.backgroundImage}
+				/>
+				<View style={formStyles.formContainer}>
+					<Text style={formStyles.formTitle}>Login</Text>
+					<Formik
+						initialValues={{ email: "", password: "" }}
+						onSubmit={(values, actions) => {
+							setTimeout(() => {
+								actions.setSubmitting(false);
+							}, 1000);
+						}}
+						validationSchema={validationSchema} //validate input information based upon above schema
+					>
+						{(formikProps) => (
+							<React.Fragment>
+								<View style={formStyles.formComponent}>
+									<Text style={formStyles.formText}>Email</Text>
+									<TextInput
+										placeholder="johndoe@example.com"
+										placeholderTextColor="#AAAAAA"
+										style={formStyles.textbox}
+										onChangeText={formikProps.handleChange("email")} //
+										onBlur={formikProps.handleBlur("email")}
+										autoFocus
+										value={formikProps.values.email.toLowerCase()}
+									/>
+									<Text style={{ color: "red" }}>
+										{formikProps.touched.email && formikProps.errors.email}
+									</Text>
+								</View>
 
-							<View style={formStyles.formComponent}>
-								<Text style={formStyles.formText}>Password</Text>
-								<TextInput
-									placeholder="Password"
-									placeholderTextColor="#AAAAAA"
-									style={formStyles.textbox}
-									onChangeText={formikProps.handleChange("password")}
-									onBlur={formikProps.handleBlur("password")}
-									secureTextEntry
-									value={formikProps.values.password}
-								/>
-								<Text style={{ color: "red" }}>
-									{formikProps.touched.password && formikProps.errors.password}
-								</Text>
-							</View>
+								<View style={formStyles.formComponent}>
+									<Text style={formStyles.formText}>Password</Text>
+									<TextInput
+										placeholder="Password"
+										placeholderTextColor="#AAAAAA"
+										style={formStyles.textbox}
+										onChangeText={formikProps.handleChange("password")}
+										onBlur={formikProps.handleBlur("password")}
+										secureTextEntry
+										value={formikProps.values.password}
+									/>
+									<Text style={{ color: "red" }}>
+										{formikProps.touched.password && formikProps.errors.password}
+									</Text>
+								</View>
 
-							<View style={formStyles.formComponent}></View>
-							{formikProps.isSubmitting ? (
-								<ActivityIndicator />
-							) : (
-								<Button
-									text="Submit"
-									onPress={() => {
-										try {
-											authenticate(formikProps.values).then((response) => {
-												//response is an object that has the jwt token
-												if (response.jwt) {
-													console.log(response.jwt);
-													AsyncStorage.setItem("Token", response.jwt).then(() => {
-														alert("You are logged in!");
-														props.navigation.navigate("Organizations");
-													}).catch((err) => {
-														console.log(err);
-													});
-												} else if (response.error) {
-													alert(response.error);
-												} else {
-													alert("Unknown Error");
-												}
-											});
-										} catch (err) {
-											console.log(err);
-										}
-									}}
-								/>
-							)}
-						</React.Fragment>
-					)}
-				</Formik>
-			</View>
-		</SafeAreaView>
+								<View style={formStyles.formComponent}></View>
+								{formikProps.isSubmitting ? (
+									<ActivityIndicator />
+								) : (
+									<Button
+										text="Submit"
+										onPress={() => {
+											try {
+												authenticate(formikProps.values).then((response) => {
+													//response is an object that has the jwt token
+													Keyboard.dismiss();
+													if (response.jwt) {
+														console.log(response.jwt);
+														AsyncStorage.setItem("Token", response.jwt).then(() => {
+															alert("You are logged in!");
+															props.navigation.navigate("Organizations");
+														}).catch((err) => {
+															console.log(err);
+														});
+													} else if (response.error) {
+														alert(response.error);
+													} else {
+														alert("Unknown Error");
+													}
+												});
+											} catch (err) {
+												console.log(err);
+											}
+										}}
+									/>
+								)}
+							</React.Fragment>
+						)}
+					</Formik>
+				</View>
+			</SafeAreaView>
+		</TouchableWithoutFeedback>
 	);
 }

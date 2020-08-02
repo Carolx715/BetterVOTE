@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Image,
+	Keyboard
 } from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
@@ -18,9 +19,10 @@ import Button from "../components/button";
 export default function organizations(props) {
 	useEffect(() => {
 		retrieveData();
-	}, []);
+	});
 
 	const [data, setData] = useState();
+
 	const url = "http://159.203.16.113:3000/organizations/getList";
 
 	async function retrieveData() {
@@ -34,7 +36,7 @@ export default function organizations(props) {
 					Authorization: `Bearer ${jwt}`,
 				},
 			});
-			let responseJson = await response.json();
+			let responseJson = await response.json(); //parses response as json and returns a promise
 			setData(responseJson);
 		} catch (error) {
 			console.log(error);
@@ -42,11 +44,6 @@ export default function organizations(props) {
 	}
 
 	const [isVisible, setIsVisible] = useState(false);
-
-	const onPressPlus = () => {
-		setIsVisible((prev) => !prev);
-		console.log(isVisible);
-	};
 
 	const renderItem = ({ item }) => (
 		<TouchableOpacity
@@ -58,6 +55,10 @@ export default function organizations(props) {
 			</Card>
 		</TouchableOpacity>
 	);
+
+	const onPressPlus = () => {
+		setIsVisible((prev) => !prev);
+	};
 
 	return (
 		<TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
@@ -73,20 +74,22 @@ export default function organizations(props) {
 							data={data}
 							renderItem={renderItem}
 							keyExtractor={(item) => item._id}
+							showsVerticalScrollIndicator={false}
 						/>
 					</View>
-
-				<Button
-					text="(Temp) Profile"
-					onPress={() => {
+					<Button
+						text="(Temp) Profile"
+						onPress={() => {
 							props.navigation.navigate("Profile");
-					}}
-				/>
-
+						}}
+					/>
 				</View>
-				<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
-				<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
-				
+				<NewOrgBtn onPress={onPressPlus} text="+" />
+				<AddOrgMenu
+					props={props}
+					isVisible={isVisible}
+					setIsVisible={setIsVisible}
+				/>
 			</View>
 		</TouchableWithoutFeedback>
 	);

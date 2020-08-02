@@ -1,12 +1,15 @@
+//this file primarily interacts with the mongodb database
+
+//enable the use of enviornment variables (in root directory)
 const dotenv = require("dotenv").config();
-const ObjectID = require('mongodb').ObjectID;
+const ObjectID = require("mongodb").ObjectID;
 const MongoClient = require("mongodb").MongoClient;
+
 const mongoClient = new MongoClient(process.env.DB_URL, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
+	useNewUrlParser: true, //tool used to parse MongoDB connection strings
+	useUnifiedTopology: true, //use new topology engine
 });
 
-//initalize database as null
 let db = null;
 
 //connect to mongodb database
@@ -18,7 +21,9 @@ mongoClient.connect((err, client) => {
 	console.log("Successfully connected to database");
 });
 
-//get a specifc user
+//user-database interaction
+
+//retrieve user from mongodb database via username and email
 async function getUser(username = null, email = null) {
 	return new Promise((resolve, reject) => {
 		try {
@@ -44,7 +49,7 @@ async function getUser(username = null, email = null) {
 	});
 }
 
-//add a user to the "users" collection
+//add a user to the "users" collection via username, email and password
 async function addUser(username, email, password) {
 	return new Promise((resolve, reject) => {
 		const data = {
@@ -63,12 +68,15 @@ async function addUser(username, email, password) {
 	});
 }
 
+//organization-database interaction
+
+//retrieve a list of joined organizations from email
 async function getOrganizations(email) {
 	return new Promise((resolve, reject) => {
 		try {
 			db.collection("organizations")
 				.find({ "users.email": email })
-				.project({ representatives: 0, users: 0 })
+				.project({ representatives: 0, users: 0 }) //don't show these fields
 				.toArray(function (err, result) {
 					if (err) throw err;
 					resolve(result);
@@ -93,10 +101,21 @@ async function addOrganization(data) {
 	});
 }
 
+//get more information about a organization via it's unique id
 async function getOrganizationByID(id) {
 	return new Promise((resolve, reject) => {
 		try {
-			db.collection("organizations").findOne({ "_id": ObjectID(id) }, function (err, result) {
+			{
+				/* ObejctID function returns an ObjectId value()
+			- a 4-byte timestamp value
+			- a 5-byte random value
+			- a 3-byte incrementing counter, initialized to a random value	
+			*/
+			}
+			db.collection("organizations").findOne({ _id: ObjectID(id) }, function (
+				err,
+				result
+			) {
 				if (err) throw err;
 				resolve(result);
 			});
@@ -106,10 +125,14 @@ async function getOrganizationByID(id) {
 	});
 }
 
+//get organization by it's invite code
 async function getOrganizationByCode(code) {
 	return new Promise((resolve, reject) => {
 		try {
-			db.collection("organizations").findOne({ "inviteCode" : code }, function (err, result) {
+			db.collection("organizations").findOne({ inviteCode: code }, function (
+				err,
+				result
+			) {
 				if (err) throw err;
 				resolve(result);
 			});
@@ -119,36 +142,43 @@ async function getOrganizationByCode(code) {
 	});
 }
 
+//join an organization
 async function joinOrganizationByCode(code, username, email) {
 	return new Promise((resolve, reject) => {
-		const userData = { 
-			username: username, 
-			email: email 
-		}
+		const userData = {
+			username: username,
+			email: email,
+		};
 		try {
 			// check if user is already in organization
-			db.collection("organizations").findOne({ $and: [{ "inviteCode": code }, { "users.email": email }] },
-			function (err, result) {
-				if (err) throw err;
-				if (result) {
-					resolve({ error: 'You have already joined this organization' });
-				} else {
-					// find document with given invite code, push the user to the list of users and increment userCount
-					db.collection("organizations").updateOne({ "inviteCode": code }, { $push: { users: userData }, $inc: { userCount: 1 } }, function (err, result) {
-						if (err) throw err;
-						if (result.result.nModified > 0) {
-							resolve("success");
-						} else {
-							resolve({ error: 'Organization does not exist' })
-						}
-						resolve(result.result.nModified);
-					})
+			db.collection("organizations").findOne(
+				{ $and: [{ inviteCode: code }, { "users.email": email }] },
+				function (err, result) {
+					if (err) throw err;
+					if (result) {
+						resolve({ error: "You have already joined this organization" });
+					} else {
+						// find document with given invite code, push the user to the list of users and increment userCount
+						db.collection("organizations").updateOne(
+							{ inviteCode: code },
+							{ $push: { users: userData }, $inc: { userCount: 1 } },
+							function (err, result) {
+								if (err) throw err;
+								if (result.result.nModified > 0) {
+									resolve("success");
+								} else {
+									resolve({ error: "Organization does not exist" });
+								}
+								resolve(result.result.nModified);
+							}
+						);
+					}
 				}
-			});
+			);
 		} catch (err) {
 			reject(err);
 		}
-	})
+	});
 }
 
 exports.getUser = getUser;

@@ -5,7 +5,9 @@ import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
+	// useEffect tells React that component needs to do something after render.
 	useEffect(() => {
+		//gives back jwt token or null
 		AsyncStorage.getItem("Token")
 			.then((response) => {
 				if (response) {
@@ -40,8 +42,6 @@ export default function welcome(props) {
 					text="Register"
 					onPress={() => props.navigation.navigate("Registration")}
 				/>
-
-				{/*<Button text = "Terms of Service" onPress = {() => onPress("TOS")} /> */}
 			</View>
 		</View>
 	);

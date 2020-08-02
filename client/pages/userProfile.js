@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TextInput, View, Image } from "react-native";
 
 import baseStyles from "../styles/welcomepage";
@@ -9,55 +9,38 @@ import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
-	// AsyncStorage.getItem("Token")
-	// 	.then((response) => {
-	// 		if (response) {
-	// 			props.navigation.navigate("Organizations");
-	// 		}
-	// 	})
-	// 	.catch((err) => {
-	// 		console.log(`Error when checking if token exists: ${err}`);
-    //     });
+    useEffect(() => {
+        getUserData();
+    });
     
+	const [data, setData] = useState();
     const url = "http://159.203.16.113:3000/users/isloggedin";
+
+    if (!data) {
+        return null;
+    }
     
     async function getUserData() {
+        // get token store in variable jwt
 		let jwt = await AsyncStorage.getItem("Token").catch((err) => {
 			console.log(err);
-		});
+        });
         try {
+            // get info from url
 			let response = await fetch(url, {
 				method: "GET",
 				headers: {
 					Authorization: `Bearer ${jwt}`,
 				},
-			});
-			let responseJson = await response.json();
-			setData(responseJson);
+            });
+            // convert to JSON
+            let responseJson = await response.json();
+            // set constant data to the value responseJson
+            setData(responseJson);
 		} catch (error) {
 			console.log(error);
 		}
     }
-
-    const renderItem = ({ item }) => (
-        <View>
-            <Text style={styles.subTitle}>Profile</Text>
-            <Text style={styles.text}>Name: </Text>
-            <TextInput
-                editable={false}
-                placeholder={item.username}
-                placeholderTextColor="#AAAAAA"
-                style={formStyles.textbox2}
-            />
-            <Text style={styles.text}>Email: </Text>
-            <TextInput
-                editable={false}
-                placeholder={item.email}
-                placeholderTextColor="#AAAAAA"
-                style={formStyles.textbox2}
-            />
-		</View>
-	);
 
 	return (
 		<View style={styles.container}>
@@ -66,7 +49,7 @@ export default function welcome(props) {
 				style={baseStyles.backgroundImage2}
 			/>
 
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.textContainer}>
 				<Text style={baseStyles.textTitle}>My Profile</Text>
                 <View>
@@ -78,14 +61,14 @@ export default function welcome(props) {
                     <Text style={styles.text}>Name: </Text>
                     <TextInput
                         editable={false}
-                        placeholder="u"
+                        placeholder={data.username}
                         placeholderTextColor="#AAAAAA"
                         style={formStyles.textbox2}
                     />
                     <Text style={styles.text}>Email: </Text>
                     <TextInput
                         editable={false}
-                        placeholder="Update email here"
+                        placeholder={data.email}
                         placeholderTextColor="#AAAAAA"
                         style={formStyles.textbox2}
                     />

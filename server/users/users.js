@@ -8,7 +8,6 @@ const database = require("../databaseHelper");
 //configure .env file in root directory
 const dotenv = require("dotenv").config();
 
-//post endpoints
 router.post("/register", register);
 router.post("/authenticate", authenticate);
 
@@ -27,6 +26,7 @@ router.get(
 
 //register and add user to "users" database
 async function register(req, res) {
+	//if a field is left empty
 	if (!req.body.username || !req.body.email || !req.body.password) {
 		res.status(400).send({ error: "Not all fields were complete" });
 		return;
@@ -47,7 +47,7 @@ async function register(req, res) {
 		.addUser(
 			req.body.username,
 			req.body.email,
-			bcrypt.hashSync(req.body.password)
+			bcrypt.hashSync(req.body.password) //auto generate a hash and salt (second parameter can be number of hash rounds)
 		)
 		.then((result) => {
 			if (result === "success") {
@@ -69,6 +69,7 @@ async function register(req, res) {
 		});
 }
 
+//authenticate a user on login
 async function authenticate(req, res) {
 	if (!req.body.email || !req.body.password) {
 		res.status(400).send({ error: "Not all fields were complete" });
@@ -81,9 +82,8 @@ async function authenticate(req, res) {
 
 	//getback specific document from database
 	let user = await database.getUser(null, req.body.email);
-
 	if (user) {
-		//compare input password to password registered in database
+		//compare input password to password in database (made upon registration)
 		if (bcrypt.compareSync(req.body.password, user.password)) {
 			res.status(200).send({
 				jwt: jwt.sign(
@@ -100,7 +100,7 @@ async function authenticate(req, res) {
 }
 
 async function isLoggedIn(req, res) {
-	res.status(200).send({ username: req.user.username, email: req.user.email })
+	res.status(200).send({ username: req.user.username, email: req.user.email });
 }
 
 module.exports = router;
