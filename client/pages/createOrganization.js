@@ -7,6 +7,8 @@ import {
 	Text,
 	View,
 	Image,
+	Keyboard,
+	TouchableWithoutFeedback
 } from "react-native";
 
 import styles from "../styles/welcomepage";
@@ -55,6 +57,7 @@ async function createNewOrg(info) {
 }
 
 export default (props) => (
+	<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 	<SafeAreaView style={styles.container}>
 		<Image
 			source={require("../assets/background.jpg")}
@@ -87,7 +90,6 @@ export default (props) => (
 								style={formStyles.textbox}
 								onChangeText={formikProps.handleChange("name")}
 								onBlur={formikProps.handleBlur("name")}
-								autoFocus
 							/>
 							<Text style={{ color: "red" }}>
 								{formikProps.touched.name && formikProps.errors.name}
@@ -116,7 +118,7 @@ export default (props) => (
 								<Button
 									text="Create"
 									onPress={() => {
-										console.log(formikProps.values);
+										Keyboard.dismiss();
 										try {
 											createNewOrg(formikProps.values).then((response) => {
 												if (!response?.error) {
@@ -139,4 +141,5 @@ export default (props) => (
 			</Formik>
 		</ScrollView>
 	</SafeAreaView>
+	</TouchableWithoutFeedback>
 );
