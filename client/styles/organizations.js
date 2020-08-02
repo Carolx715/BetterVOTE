@@ -15,16 +15,24 @@ const styles = StyleSheet.create({
 			{ scaleX: 1.7 },
 			{ rotate: "325deg" },
 			{ translateX: vw(-20) },
-<<<<<<< HEAD
 			{ translateY: vh(-1) },
 		],
 		position: "absolute",
 		top: vh(-10),
 	},
 
+	textTitle2: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 30,
+		textAlign: "center",
+		margin: vw(2.2),
+		// marginTop: vh(10)
+	},
+
 	addNewBtn: {
-		height: vh(10),
-		width: vh(10),
+		height: vh(8),
+		width: vh(8),
 		borderRadius: 100,
 		backgroundColor: "#66C",
 
@@ -34,35 +42,6 @@ const styles = StyleSheet.create({
 		padding: 0,
 		margin: 0,
 		position: "absolute",
-=======
-            { translateY: vh(-1) },
-        ],
-        position: "absolute",
-        top: vh(-10),
-    },
-    
-    textTitle2: {
-		fontWeight: "bold",
-		color: "white",
-		fontSize: 30,
-		textAlign: 'center',
-        margin: vw(2.2),
-        // marginTop: vh(10)
-    },
-    
-    addNewBtn: {
-        height: vh(8),
-        width: vh(8),
-        borderRadius: 100,
-        backgroundColor: "#66C",
-        
-        justifyContent: "center",
-        alignItems: "center",
-        
-        padding: 0,
-        margin: 0,
-        position: "absolute",
->>>>>>> 7405ebb56a8a33eddea389b360ae995bf1406a77
 
 		bottom: vh(4),
 		right: vh(4),
@@ -73,7 +52,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 
-<<<<<<< HEAD
 	textContainer: {
 		width: "100%",
 		height: "100%",
@@ -84,11 +62,13 @@ const styles = StyleSheet.create({
 		height: "100%",
 		justifyContent: "center",
 		alignItems: "center",
-		flex: 1,
+
+		position: "absolute",
+		left: vw(0.4),
+		top: vw(-1),
 	},
 
 	plus: {
-		fontWeight: "bold",
 		color: "white",
 		fontSize: 56,
 		textAlign: "center",
@@ -110,47 +90,6 @@ const styles = StyleSheet.create({
 		shadowRadius: 3.84,
 		elevation: 5,
 	},
-=======
-    textContainer: {
-        width: "100%",
-        height: "100%",
-        flex: 1
-    },
-    textPlusContainer: {
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-
-        position: "absolute",
-        left: vw(.4),
-        top: vw(-1),
-
-    },
-
-    plus: {
-        color: "white",
-        fontSize: 56,
-        textAlign: "center",
-        textAlignVertical: "center",
-    },
-    
-    modal: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-    },
->>>>>>> 7405ebb56a8a33eddea389b360ae995bf1406a77
 
 	text: {
 		fontSize: 18,
