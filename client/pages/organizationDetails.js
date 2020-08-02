@@ -14,10 +14,10 @@ import AsyncStorage from "@react-native-community/async-storage";
 export default function OrganizationDetails(props) {
 	const [data, setData] = useState();
 	id = props.navigation.getParam("_id");
+
 	useEffect(() => {
 		const fetchData = async () => {
 			const url = `http://159.203.16.113:3000/organizations/getOrg?id=${id}`;
-
 			let jwt = await AsyncStorage.getItem("Token").catch((err) => {
 				console.log(err);
 			});
@@ -33,10 +33,10 @@ export default function OrganizationDetails(props) {
 			} catch (error) {
 				console.log(error);
 			}
-		}
-
+		};
 		fetchData();
 	}, []);
+	// empty array makes it so that the page doesn't rerender upon update instead renders upon component mounting
 
 	if (!data) {
 		return null;

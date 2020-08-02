@@ -11,8 +11,12 @@ import OrganizationDetails from "../pages/organizationDetails";
 import Registration from "../pages/registration";
 import CreateOrg from "../pages/createOrganization";
 import TOS from "../pages/TOS";
+import userProfile from "../pages/userProfile";
 
 const screens = {
+	// Profile: {
+	// 	screen: userProfile,
+	// },
 	Welcome: {
 		screen: Welcome,
 	},
@@ -40,6 +44,9 @@ const screens = {
 	TOS: {
 		screen: TOS,
 	},
+	Profile: {
+		screen: userProfile,
+	}
 };
 
 const mainStack = createStackNavigator(screens, {
