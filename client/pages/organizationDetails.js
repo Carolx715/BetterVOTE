@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, FlatList, TouchableOpacity, ScrollView, StyleSheet	} from "react-native";
+import { Text, View, FlatList, TouchableOpacity, ScrollView, StyleSheet, Modal} from "react-native";
 import Card from "../components/card";
 import styles from "../styles/welcomepage";
 
@@ -37,12 +37,12 @@ export default function OrganizationDetails(props) {
 			<Text style = {styles.textTitle2}>On the Ballot</Text>
 			<TouchableOpacity>
 				<Card>
-					<Text>Sample Vote 1</Text>
+					<Text>Sample Vote 1 (Voted)</Text>
 				</Card>
 				</TouchableOpacity>
 				<TouchableOpacity>
 				<Card>
-					<Text>Sample Vote 2.</Text> 
+					<Text>Sample Vote 2 (Not Voted)</Text> 
 				</Card>
 				</TouchableOpacity>		
 			</View>	
