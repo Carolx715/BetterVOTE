@@ -25,15 +25,6 @@ export default function Login(props) {
 			.min(5, "Seems a bit short..."),
 	});
 
-	const storeToken = async (key, value) => {
-		try {
-			//token must be stored as a string
-			return AsyncStorage.setItem(key, value);
-		} catch (error) {
-			console.log("Token was not stored", error);
-		}
-	};
-
 	const url = "http://159.203.16.113:3000/users/authenticate";
 
 	async function authenticate(info) {
@@ -113,9 +104,11 @@ export default function Login(props) {
 												//response is an object that has the jwt token
 												if (response.jwt) {
 													console.log(response.jwt);
-													storeToken("Token", response.jwt).then(() => {
+													AsyncStorage.setItem("Token", response.jwt).then(() => {
 														alert("You are logged in!");
 														props.navigation.navigate("Organizations");
+													}).catch((err) => {
+														console.log(err);
 													});
 												} else if (response.error) {
 													alert(response.error);

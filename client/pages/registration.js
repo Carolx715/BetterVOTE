@@ -14,6 +14,8 @@ import formStyles from "../styles/formStyling";
 import Button from "../components/button";
 import { Formik } from "formik";
 import * as yup from "yup";
+import AsyncStorage from "@react-native-community/async-storage";
+
 
 export default function Registration() {
 	const validationSchema = yup.object().shape({
@@ -157,8 +159,12 @@ export default function Registration() {
 												try {
 													register(formikProps.values).then((response) => {
 														if (response.jwt) {
-															alert("You are registered!");
-															props.navigation.navigate("Organizations");
+															AsyncStorage.setItem("Token", response.jwt).then(() => {
+																alert("You are registered!");
+																props.navigation.navigate("Organizations");
+															}).catch((err) => {
+																console.log(err);
+															});
 														} else if (response.error) {
 															alert(response.error);
 														} else {
