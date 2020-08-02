@@ -12,9 +12,10 @@ import {
 import styles from "../styles/welcomepage";
 import formStyles from "../styles/formStyling";
 import Button from "../components/button";
-
 import { Formik } from "formik";
 import * as yup from "yup";
+import AsyncStorage from "@react-native-community/async-storage";
+
 
 export default function Registration() {
 	const validationSchema = yup.object().shape({
@@ -29,12 +30,15 @@ export default function Registration() {
 			.string()
 			.label("Confirm Password")
 			.required()
-			.test("cek-confirmpassword", "Password doesn't match", function (value) {
+			.test("check-confirmpassword", "Password doesn't match", function (
+				value
+			) {
 				return this.parent.password === value;
 			}),
 	});
 
 	const url = "http://159.203.16.113:3000/users/register";
+
 	async function register(info) {
 		try {
 			return fetch(url, {
@@ -64,9 +68,7 @@ export default function Registration() {
 						password: "",
 						confirmPassword: "",
 					}}
-					onSubmit={(values, actions) => {
-						alert("You are registered!");
-						actions.resetForm();
+					onSubmit={(actions) => {
 						setTimeout(() => {
 							actions.setSubmitting(false);
 						}, 1000);
@@ -157,10 +159,16 @@ export default function Registration() {
 												try {
 													register(formikProps.values).then((response) => {
 														if (response.jwt) {
-															formikProps.handleSubmit; //submit form
+															AsyncStorage.setItem("Token", response.jwt).then(() => {
+																alert("You are registered!");
+																props.navigation.navigate("Organizations");
+															}).catch((err) => {
+																console.log(err);
+															});
+														} else if (response.error) {
+															alert(response.error);
 														} else {
-															console.log(response);
-															alert("Unsuccessful Registration");
+															alert("Unknown Registration Error");
 														}
 													});
 												} catch (err) {
