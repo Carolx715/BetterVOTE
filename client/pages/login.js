@@ -13,6 +13,7 @@ import formStyles from "../styles/formStyling";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Button from "../components/button";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default function Login(props) {
 	const validationSchema = yup.object().shape({
@@ -34,7 +35,7 @@ export default function Login(props) {
 					"Content-type": "application/json",
 				},
 				body: JSON.stringify(info),
-			}).then((response) => response.json());
+			}).then((response) => response.json()); //response will be a json object (that has a token)
 		} catch (error) {
 			console.log(error);
 		}
@@ -51,8 +52,6 @@ export default function Login(props) {
 				<Formik
 					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, actions) => {
-						alert("You are logged in!");
-						actions.resetForm();
 						setTimeout(() => {
 							actions.setSubmitting(false);
 						}, 1000);
@@ -102,12 +101,17 @@ export default function Login(props) {
 									onPress={() => {
 										try {
 											authenticate(formikProps.values).then((response) => {
+												//response is an object that has the jwt token
 												if (response.jwt) {
-													props.navigation.getParam("transferJwt")(
-														response.jwt
-													);
 													console.log(response.jwt);
-													formikProps.handleSubmit; //submit form
+													AsyncStorage.setItem("Token", response.jwt).then(() => {
+														alert("You are logged in!");
+														props.navigation.navigate("Organizations");
+													}).catch((err) => {
+														console.log(err);
+													});
+												} else if (response.error) {
+													alert(response.error);
 												} else {
 													alert("Unknown Error");
 												}
