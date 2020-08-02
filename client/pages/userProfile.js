@@ -39,6 +39,28 @@ export default function welcome(props) {
 		}
     }
 
+    const renderItem = ({ item }) => (
+        <View>
+            <Text style={styles.subTitle}>Profile</Text>
+            <Text style={styles.text}>Name: </Text>
+            <TextInput
+                editable={false}
+                placeholder={item.username}
+                placeholderTextColor="#AAAAAA"
+                style={formStyles.textbox2}
+                // value={formikProps.values.email.toLowerCase()}
+            />
+            <Text style={styles.text}>Email: </Text>
+            <TextInput
+                editable={false}
+                placeholder={item.email}
+                placeholderTextColor="#AAAAAA"
+                style={formStyles.textbox2}
+                // value={formikProps.values.email.toLowerCase()}
+            />
+		</View>
+	);
+
 	return (
 		<View style={styles.container}>
 			<Image
@@ -61,7 +83,6 @@ export default function welcome(props) {
                         placeholder="u"
                         placeholderTextColor="#AAAAAA"
                         style={formStyles.textbox2}
-                        // value={formikProps.values.email.toLowerCase()}
                     />
                     <Text style={styles.text}>Email: </Text>
                     <TextInput
@@ -69,7 +90,6 @@ export default function welcome(props) {
                         placeholder="Update email here"
                         placeholderTextColor="#AAAAAA"
                         style={formStyles.textbox2}
-                        // value={formikProps.values.email.toLowerCase()}
                     />
                 </View>
             </View>

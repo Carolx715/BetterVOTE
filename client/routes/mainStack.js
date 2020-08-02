@@ -14,9 +14,6 @@ import TOS from "../pages/TOS";
 import userProfile from "../pages/userProfile";
 
 const screens = {
-	// Profile: {
-	// 	screen: userProfile,
-	// },
 	Welcome: {
 		screen: Welcome,
 	},
