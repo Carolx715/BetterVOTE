@@ -59,6 +59,7 @@ export default function OrganizationDetails(props) {
 
 				<Text style={styles.textTitle3}>On the Ballot</Text>
 				{/*votes will probably be pulled from an arry*, onPress = {() => props.navigation.navigate("votingPage", item)}, item will contain all the info about the vote*/}
+				
 				<TouchableOpacity onPress = {() => props.navigation.navigate("votingPage")}>
 					<Card>
 						<Text>Sample Vote 1</Text>

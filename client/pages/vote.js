@@ -16,7 +16,15 @@ export default function vote(props)
 {
     return(
         <ScrollView>
-            <Text>Jello</Text>
+            <Text style = {styles.textTitle3}>Voting On:</Text>
+            <Card>
+                <Text style = {styles.text2}>Insert descrip from props</Text>
+                <Button text = "VOTE FOR"/>
+                <Button text = "VOTE AGAINST"/>
+                <Button text = "VOTE ABSTAIN"/>
+                {/*submitting should lead you back to original votingPage.js*/}
+                <Button text = "SUBMIT"/>
+            </Card>
         </ScrollView>
     );
 }

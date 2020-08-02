@@ -49,6 +49,7 @@ export default function organizations(props) {
 		<TouchableOpacity
 			onPress={() => props.navigation.navigate("OrganizationDetails", item)}
 		>
+			console.log(item.)
 			<Card>
 				<Text>{item.name}</Text>
 				<Text>{item.description}</Text>
