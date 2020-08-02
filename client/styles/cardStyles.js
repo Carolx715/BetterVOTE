@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
 		shadowRadius: 2,
 		marginHorizontal: 4,
 		marginVertical: 30,
+		// width: "90%"
 	},
 	cardContent: {
 		marginHorizontal: 18,
 		marginVertical: 20,
-		width: "100%"
 	},
 });
 

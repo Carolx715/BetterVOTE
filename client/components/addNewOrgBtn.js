@@ -5,7 +5,7 @@ import React from "react";
 export default function add({onPress, text}) {
 	return (
 			<TouchableOpacity onPress={onPress} style={styles.addNewBtn}>
-				<View style={styles.textContainer}>
+				<View style={styles.textPlusContainer}>
 					<Text style={styles.plus}>{text}</Text>
 				</View>
 			</TouchableOpacity>

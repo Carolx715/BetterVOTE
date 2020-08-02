@@ -2,6 +2,20 @@ import { StyleSheet } from "react-native";
 var {vw, vh, vmin, vmax} = require('../node_modules/react-native-expo-viewport-units');
 
 const styles = StyleSheet.create({ 
+	backgroundImage: {
+		flex: 1,
+		resizeMode: "contain", // or 'stretch'
+		transform: [
+			{ scaleY: 1.5 },
+			{ scaleX: 1.7 },
+			{ rotate: "325deg" },
+			{ translateX: vw(-20) },
+            { translateY: vh(-1) },
+        ],
+        position: "absolute",
+        top: vh(-10),
+    },
+    
     addNewBtn: {
         height: vh(10),
         width: vh(10),
@@ -27,8 +41,13 @@ const styles = StyleSheet.create({
     textContainer: {
         width: "100%",
         height: "100%",
-        // justifyContent: "center",
-        // alignItems: "center",
+        flex: 1
+    },
+    textPlusContainer: {
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
         flex: 1
     },
 
@@ -62,6 +81,17 @@ const styles = StyleSheet.create({
 
     },
 
+	textContainer: {
+		fontWeight: "bold",
+        color: "white",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        top: vh(10),
+        marginBottom: vh(2),
+		marginLeft: vw(3),
+	},
+
     centeredView: {
         flex: 1,
         bottom: vh(15),
@@ -78,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
     modalContent: {
-        width: "90%",
+        // width: "90%",
         height: "50%",
         padding: vw(10),
         backgroundColor: "white",
