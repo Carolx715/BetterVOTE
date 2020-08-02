@@ -16,20 +16,13 @@ export default function form() {
         inviteCode: yup.string().required(),
     });
 
-    const getToken = async () => {
-        try {
-            //item is given back as string
-            return AsyncStorage.getItem("Token");
-        } catch (error) {
-            console.log("Something went wrong", error);
-        }
-    };
-
     const url = "http://159.203.16.113:3000/organizations/join";
 
     async function joinOrg(info) {
         try {
-            const jwt = await getToken();
+            const jwt = await AsyncStorage.getItem("Token").catch((err) => {
+                console.log("Something went wrong", err);
+            });
             return fetch(url, {
                 method: "POST",
                 headers: {
@@ -37,16 +30,26 @@ export default function form() {
                     Authorization: `Bearer ${jwt}`,
                 },
                 body: JSON.stringify(info),
-            }).then((response) => response.json());
+            }).then((response) => {
+                if (response.ok) {
+                    return {
+                        success: true
+                    }
+                } else if (response.json()) {
+                    return response.json();
+                } else {
+                    return {
+                        error: 'Unknown Error'
+                    }
+                }
+            });
         } catch (error) {
             console.log(error);
         }
 
     }
 
-
-
-    return(
+    return (
         <View>
             <Formik 
                 initialValues={{ inviteCode: "" }}
