@@ -70,7 +70,16 @@ const formStyling = StyleSheet.create({
         padding: 10,
         fontSize: 18,
         margin: vh(2)
-    },
+    }, textbox2: {
+		borderWidth: 0,
+		borderColor: "white",
+		borderBottomWidth: 2,
+		color: "white",
+		paddingVertical: 10,
+		marginBottom: 3,
+
+		maxWidth: "90%",
+	},
 
 	textarea: {
 		borderWidth: 1,

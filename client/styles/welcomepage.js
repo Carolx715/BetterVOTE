@@ -31,7 +31,18 @@ const styles = StyleSheet.create({
 	backgroundImage: {
 		flex: 1,
 		resizeMode: "contain", // or 'stretch'
-		//   position: "absolute",
+		// position: "absolute",
+		transform: [
+			{ scaleY: 1.5 },
+			{ scaleX: 1.5 },
+			{ rotate: "140deg" },
+			{ translateX: 0 },
+            { translateY: vh(10) },
+		],
+	}, backgroundImage2: {
+		flex: 1,
+		resizeMode: "contain", // or 'stretch'
+		position: "absolute",
 		transform: [
 			{ scaleY: 1.5 },
 			{ scaleX: 1.5 },
@@ -52,7 +63,7 @@ const styles = StyleSheet.create({
 	text: {
 		fontWeight: "bold",
 		color: "white",
-		fontSize: 20,
+		fontSize: 18,
 		margin: vw(2.2),
 		marginVertical: 0,
 	},
