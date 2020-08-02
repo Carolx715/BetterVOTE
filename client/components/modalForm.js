@@ -15,8 +15,14 @@ export default function form() {
         joinCode: yup.string().required(),
     });
 
+    const url = "http://159.203.16.113:3000/organizations/join";
+
+    async function joinNewOrg(info) {
+
+    }
+
     return(
-        <View >
+        <View>
             <Formik 
                 initialValues={{ joinCode: "" }}
 
