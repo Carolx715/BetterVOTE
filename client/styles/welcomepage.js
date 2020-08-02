@@ -93,13 +93,14 @@ const styles = StyleSheet.create({
 		color: "white",
 		marginBottom: vh(2),
 	},
-	textTitle3: {
+	textTitleOrg:{
 		fontWeight: "bold",
 		color: "black",
 		fontSize: 50,
 		textAlign: "center",
 		margin: vw(2.2),
-		marginBottom: 10,
+		marginTop: vh(2),
+		marginBottom: 10
 	},
 	text2: {
 		fontWeight: "bold",

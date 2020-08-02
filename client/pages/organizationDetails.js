@@ -43,29 +43,31 @@ export default function OrganizationDetails(props) {
 	}
 
 	return (
-		<ScrollView>
-			<View style={styles.flatlistContainer}>
-				<Text style={styles.textTitle3}>{data.name}</Text>
-				<Card>
-					<Text>DESCRIPTION</Text>
-					<Text>Test</Text>
-					<Text>{data.description}</Text>
-				</Card>
-				<Card>
-					<Text>YOUR REPRESENTATIVE</Text>
-					<Text>YOUR REPRESENTATIVE</Text>
-					<Text>{data.representatives[0].username}</Text>
-				</Card>
-
-				<Text style={styles.textTitle3}>On the Ballot</Text>
-				{/*votes will probably be pulled from an arry*, onPress = {() => props.navigation.navigate("votingPage", item)}, item will contain all the info about the vote*/}
-				<TouchableOpacity onPress = {() => props.navigation.navigate("votingPage")}>
+		<View style={styles.container2}>
+			<ScrollView>
+				<View style={styles.flatlistContainer}>
+					<Text style={styles.textTitleOrg}>{data.name}</Text>
 					<Card>
-						<Text>Sample Vote 1</Text>
+						<Text>DESCRIPTION</Text>
+						<Text>Test</Text>
+						<Text>{data.description}</Text>
 					</Card>
-				</TouchableOpacity>
-			</View>
-		</ScrollView>
+					<Card>
+						<Text>YOUR REPRESENTATIVE</Text>
+						<Text>YOUR REPRESENTATIVE</Text>
+						<Text>{data.representatives[0].username}</Text>
+					</Card>
+
+					<Text style={styles.textTitleOrg}>On the Ballot</Text>
+					{/*votes will probably be pulled from an arry*, onPress = {() => props.navigation.navigate("votingPage", item)}, item will contain all the info about the vote*/}
+					<TouchableOpacity onPress = {() => props.navigation.navigate("votingPage")}>
+						<Card>
+							<Text>Sample Vote 1</Text>
+						</Card>
+					</TouchableOpacity>
+				</View>
+			</ScrollView>
+		</View>
 	);
 }
 
