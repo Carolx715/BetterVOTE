@@ -26,6 +26,7 @@ async function createBallot(req, res) {
 
     const ballot = {
         organizationID: req.body.organizationID,
+        status: 'active',
         title: req.body.title,
         description: req.body.description,
         creator: {
