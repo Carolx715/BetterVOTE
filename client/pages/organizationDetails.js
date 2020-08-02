@@ -64,11 +64,6 @@ export default function OrganizationDetails(props) {
 						<Text>Sample Vote 1</Text>
 					</Card>
 				</TouchableOpacity>
-				<TouchableOpacity>
-					<Card>
-						<Text>Sample Vote 2.</Text>
-					</Card>
-				</TouchableOpacity>
 			</View>
 		</ScrollView>
 	);
