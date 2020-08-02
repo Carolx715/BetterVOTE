@@ -11,7 +11,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 export default function welcome(props) {
     useEffect(() => {
         getUserData();
-    });
+    }, []);
     
 	const [data, setData] = useState();
     const url = "http://159.203.16.113:3000/users/isloggedin";
