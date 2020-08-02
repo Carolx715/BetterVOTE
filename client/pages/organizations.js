@@ -79,9 +79,7 @@ export default function organizations(props) {
 				<Button
 					text="(Temp) Profile"
 					onPress={() => {
-						AsyncStorage.removeItem("Token").then(() => {
 							props.navigation.navigate("Profile");
-						});
 					}}
 				/>
 
