@@ -182,19 +182,9 @@ async function joinOrganizationByCode(code, username, email) {
 }
 
 async function createBallot(ballot) {
+	// Insert ballot and return ID
 	return db.collection("ballots").insertOne(ballot)
 		.then(result => result.ops[0]._id)
-		.then(ballotID => {
-			const voterDocument = {
-				_id: ballotID,
-				voters: []
-			}
-			// Create a document using the inserted document's ID that stores the people who voted
-			db.collection("voters").insertOne(voterDocument, (err, result) => {
-				if (err) throw err;
-				return({ id: ballotID });
-			});
-		});
 }
 
 exports.getUser = getUser;

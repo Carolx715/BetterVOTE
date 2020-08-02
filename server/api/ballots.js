@@ -42,16 +42,17 @@ async function createBallot(req, res) {
             support: 0,
             against: 0,
             abstain: 0
-        }
+        },
+        voters: []
     }
 
     database.createBallot(ballot)
     .then(response => {
-        res.status(200).send(response);
+        res.status(200).send({ id: response });
     }).catch(err => {
         console.log(`Error trying to create ballot with ${req.body}: ${err}`);
         res.status(500).send({ error: 'Internal server error' });
-    })
+    });
 
 }
 
