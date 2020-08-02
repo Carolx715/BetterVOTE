@@ -52,7 +52,6 @@ export default function OrganizationDetails(props) {
 				</Card>
 				<Card>
 					<Text>YOUR REPRESENTATIVE</Text>
-					<Text>John Doe</Text>
 					<Text>{data.representatives[0].username}</Text>
 				</Card>
 
