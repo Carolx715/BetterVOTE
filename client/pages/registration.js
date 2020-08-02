@@ -17,7 +17,7 @@ import * as yup from "yup";
 import AsyncStorage from "@react-native-community/async-storage";
 
 
-export default function Registration() {
+export default function Registration(props) {
 	const validationSchema = yup.object().shape({
 		name: yup.string().label("Name").required(),
 		email: yup.string().label("Email").email().required(),

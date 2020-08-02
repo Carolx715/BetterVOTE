@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 30,
+		textAlign: 'center',
 		margin: vw(2.2),
 	},
 	subText: {

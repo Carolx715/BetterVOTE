@@ -18,7 +18,7 @@ export default function OrganizationDetails(props) {
 
 	return (
 		<ScrollView>
-			<View style>
+			<View style = {styles.flatlistContainer}>
 			<Text style={styles.textTitle2}>{props.navigation.getParam("name")}</Text>
 			<TouchableOpacity>
 				<Card>
@@ -33,12 +33,19 @@ export default function OrganizationDetails(props) {
 					<Text> {props.navigation.getParam("representatives")}</Text>
 				</Card>
 			</TouchableOpacity>
+			
+			<Text style = {styles.textTitle2}>On the Ballot</Text>
 			<TouchableOpacity>
 				<Card>
-					<Text>On the Ballot</Text>
+					<Text>Sample Vote 1</Text>
 				</Card>
-			</TouchableOpacity>
-			</View>
+				</TouchableOpacity>
+				<TouchableOpacity>
+				<Card>
+					<Text>Sample Vote 2.</Text> 
+				</Card>
+				</TouchableOpacity>		
+			</View>	
 		</ScrollView>
 	);
 }
