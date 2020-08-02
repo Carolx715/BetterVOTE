@@ -181,6 +181,22 @@ async function joinOrganizationByCode(code, username, email) {
 	});
 }
 
+async function createBallot(ballot) {
+	return db.collection("ballots").insertOne(ballot)
+		.then(result => result.ops[0]._id)
+		.then(ballotID => {
+			const voterDocument = {
+				_id: ballotID,
+				voters: []
+			}
+			// Create a document using the inserted document's ID that stores the people who voted
+			db.collection("voters").insertOne(voterDocument, (err, result) => {
+				if (err) throw err;
+				return({ id: ballotID });
+			});
+		});
+}
+
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
@@ -188,3 +204,4 @@ exports.getOrganizations = getOrganizations;
 exports.getOrganizationByID = getOrganizationByID;
 exports.getOrganizationByCode = getOrganizationByCode;
 exports.joinOrganizationByCode = joinOrganizationByCode;
+exports.createBallot = createBallot;

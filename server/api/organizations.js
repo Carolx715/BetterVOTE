@@ -151,7 +151,7 @@ async function joinOrganization(req, res) {
 		.catch((err) => {
 			res.status(500).send({ error: "Internal server error" });
 			console.log(
-				`Internal server error ${result} with ${JSON.stringify(req.body)} input`
+				`Internal server error ${err} with ${JSON.stringify(req.body)} input`
 			);
 		});
 }
