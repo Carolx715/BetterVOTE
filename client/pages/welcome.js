@@ -7,7 +7,6 @@ import AsyncStorage from "@react-native-community/async-storage";
 export default function welcome(props) {
 	AsyncStorage.getItem("Token").then((response) => {
 		if (response) {
-			console.log(`get token response: ${response}`)
 			props.navigation.navigate("Organizations");
 		}
 	}).catch((err) => {

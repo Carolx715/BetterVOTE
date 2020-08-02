@@ -65,7 +65,7 @@ export default function organizations(props) {
 				style={styles.flatlistContainer}
 				data={data}
 				renderItem={renderItem}
-				keyExtractor={(item) => item.id}
+				keyExtractor={(item) => item._id}
 			/>
 			<NewOrgBtn text="+" onPress={onPressPlus}></NewOrgBtn>
 			<AddOrgMenu props={props} isVisible={isVisible}></AddOrgMenu>
