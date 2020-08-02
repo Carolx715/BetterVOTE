@@ -12,6 +12,7 @@ import Registration from "../pages/registration";
 import CreateOrg from "../pages/createOrganization";
 import TOS from "../pages/TOS";
 import userProfile from "../pages/userProfile";
+import votingPage from "../pages/votingPage"; 
 
 //Main Stack Navigator (all screens listed below get access to navigate prop)
 //Screen on top is displayed first
@@ -46,6 +47,11 @@ const screens = {
 	Profile: {
 		screen: userProfile,
 	},
+	votingPage:
+	{
+		screen: votingPage,
+	}
+	
 };
 
 const mainStack = createStackNavigator(screens, {

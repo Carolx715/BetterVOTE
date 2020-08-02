@@ -45,7 +45,7 @@ export default function OrganizationDetails(props) {
 	return (
 		<ScrollView>
 			<View style={styles.flatlistContainer}>
-				<Text style={styles.textTitle2}>{data.name}</Text>
+				<Text style={styles.textTitle3}>{data.name}</Text>
 				<Card>
 					<Text>DESCRIPTION</Text>
 					<Text>Test</Text>
@@ -57,8 +57,9 @@ export default function OrganizationDetails(props) {
 					<Text>{data.representatives[0].username}</Text>
 				</Card>
 
-				<Text style={styles.textTitle2}>On the Ballot</Text>
-				<TouchableOpacity>
+				<Text style={styles.textTitle3}>On the Ballot</Text>
+				{/*votes will probably be pulled from an arry*, onPress = {() => props.navigation.navigate("votingPage", item)}, item will contain all the info about the vote*/}
+				<TouchableOpacity onPress = {() => props.navigation.navigate("votingPage")}>
 					<Card>
 						<Text>Sample Vote 1</Text>
 					</Card>
