@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
 		marginLeft: vw(3),
 	},
 
-    centeredView: {
+    menuView: {
         flex: 1,
-        bottom: vh(15),
-        right: 0,
+        bottom: vh(-2),
+        left: vh(-16),
         marginTop: 22,
         position: "absolute",
     },
