@@ -13,7 +13,10 @@ export default function menu({ props, isVisible, setIsVisible }) {
 					<View style={styles.modal}>
 						<TouchableOpacity
 							style={styles.menuitem}
-							onPress={() => props.navigation.navigate("CreateOrganization")}
+							onPress={() => {
+								setIsVisible(false);
+								props.navigation.navigate("CreateOrganization");
+							}}
 						>
 							<Text style={styles.text}>Create New Organization</Text>
 						</TouchableOpacity>
