@@ -19,11 +19,12 @@ import Button from "../components/button";
 
 export default function organizations(props) {
 	useEffect(() => {
-		retrieveData();
-	});
+		retrieveData().then((response) => {
+			setData(response);
+		});
+	}, []);
 
 	const [data, setData] = useState();
-
 	const url = "http://159.203.16.113:3000/organizations/getList";
 
 	async function retrieveData() {
@@ -37,8 +38,7 @@ export default function organizations(props) {
 					Authorization: `Bearer ${jwt}`,
 				},
 			});
-			let responseJson = await response.json(); //parses response as json and returns a promise
-			setData(responseJson);
+			return response.json(); //parses response as json and returns a promise
 		} catch (error) {
 			console.log(error);
 		}
@@ -90,6 +90,8 @@ export default function organizations(props) {
 					props={props}
 					isVisible={isVisible}
 					setIsVisible={setIsVisible}
+					retrieveData={retrieveData}
+					setData={setData}
 				/>
 			</View>
 		</TouchableWithoutFeedback>

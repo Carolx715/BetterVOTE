@@ -1,7 +1,12 @@
 import { StyleSheet } from "react-native";
-import { Dimensions } from 'react-native';
-var {vw, vh, vmin, vmax} = require('../node_modules/react-native-expo-viewport-units');
-const screenHeight = Dimensions.get('window').height;
+import { Dimensions } from "react-native";
+var {
+	vw,
+	vh,
+	vmin,
+	vmax,
+} = require("../node_modules/react-native-expo-viewport-units");
+const screenHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
 	container: {
@@ -11,7 +16,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		maxHeight: screenHeight,
 		height: "auto",
-	}, container2: {
+	},
+	container2: {
 		flex: 1,
 		backgroundColor: "#dab",
 		alignItems: "center",
@@ -19,14 +25,15 @@ const styles = StyleSheet.create({
 		maxHeight: screenHeight,
 		height: "auto",
 		paddingBottom: vh(15),
-	}, flatlistContainer: {
+	},
+	flatlistContainer: {
 		flex: 1,
 		backgroundColor: "rgba(0, 0, 0, 0)",
 		maxHeight: screenHeight,
-		
+
 		height: "auto",
-		paddingBottom: vh(8)
-	}, 
+		paddingBottom: vh(8),
+	},
 
 	backgroundImage: {
 		flex: 1,
@@ -37,9 +44,10 @@ const styles = StyleSheet.create({
 			{ scaleX: 1.5 },
 			{ rotate: "140deg" },
 			{ translateX: 0 },
-            { translateY: vh(10) },
+			{ translateY: vh(10) },
 		],
-	}, backgroundImage2: {
+	},
+	backgroundImage2: {
 		flex: 1,
 		resizeMode: "contain", // or 'stretch'
 		position: "absolute",
@@ -48,7 +56,7 @@ const styles = StyleSheet.create({
 			{ scaleX: 1.5 },
 			{ rotate: "140deg" },
 			{ translateX: 0 },
-            { translateY: vh(10) },
+			{ translateY: vh(10) },
 		],
 	},
 
@@ -73,43 +81,42 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		margin: vw(2.2),
 		marginTop: 0,
-	},textTitle2: {
+	},
+	textTitle2: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 30,
-		textAlign: 'center',
+		textAlign: "center",
 		margin: vw(2.2),
 	},
 	subText: {
 		color: "white",
-		marginBottom: vh(2)
+		marginBottom: vh(2),
 	},
-	textTitle3:{
+	textTitle3: {
 		fontWeight: "bold",
 		color: "black",
 		fontSize: 50,
-		textAlign: 'center',
+		textAlign: "center",
 		margin: vw(2.2),
-		marginBottom: 10
+		marginBottom: 10,
 	},
-	text2:
-	{
+	text2: {
 		fontWeight: "bold",
 		color: "black",
 		fontSize: 18,
 		margin: vw(2.2),
 		marginVertical: 0,
-		textAlign: 'center',
-		marginBottom: 10
+		textAlign: "center",
+		marginBottom: 10,
 	},
-	text3:
-	{
+	text3: {
 		fontWeight: "bold",
 		color: "black",
 		fontSize: 10,
 		margin: vw(2.2),
 		marginVertical: 0,
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	buttonContainer: {
 		marginBottom: vh(13.3),

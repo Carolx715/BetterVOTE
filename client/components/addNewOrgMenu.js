@@ -1,10 +1,16 @@
 import styles from "../styles/organizations";
 import { Text, TouchableOpacity, View, Modal } from "react-native";
 import React, { useState } from "react";
-import Form from "./modalForm";
+import ModalForm from "./modalForm";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function menu({ props, isVisible, setIsVisible }) {
+export default function menu({
+	props,
+	isVisible,
+	setIsVisible,
+	retrieveData,
+	setData,
+}) {
 	const [modalOpen, setModalOpen] = useState(false);
 	return (
 		<View>
@@ -15,7 +21,10 @@ export default function menu({ props, isVisible, setIsVisible }) {
 							// style={styles.menuitem}
 							onPress={() => {
 								setIsVisible(false);
-								props.navigation.navigate("CreateOrganization");
+								props.navigation.navigate("CreateOrganization", {
+									retrieveData: retrieveData,
+									setData: setData,
+								});
 							}}
 						>
 							<Text style={styles.text}>Create New Organization</Text>
@@ -33,20 +42,20 @@ export default function menu({ props, isVisible, setIsVisible }) {
 				</View>
 			) : null}
 			{modalOpen ? (
-					<Modal transparent={true} visible={modalOpen} animationType="fade">
-						<View style={styles.modalContentContainer}>
-							<View style={styles.modalContent}>
-								<Text style={styles.text}>Join Organization By Code</Text>
-								<Form></Form>
-								<MaterialIcons
-									style={styles.close}
-									name="close"
-									size={24}
-									onPress={() => setModalOpen(false)}
-								/>
-							</View>
+				<Modal transparent={true} visible={modalOpen} animationType="fade">
+					<View style={styles.modalContentContainer}>
+						<View style={styles.modalContent}>
+							<Text style={styles.text}>Join Organization By Code</Text>
+							<ModalForm retrieveData={retrieveData} setData={setData} />
+							<MaterialIcons
+								style={styles.close}
+								name="close"
+								size={24}
+								onPress={() => setModalOpen(false)}
+							/>
 						</View>
-					</Modal>
+					</View>
+				</Modal>
 			) : null}
 		</View>
 	);
