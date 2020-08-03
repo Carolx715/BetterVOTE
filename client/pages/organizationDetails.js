@@ -52,8 +52,6 @@ export default function OrganizationDetails(props) {
 	));
 	const ballots = data.activeBallots.map((ballot) => (
 		<Card key={ballot._id}>
-			{/*Carol: Below title should be a subtitle :) */}
-			<Text style={styles.textTitleOrg}>{ballot.title}</Text>
 
 			{ballot.hasVoted ? (
 				<View style={{alignItems: "center", justifyContent: "center"}}>
