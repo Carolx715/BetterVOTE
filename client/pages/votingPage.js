@@ -50,7 +50,7 @@ export default function votingPage(props)
         <View>
         <Text style={styles.textTitle3}>Sample Vote: Not Yet Voted</Text>
         <Card>
-            <Text style = {styles.text2}>Voting On:</Text>
+            <Text style = {styles.text2}>Voting On: {data.title}</Text>
             <View style = {styles.buttonContainer}>
             <Text style = {styles.text3}>{}</Text> 
             {/*passed from orgdetails*/}
