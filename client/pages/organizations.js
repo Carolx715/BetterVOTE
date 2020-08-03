@@ -7,13 +7,15 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Image,
-	Keyboard,
 } from "react-native";
 import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
 import AddOrgMenu from "../components/addNewOrgMenu";
+
 import styles from "../styles/welcomepage";
 import orgStyles from "../styles/organizations";
+import cardStyles from "../styles/cardStyles";
+
 import AsyncStorage from "@react-native-community/async-storage";
 import ProfileButton from "../components/profileButton.js";
 
@@ -47,12 +49,15 @@ export default function organizations(props) {
 	const [isVisible, setIsVisible] = useState(false);
 
 	const renderItem = ({ item }) => (
+		// let date = new Date(item.createdDate);
 		<TouchableOpacity
 			onPress={() => props.navigation.navigate("OrganizationDetails", item)}
 		>
 			<Card>
-				<Text>{item.name}</Text>
-				<Text>{item.description}</Text>
+				<Text numberOfLines={2} style={cardStyles.textOrgTitle}>{item.name}</Text>
+				<Text numberOfLines={4} style={cardStyles.textOrgDesc}>{item.description}</Text>
+				<Text style={cardStyles.textOrgCount}>Member Count: {item.memberCount}</Text>
+				{/* <Text>{Date(item.createdDate).getDate()}</Text> */}
 			</Card>
 		</TouchableOpacity>
 	);
@@ -71,7 +76,7 @@ export default function organizations(props) {
 
 
 				<View style={orgStyles.textContainer}>
-					<Text style={orgStyles.textTitle2}>My Organizations</Text>
+					<Text style={orgStyles.textTitleOrg}>My Organizations</Text>
 					<View style={styles.flatlistContainer}>
 						<FlatList
 							data={data}

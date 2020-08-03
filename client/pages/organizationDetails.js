@@ -7,8 +7,12 @@ import {
 	ScrollView,
 	StyleSheet,
 } from "react-native";
+
 import Card from "../components/card";
-import styles from "../styles/welcomepage";
+
+import baseStyles from "../styles/welcomepage";
+import orgStyles from "../styles/orgDetailsStyle";
+
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function OrganizationDetails(props) {
@@ -43,10 +47,10 @@ export default function OrganizationDetails(props) {
 	}
 
 	return (
-		<View style={styles.container2}>
+		<View style={baseStyles.container2}>
 			<ScrollView>
-				<View style={styles.flatlistContainer}>
-					<Text style={styles.textTitleOrg}>{data.name}</Text>
+				<View style={baseStyles.flatlistContainer}>
+					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
 					<Card>
 						<Text>DESCRIPTION</Text>
 						<Text>Test</Text>
@@ -58,7 +62,7 @@ export default function OrganizationDetails(props) {
 						<Text>{data.representatives[0].username}</Text>
 					</Card>
 
-					<Text style={styles.textTitleOrg}>On the Ballot</Text>
+					<Text style={orgStyles.textTitleOrg}>On the Ballot</Text>
 					{/*votes will probably be pulled from an arry*, onPress = {() => props.navigation.navigate("votingPage", item)}, item will contain all the info about the vote*/}
 					<TouchableOpacity onPress = {() => props.navigation.navigate("votingPage")}>
 						<Card>
