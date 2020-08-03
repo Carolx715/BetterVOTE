@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import {
-	Text,
-	View,
-	Image,
-	TouchableOpacity,
-	ScrollView,
-	StyleSheet,
-} from "react-native";
+import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 
 import Card from "../components/card";
 import AsyncStorage from "@react-native-community/async-storage";
