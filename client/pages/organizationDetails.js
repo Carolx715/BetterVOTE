@@ -113,6 +113,7 @@ export default function OrganizationDetails(props) {
 
 	return (
 		<View style={baseStyles.containerOrgDesc}>
+<<<<<<< HEAD
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={baseStyles.container}>
 					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
@@ -139,12 +140,28 @@ export default function OrganizationDetails(props) {
 							</Text>
 						</View>
 					</Card>
+=======
+			<ScrollView 
+				contentContainerStyle={{alignItems: "center", justifyContent: "center"}}
+				showsVerticalScrollIndicator={false}>
+					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
+					{/* Put all these styles in files later */}
+					<View style={orgStyles.textBoxDetails}>
+
+						<Text style={cardStyles.textOrgDesc}>Description: {data.description}</Text>
+						<Text style={cardStyles.textOrgCount}>Your Representative: {data.representatives[0].username}</Text>
+						<Text style={cardStyles.textOrgCount}>User Count: {data.memberCount}</Text>
+						<Text style={{marginTop: 10}}>Invite Code: {data.inviteCode}</Text>
+						<Text>Date Created: {formatDate(data.createdDate)}</Text>
+					</View>
+>>>>>>> origin/carol
 
 					<Card>
 						<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
 						{users}
 					</Card>
 
+<<<<<<< HEAD
 					{/* <View
 						style={{
 							width: "95%",
@@ -170,6 +187,30 @@ export default function OrganizationDetails(props) {
 						}}
 					/>
 				</View>
+=======
+					<View style={orgStyles.br}/>
+
+					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
+						
+						{Object.keys(ballots).length === 0  ? (
+							<View style={orgStyles.textBoxDetails}>
+							<Text style={{color: "grey", fontSize: 16}}>There are no active ballots right now.</Text>
+							</View>
+						) : (
+							<TouchableOpacity
+								onPress={() => props.navigation.navigate("votingPage")}
+							>
+								{ballots}
+							</TouchableOpacity>
+						)}
+
+					<View style={orgStyles.br}/>
+
+					<View style={orgStyles.textBoxDetails}>
+					<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
+						{users} 
+					</View>
+>>>>>>> origin/carol
 			</ScrollView>
 		</View>
 	);
