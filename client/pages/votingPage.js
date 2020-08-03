@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
 	Text,
 	View,
@@ -13,60 +14,36 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Button from "../components/button";
 
 export default function votingPage(props) {
+	const [id, setID] = useState();
 	const [data, setData] = useState();
-	id = "5f2729afde3e578ec4ab40c1";
-
-	{
-		/* Will be fixed on monday to get unique id for each ballot from orgdetails
-    id = props.navigation.getParam("_id"); */
+	if (!id) {
+		setID(props.navigation.getParam("_id"));
 	}
 
-	function formatDate(epoch) {
-		const dateFormat = {
-			weekday: "long",
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-		};
-		const timeFormat = {
-			hour: "numeric",
-			minute: "numeric",
-			second: "numeric",
-			hour12: true,
-		};
-		let date = new Date(epoch);
-		if (date.getDay() === new Date().getDay()) {
-			return `Today at ${date.toLocaleString("en-US", timeFormat)}`;
-		} else if (date.getDay() === new Date().getDay() + 1) {
-			return `Tomorrow at ${date.toLocaleString("en-US", timeFormat)}`;
-		} else {
-			return `${date.toLocaleString(
-				"en-US",
-				dateFormat
-			)} at ${date.toLocaleString("en-US", timeFormat)}`;
+	const fetchData = async () => {
+		const url = `http://159.203.16.113:3000/ballots/getBallot?id=${id}`;
+		let jwt = await AsyncStorage.getItem("Token").catch((err) => {
+			console.log(err);
+		});
+		try {
+			let response = await fetch(url, {
+				method: "GET",
+				headers: {
+					Authorization: `Bearer ${jwt}`,
+				},
+			});
+			let data = await response.json();
+			console.log(JSON.stringify(data));
+			setData(data);
+		} catch (error) {
+			console.log(error);
 		}
-	}
+	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const url = `http://159.203.16.113:3000/ballots/getBallot?id=${id}`;
-			let jwt = await AsyncStorage.getItem("Token").catch((err) => {
-				console.log(err);
-			});
-			try {
-				let response = await fetch(url, {
-					method: "GET",
-					headers: {
-						Authorization: `Bearer ${jwt}`,
-					},
-				});
-				let data = await response.json();
-				console.log(JSON.stringify(data));
-				setData(data);
-			} catch (error) {
-				console.log(error);
-			}
-		};
+		props.navigation.addListener("willFocus", () => {
+			fetchData();
+		});
 		fetchData();
 	}, []);
 	// empty array makes it so that the page doesn't rerender upon update instead renders upon component mounting
@@ -86,7 +63,11 @@ export default function votingPage(props) {
 	return (
 		<ScrollView>
 			<View>
-				{!data.hasVoted && <Text style={styles.textTitle3}>Not Yet Voted</Text>}
+				{data.hasVoted ? (
+					<Text style={styles.textTitle3}>✅ Status: Voted</Text>
+				) : (
+					<Text style={styles.textTitle3}>❌ Status: Has Not Voted</Text>
+				)}
 				<Text style={styles.text2}>Voting Subject: {data.title}</Text>
 				<View style={styles.buttonContainer}>
 					<Text style={styles.text3}>{}</Text>
@@ -104,30 +85,40 @@ export default function votingPage(props) {
 						<Text style={styles.text2}>Points Against:</Text>
 						{against}
 					</Card>
-					{!data.hasVoted && (
+					{!data.hasVoted ? (
 						<Card>
-							<Text style={styles.text2}>Vote Treshold</Text>
+							<Text style={styles.text2}>Threshold to Pass</Text>
 							<Text>{`${data.voteThreshold * 100}%`}</Text>
 						</Card>
-					)}
+					) : null}
 					<Card>
 						<Text style={styles.text2}>Voter Turnout</Text>
-						<Text>{`${(data.totalVotes / data.maxVotes) * 100}%`}</Text>
+						<Text>{`${((data.totalVotes / data.maxVotes) * 100).toFixed(
+							2
+						)}%`}</Text>
 					</Card>
-					{!data.hasVoted && (
-						<Card>
+					<Card>
+						{data.status === "active" ? (
 							<Text style={styles.text2}>End Date</Text>
-							<Text>{formatDate(data.endTime)}</Text>
-						</Card>
-					)}
-					{!data.hasVoted && (
+						) : (
+							<Text style={styles.text2}>Ended</Text>
+						)}
+						<Text>
+							{moment(data.endTime).format("MMMM Do YYYY [at] h:mm:ss a")} (
+							{moment(data.endTime).fromNow()})
+						</Text>
+					</Card>
+					{!data.hasVoted ? (
 						<Button
 							text="VOTE"
 							onPress={() =>
-								props.navigation.navigate("Vote", { des: data.title })
+								props.navigation.navigate("Vote", {
+									des: data.title,
+									_id: props.navigation.getParam("_id"),
+								})
 							}
 						/>
-					)}
+					) : null}
 				</View>
 			</View>
 		</ScrollView>

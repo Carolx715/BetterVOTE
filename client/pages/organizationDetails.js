@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
 	Text,
 	View,
@@ -15,52 +16,36 @@ import styles from "../styles/globalStyles";
 import { vh } from "react-native-expo-viewport-units";
 
 export default function OrganizationDetails(props) {
-	function formatDate(epoch) {
-		const dateFormat = {
-			weekday: "long",
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-		};
-		const timeFormat = {
-			hour: "numeric",
-			minute: "numeric",
-			second: "numeric",
-			hour12: true,
-		};
-		let date = new Date(epoch);
-		if (date.getDay() === new Date().getDay()) {
-			return `Today at ${date.toLocaleString("en-US", timeFormat)}`;
-		} else if (date.getDay() === new Date().getDay() + 1) {
-			return `Tomorrow at ${date.toLocaleString("en-US", timeFormat)}`;
-		} else {
-			return `${date.toLocaleString("en-US", dateFormat)}`;
-		}
+	const [id, setID] = useState();
+	const [data, setData] = useState();
+	if (!id) {
+		setID(props.navigation.getParam("_id"));
 	}
 
-	const [data, setData] = useState();
-	id = props.navigation.getParam("_id");
+	const fetchData = async () => {
+		const url = `http://159.203.16.113:3000/organizations/getOrg?id=${id}`;
+		let jwt = await AsyncStorage.getItem("Token").catch((err) => {
+			console.log(err);
+		});
+		try {
+			let response = await fetch(url, {
+				method: "GET",
+				headers: {
+					Authorization: `Bearer ${jwt}`,
+				},
+			});
+			let data = await response.json();
+			setData(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const url = `http://159.203.16.113:3000/organizations/getOrg?id=${id}`;
-			let jwt = await AsyncStorage.getItem("Token").catch((err) => {
-				console.log(err);
-			});
-			try {
-				let response = await fetch(url, {
-					method: "GET",
-					headers: {
-						Authorization: `Bearer ${jwt}`,
-					},
-				});
-				let data = await response.json();
-				setData(data);
-			} catch (error) {
-				console.log(error);
-			}
-		};
 		fetchData();
+		props.navigation.addListener("willFocus", () => {
+			fetchData();
+		});
 	}, []);
 	// empty array makes it so that the page doesn't rerender upon update instead renders upon component mounting
 
@@ -82,39 +67,30 @@ export default function OrganizationDetails(props) {
 				props.navigation.navigate("votingPage", { _id: ballot._id })
 			}
 		>
-			<Card>
+			<Card key={ballot._id}>
 				{ballot.hasVoted ? (
 					<View style={{ alignItems: "center", justifyContent: "center" }}>
 						<Text>
-							<View style={cardStyles.iconContainer}>
-								<Image
-									source={require("../assets/checkmark.png")}
-									style={cardStyles.icon}
-								/>
-							</View>
-							<Text style={{ fontSize: 15 }}>&nbsp; Status: Voted</Text>
+							<Text style={{ fontSize: 15 }}>✅ Status: Voted</Text>
 						</Text>
 					</View>
 				) : (
 					<View style={{ alignItems: "center", justifyContent: "center" }}>
 						<Text>
-							<View style={cardStyles.iconContainer}>
-								<Image
-									source={require("../assets/redx.png")}
-									style={cardStyles.icon}
-								/>
-							</View>
-							<Text style={{ fontSize: 15 }}>&nbsp; Status: Has Not Voted</Text>
+							<Text style={{ fontSize: 15 }}>❌ Status: Has Not Voted</Text>
 						</Text>
 					</View>
 				)}
-				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
+				<Text numberOfLines={1} style={orgStyles.textSubitleBallot}>
 					{ballot.title}
 				</Text>
 				<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
 					{ballot.description}
 				</Text>
-				<Text>Vote Ends {formatDate(ballot.endTime)}</Text>
+				<Text>
+					Voting ends {moment(ballot.endTime).calendar()} (
+					{moment(ballot.endTime).fromNow()})
+				</Text>
 			</Card>
 		</TouchableOpacity>
 	));
