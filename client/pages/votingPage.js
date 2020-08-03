@@ -103,15 +103,29 @@ export default function votingPage(props)
             }
             {!data.hasVoted && 
             <Card>
+                 <Text style = {styles.text2}>Voter Turnout</Text>
+                 <Text>{`${data.totalVotes/data.maxVotes*100}%`}</Text>
+                 </Card>
+            }
+            {data.hasVoted &&
+            <Card>
+                <Text style = {styles.text2}>Votes For</Text>
+            </Card>
+            }
+            {data.hasVoted &&
+            <Card>
+                <Text style = {styles.text2}>Votes Against</Text>
+            </Card>
+            }
+            {!data.hasVoted && 
+            <Card>
                 <Text style = {styles.text2}>End Date</Text>
                 <Text>{formatDate(data.endTime)}</Text>
             </Card>
-            
             }
-
             {!data.hasVoted &&
                 
-                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", s)} />
+                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
             }
              </View>
          </Card>
