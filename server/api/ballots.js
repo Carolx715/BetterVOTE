@@ -18,6 +18,7 @@ router.use((err, req, res, next) => {
 
 router.post('/create', createBallot);
 router.get('/getBallot', getBallot);
+router.get('/getList', getBallots);
 
 async function createBallot(req, res) {
     if (!req.body.title || !req.body.description || !req.body.endTime || !req.body.voteThreshold || !req.body.organizationID) {
@@ -83,6 +84,38 @@ async function getBallot(req, res) {
         console.log(`Error fetching ${req.query.id} ballot: ${err}`);
         res.status(500).send({ error: 'Internal server error'});
     })
+}
+
+async function getBallots(req, res) {
+    if (!req.query.orgid) {
+        res.status(400).send({ error: "No organization ID was given" });
+        return;
+    }
+
+    database.getBallots(req.query.orgid)
+        .then(response => {
+            let ballots = [];
+            // iterate through each document returned in the response
+            response.forEach(ballot => {
+                // check if the user requesting has voted to set a boolean
+                if (ballot.voters.includes(req.user.email)) {
+                    ballot.hasVoted = true;
+                } else {
+                    ballot.hasVoted = false;
+                }
+
+                ballots.push({
+                    _id: ballot._id,
+                    status: ballot.status,
+                    title: ballot.title,
+                    description: ballot.description,
+                    endTime: ballot.endTime,
+                    hasVoted: ballot.hasVoted
+                })
+            });
+
+            res.status(200).send(ballots);
+        });
 }
 
 module.exports = router;

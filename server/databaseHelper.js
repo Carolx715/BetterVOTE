@@ -181,8 +181,8 @@ async function createBallot(ballot) {
 		.then(result => result.ops[0]._id)
 }
 
-async function getBallots(org, status = null) {
-	if (status) {
+async function getBallots(org, status = "all") {
+	if (status !== "all") {
 		return db.collection("ballots").find({
 			$and: [
 				{ organizationID: org },
