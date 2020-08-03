@@ -202,6 +202,10 @@ async function vote(id, option, email) {
 	return db.collection("ballots").updateOne({ _id: ObjectID(id) }, { $push: { voters: email }, $inc: { ["votes." + option]: 1 } })
 }
 
+async function addArgument(id, type, argument) {
+	return db.collection("ballots").updateOne({ _id: ObjectID(id) }, { $push: { ["arguments." + type]: argument }})
+}
+
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
@@ -213,3 +217,4 @@ exports.createBallot = createBallot;
 exports.getBallots = getBallots;
 exports.getBallot = getBallot;
 exports.vote = vote;
+exports.addArgument = addArgument;
