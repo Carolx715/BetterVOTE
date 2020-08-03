@@ -46,7 +46,8 @@ async function createBallot(req, res) {
             against: 0,
             abstain: 0
         },
-        voters: []
+        voters: [],
+        maxVotes: 0
     }
 
     database.createBallot(ballot)
