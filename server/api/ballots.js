@@ -68,7 +68,15 @@ async function getBallot(req, res) {
         return;
     }
 
-    database.getBallot(req.query.id).then(async (data) => {
+    database.getBallot(req.query.id).then(async (response) => {
+        let data = response;
+        if (data.endTime < Date.now() && data.status === "active") {
+            console.log(`Ballot ${data.title} has ended!`);
+            let resolvedBallot = await database.resolveBallot(data._id);
+            if (resolvedBallot) {
+                data = resolvedBallot;
+            }
+        }
         data.totalVotes = data.votes.support + data.votes.against + data.votes.abstain;
         // if the status is active, don't send the current vote count & get the running org size for max votes
         if (data.status === "active") {
@@ -99,10 +107,19 @@ async function getBallots(req, res) {
     }
 
     database.getBallots(req.query.orgid)
-        .then(response => {
+        .then(async (response) => {
             let ballots = [];
             // iterate through each document returned in the response
-            response.forEach(ballot => {
+            for (let i = 0; i < response.length; i++) {
+                let ballot = response[i];
+                if (ballot.endTime < Date.now() && ballot.status === "active") {
+                    console.log(`Ballot ${ballot.title} has ended!`);
+                    let resolvedBallot = await database.resolveBallot(ballot._id);
+                    if (resolvedBallot) {
+                        ballot = resolvedBallot;
+                    }
+                    console.log(`after update ${ballot}`);
+                }
                 // check if the user requesting has voted to set a boolean
                 if (ballot.voters.includes(req.user.email)) {
                     ballot.hasVoted = true;
@@ -110,6 +127,7 @@ async function getBallots(req, res) {
                     ballot.hasVoted = false;
                 }
 
+                console.log(`build array ${ballot}`);
                 ballots.push({
                     _id: ballot._id,
                     status: ballot.status,
@@ -117,8 +135,8 @@ async function getBallots(req, res) {
                     description: ballot.description,
                     endTime: ballot.endTime,
                     hasVoted: ballot.hasVoted
-                })
-            });
+                });
+            }
 
             res.status(200).send(ballots);
         });
@@ -136,7 +154,7 @@ async function vote(req, res) {
     }
 
     let ballot = await database.getBallot(req.body.ballotID);
-    if (ballot.voters.includes(req.user.email)) {
+    if (ballot.voters.includes(req.user.email) && ballot.status === "active") {
         res.status(403).send({ error: "You have already voted on this ballot" });
     } else {
         await database.vote(req.body.ballotID, req.body.vote, req.user.email).catch(err => {

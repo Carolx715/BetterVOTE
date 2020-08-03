@@ -13,9 +13,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Button from "../components/button";
 
 export default function vote(props)
-{ 
-
-    
+{   
     const resp = props.navigation.getParam("des");
     console.log(JSON.stringify(resp)); 
     const url = "http://159.203.16.113:3000/ballots/vote";
