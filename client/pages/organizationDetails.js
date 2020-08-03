@@ -7,8 +7,12 @@ import {
 	ScrollView,
 	StyleSheet,
 } from "react-native";
+
 import Card from "../components/card";
-import styles from "../styles/welcomepage";
+
+import baseStyles from "../styles/welcomepage";
+import orgStyles from "../styles/orgDetailsStyle";
+
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function OrganizationDetails(props) {
@@ -60,10 +64,10 @@ export default function OrganizationDetails(props) {
 	));
 
 	return (
-		<View style={styles.container2}>
+		<View style={baseStyles.container2}>
 			<ScrollView>
-				<View style={styles.flatlistContainer}>
-					<Text style={styles.textTitleOrg}>{data.name}</Text>
+				<View style={baseStyles.flatlistContainer}>
+					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
 					<Card>
 						<Text>Description: {data.description}</Text>
 						<Text>Your Representative: {data.representatives[0].username}</Text>
