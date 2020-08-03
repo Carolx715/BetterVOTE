@@ -64,18 +64,6 @@ const styles = StyleSheet.create({
 		height: "auto",
 		// paddingBottom: vh(10),
 	},
-	backgroundImage2: {
-		flex: 1,
-		resizeMode: "contain", // or 'stretch'
-		position: "absolute",
-		transform: [
-			{ scaleY: 1.5 },
-			{ scaleX: 1.5 },
-			{ rotate: "140deg" },
-			{ translateX: 0 },
-			{ translateY: vh(10) },
-		],
-	},
 	textContainer: {
 		fontWeight: "bold",
 		color: "white",
@@ -235,6 +223,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		margin: vh(2),
 	},
+
 	textbox2: {
 		borderWidth: 0,
 		borderColor: "white",
@@ -242,7 +231,7 @@ const styles = StyleSheet.create({
 		color: "white",
 		paddingVertical: 10,
 		marginBottom: 3,
-
+		minWidth: "90%",
 		maxWidth: "90%",
 	},
 
@@ -458,6 +447,91 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 		minWidth: "95%",
 		maxWidth: "95%",
+	},
+
+	//profile styles
+
+	profileTextContainer: {
+		fontWeight: "bold",
+		color: "white",
+		marginTop: vh(10),
+		marginLeft: vw(3),
+	},
+	profileContainer: {
+		flex: 1,
+		backgroundColor: "#dab",
+		alignItems: "center",
+		maxHeight: height,
+		height: "auto",
+	},
+	subTitleContainer: {
+		fontWeight: "bold",
+		color: "white",
+		marginLeft: vw(3),
+	},
+	userPicContainer: {
+		width: vh(11),
+		height: vh(11),
+		justifyContent: "center",
+		alignItems: "center",
+		position: "absolute",
+		right: vh(4),
+		top: vh(-8),
+	},
+	userPic: {
+		width: vh(7.5),
+		height: vh(7.5),
+	},
+	userPicButton: {
+		width: vh(7),
+		height: vh(7),
+	},
+	userPicBtnContainer: {
+		width: vh(7),
+		height: vh(7),
+	},
+
+	profileText: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 20,
+		marginVertical: 0,
+		display: "flex",
+	},
+	profileSubTitle: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 28,
+		marginVertical: vh(2.2),
+		display: "flex",
+		alignItems: "center",
+	},
+
+	profileButton: {
+		margin: vh(2),
+
+		alignItems: "center",
+		justifyContent: "center",
+		backgroundColor: "#66C",
+		elevation: 8,
+		borderRadius: 60,
+
+		shadowColor: "black",
+		shadowOpacity: 0.5,
+		shadowOffset: { width: 5, height: 5 },
+
+		width: vh(8),
+		height: vh(8),
+		position: "absolute",
+		top: vh(1),
+		left: vh(-22),
+	},
+	profileTitle: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 30,
+		textAlign: "center",
+		margin: vw(2.2),
 	},
 });
 

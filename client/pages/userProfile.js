@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TextInput, View, Image } from "react-native";
 
-import baseStyles from "../styles/welcomepage";
-import styles from "../styles/userProfileStyles";
-import formStyles from "../styles/formStyling";
+import styles from "../styles/globalStyles";
 
 import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -43,44 +41,44 @@ export default function welcome(props) {
 	}
 
 	return (
-		<View style={styles.container}>
+		<View style={styles.profileContainer}>
 			<Image
 				source={require("../assets/background.jpg")}
-				style={baseStyles.backgroundImage2}
+				style={{ ...styles.backgroundImage, position: "absolute" }}
 			/>
 
 			<ScrollView showsVerticalScrollIndicator={false}>
-				<View style={styles.textContainer}>
-					<View style={baseStyles.imageTitle}>
-						<Text style={baseStyles.textTitle}>My Profile</Text>
-						{/* <View style={styles.userPicContainer}> */}
+				<View style={styles.profileTextContainer}>
+					<View style={styles.imageTitle}>
+						<Text style={styles.profileTitle}>My Profile</Text>
+						{/* <View style={profileStyles.userPicContainer}> */}
 						<Image
 							source={require("../assets/profilepic.png")}
 							style={styles.userPic}
 						/>
 						{/* </View> */}
 					</View>
-					<View style={baseStyles.inputContainer}>
-						<Text style={styles.text}>Name: </Text>
+					<View style={styles.inputContainer}>
+						<Text style={styles.profileText}>Name: </Text>
 						<TextInput
 							editable={false}
 							placeholder={data.username}
 							placeholderTextColor="#AAAAAA"
-							style={formStyles.textbox2}
+							style={styles.textbox2}
 						/>
-						<Text style={styles.text}>Email: </Text>
+						<Text style={styles.profileText}>Email: </Text>
 						<TextInput
 							editable={false}
 							placeholder={data.email}
 							placeholderTextColor="#AAAAAA"
-							style={formStyles.textbox2}
+							style={styles.textbox2}
 						/>
 					</View>
-					<Text style={styles.text}></Text>
+					<Text style={styles.profileText}></Text>
 				</View>
 				<View style={{ alignItems: "center" }}>
 					<View style={styles.subTitleContainer}>
-						<Text style={styles.subTitle}>View Organizations</Text>
+						<Text style={styles.profileSubTitle}>View Organizations</Text>
 					</View>
 					<Button
 						text="My Organizations"
@@ -88,10 +86,10 @@ export default function welcome(props) {
 					/>
 
 					<View style={styles.subTitleContainer}>
-						<Text style={styles.subTitle}>More Information</Text>
+						<Text style={styles.profileSubTitle}>More Information</Text>
 					</View>
 
-					<View style={baseStyles.buttonContainer}>
+					<View style={styles.buttonContainer}>
 						<Button
 							text="Terms of Service"
 							onPress={() => props.navigation.navigate("TOS")}
