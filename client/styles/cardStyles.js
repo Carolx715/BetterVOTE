@@ -8,13 +8,13 @@ var {
 
 const styles = StyleSheet.create({
 	card: {
-		borderRadius: 6,
+		borderRadius: 8,
 		elevation: 3,
 		backgroundColor: "#fff",
 		shadowOffset: { width: 1, height: 1 },
 		shadowColor: "#333",
 		shadowOpacity: 0.3,
-		shadowRadius: 2,
+		shadowRadius: 5,
 		marginHorizontal: 4,
 		marginBottom: 30,
 		minWidth: "95%",
@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
 		marginHorizontal: 18,
 		marginVertical: 20,
 	},
-	textOrgTitle:{
+	textOrgTitle: {
 		fontWeight: "bold",
 		color: "black",
 		fontSize: 20,
 		marginBottom: vw(2.2),
-	}, 
+	},
 	textOrgDesc: {
 		color: "#999999",
 		fontSize: 15,
@@ -40,13 +40,13 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 	},
 	icon: {
-        width: vh(2.5),
-        height: vh(2.5),
+		width: vh(2.5),
+		height: vh(2.5),
 	},
 	iconContainer: {
-        width: vh(2.5),
-        height: vh(2.5),
-	}
+		width: vh(2.5),
+		height: vh(2.5),
+	},
 });
 
 export default styles;

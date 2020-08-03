@@ -10,11 +10,10 @@ import {
 } from "react-native";
 
 import Card from "../components/card";
-import baseStyles from "../styles/welcomepage";
-import orgStyles from "../styles/orgDetailsStyle";
-import styles from "../styles/welcomepage"; 
 import AsyncStorage from "@react-native-community/async-storage";
-import cardStyles from "../styles/cardStyles"; 
+import cardStyles from "../styles/cardStyles";
+import styles from "../styles/globalStyles";
+import { vh } from "react-native-expo-viewport-units";
 
 export default function OrganizationDetails(props) {
 	const [id, setID] = useState();
@@ -44,7 +43,7 @@ export default function OrganizationDetails(props) {
 
 	useEffect(() => {
 		fetchData();
-		props.navigation.addListener('willFocus', () => {
+		props.navigation.addListener("willFocus", () => {
 			fetchData();
 		});
 	}, []);
@@ -55,132 +54,106 @@ export default function OrganizationDetails(props) {
 	}
 
 	const users = data.users.map((user) => (
-		<Text key={user.email}>{user.username}</Text>
+		<View style={{ alignItems: "center" }} key={user.email}>
+			<Text style={{ fontStyle: "italic", marginBottom: vh(1) }}>
+				{user.username}
+			</Text>
+		</View>
 	));
 	const ballots = data.activeBallots.map((ballot) => (
 		<TouchableOpacity
-			key = {ballot._id}
-			onPress={() => props.navigation.navigate("votingPage", {_id: ballot._id})}
+			key={ballot._id}
+			onPress={() =>
+				props.navigation.navigate("votingPage", { _id: ballot._id })
+			}
 		>
-		<Card key={ballot._id}>
-
-			{ballot.hasVoted ? (
-				<View style={{alignItems: "center", justifyContent: "center"}}>
-					<Text>
-						<Text style={{fontSize: 15}}>
-							✅ Status: Voted
+			<Card key={ballot._id}>
+				{ballot.hasVoted ? (
+					<View style={{ alignItems: "center", justifyContent: "center" }}>
+						<Text>
+							<Text style={{ fontSize: 15 }}>✅ Status: Voted</Text>
 						</Text>
-					</Text>
-				</View>
-			) : (
-				<View style={{alignItems: "center", justifyContent: "center"}}>
-					<Text>
-						<Text style={{fontSize: 15}}>
-								❌ Status: Has Not Voted
+					</View>
+				) : (
+					<View style={{ alignItems: "center", justifyContent: "center" }}>
+						<Text>
+							<Text style={{ fontSize: 15 }}>❌ Status: Has Not Voted</Text>
 						</Text>
-					</Text>
-				</View>
-			)}
-			<Text 
-				numberOfLines={1}
-				style={orgStyles.textSubitleBallot}>{ballot.title}</Text>
-			<Text 
-				numberOfLines={3}
-				style={cardStyles.textOrgDesc}>{ballot.description}</Text>
-			<Text>Voting ends {moment(ballot.endTime).calendar()} ({moment(ballot.endTime).fromNow()})</Text>
-		</Card>
+					</View>
+				)}
+				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
+					{ballot.title}
+				</Text>
+				<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
+					{ballot.description}
+				</Text>
+				<Text>
+					Voting ends {moment(ballot.endTime).calendar()} (
+					{moment(ballot.endTime).fromNow()})
+				</Text>
+			</Card>
 		</TouchableOpacity>
 	));
 
 	return (
-		<View style={baseStyles.containerOrgDesc}>
-			<ScrollView 
-				showsVerticalScrollIndicator={false}>
-
-				<View style={baseStyles.container}>
-					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
-					{/* Put all these styles in files later */}
-					<View style={{backgroundColor: "rgba(255,255,255,1)",
-						borderRadius: 1,
-						padding: 20,
-								
-						marginHorizontal: 4,
-						marginBottom: 30,
-						marginTop: 30,
-						minWidth: "95%",
-						maxWidth: "95%",}}>
-
-						<Text style={cardStyles.textOrgDesc}>Description: {data.description}</Text>
-						<Text style={cardStyles.textOrgCount}>Your Representative: {data.representatives[0].username}</Text>
-						<Text style={cardStyles.textOrgCount}>User Count: {data.memberCount}</Text>
-						<Text style={{marginTop: 10}}>Invite Code: {data.inviteCode}</Text>
-						<Text>Date Created: {moment(data.createdDate).format("MMM Do YYYY")}</Text>
+		<View style={styles.containerOrgDesc}>
+			<Image
+				source={require("../assets/background-logged-in.jpg")}
+				style={styles.organizationBackgroundImage}
+			/>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+			>
+				<Text style={{ ...styles.textTitleOrgDetails, color: "white" }}>
+					{data.name}
+				</Text>
+				<Card>
+					<View style={{ alignItems: "center" }}>
+						<Text style={cardStyles.textOrgDesc}>{data.description}</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>Your Representative: </Text>{" "}
+							{data.representatives[0].username}
+						</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>User Count: </Text>
+							{data.memberCount}
+						</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>Invite Code: </Text>{" "}
+							{data.inviteCode}
+						</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>Date Created: </Text>{" "}
+							{moment(data.createdDate).format("MMM Do YYYY")}
+						</Text>
 					</View>
+				</Card>
+				<View style={styles.br} />
 
+				<Text style={styles.BallotTitle}>Ballots</Text>
 
-					<View
-						style={{
-							width: "95%",
-							borderBottomColor: 'rgba(0,0,0,0.6)',
-							borderBottomWidth: 5,
-							borderRadius: 5
-						}}
-					/>
+				{Object.keys(ballots).length === 0 ? (
+					<Card>
+						<Text style={{ color: "grey", fontSize: 16 }}>
+							There are no active ballots right now.
+						</Text>
+					</Card>
+				) : (
+					ballots
+				)}
 
-					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
-						{ballots}
-					<View
-						style={{
-							width: "95%",
-							borderBottomColor: 'rgba(0,0,0,0.6)',
-							borderBottomWidth: 5,
-							borderRadius: 5
-						}}
-					/>
-
-
-
-				<View style={{backgroundColor: "rgba(255,255,255,1)",
-						borderRadius: 1,
-						padding: 20,
-								
-						marginHorizontal: 4,
-						marginBottom: 30,
-						marginTop: 30,
-						minWidth: "95%",
-						maxWidth: "95%",}}>
-					<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
-						{users} 
-					</View>
+				<View style={styles.br} />
+				<View style={{ marginTop: vh(3.1) }}>
+					<Card>
+						<Text style={styles.OrgDescUserListTitle}>Users List:</Text>
+						{users}
+					</Card>
 				</View>
 			</ScrollView>
 		</View>
 	);
 }
-
-const styles2 = StyleSheet.create({
-	card: {
-		borderRadius: 6,
-		elevation: 3,
-		backgroundColor: "#fff",
-		shadowOffset: { width: 1, height: 1 },
-		shadowColor: "#333",
-		shadowOpacity: 0.3,
-		shadowRadius: 2,
-		marginHorizontal: 15,
-		marginVertical: 30,
-		padding: 20,
-		width: 10,
-		height: 10,
-		flex: 2,
-	},
-	scrollView: {
-		backgroundColor: "pink",
-		marginHorizontal: 20,
-	},
-	cardContent: {
-		marginHorizontal: 18,
-		marginVertical: 20,
-		width: "100%",
-	},
-});

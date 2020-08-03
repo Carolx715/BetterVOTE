@@ -12,12 +12,12 @@ import Card from "../components/card";
 import NewOrgBtn from "../components/addNewOrgBtn";
 import AddOrgMenu from "../components/addNewOrgMenu";
 
-import styles from "../styles/welcomepage";
-import orgStyles from "../styles/organizations";
+import styles from "../styles/globalStyles";
 import cardStyles from "../styles/cardStyles";
 
 import AsyncStorage from "@react-native-community/async-storage";
 import ProfileButton from "../components/profileButton.js";
+import { vh } from "react-native-expo-viewport-units";
 
 export default function organizations(props) {
 	useEffect(() => {
@@ -54,9 +54,16 @@ export default function organizations(props) {
 			onPress={() => props.navigation.navigate("OrganizationDetails", item)}
 		>
 			<Card>
-				<Text numberOfLines={2} style={cardStyles.textOrgTitle}>{item.name}</Text>
-				<Text numberOfLines={4} style={cardStyles.textOrgDesc}>{item.description}</Text>
-				<Text style={cardStyles.textOrgCount}>Member Count: {item.memberCount}</Text>
+				<Text numberOfLines={2} style={cardStyles.textOrgTitle}>
+					{item.name}
+				</Text>
+				<Text numberOfLines={4} style={cardStyles.textOrgDesc}>
+					{item.description}
+				</Text>
+				<Text style={cardStyles.textOrgCount}>
+					<Text style={{ fontWeight: "bold" }}>Member Count: </Text>
+					{item.memberCount}
+				</Text>
 				{/* <Text>{Date(item.createdDate).getDate()}</Text> */}
 			</Card>
 		</TouchableOpacity>
@@ -68,15 +75,14 @@ export default function organizations(props) {
 
 	return (
 		<TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
-			<View style={styles.container2}>
+			<View style={{ ...styles.container, paddingBottom: vh(15) }}>
 				<Image
 					source={require("../assets/background-logged-in.jpg")}
-					style={orgStyles.backgroundImage}
+					style={styles.organizationBackgroundImage}
 				/>
 
-
-				<View style={orgStyles.textContainer}>
-					<Text style={orgStyles.textTitleOrg}>My Organizations</Text>
+				<View style={styles.organizationTextContainer}>
+					<Text style={styles.organizationTextTitle}>My Organizations</Text>
 					<View style={styles.flatlistContainer}>
 						<FlatList
 							data={data}

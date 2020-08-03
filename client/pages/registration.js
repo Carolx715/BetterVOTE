@@ -8,16 +8,15 @@ import {
 	Text,
 	Image,
 	Keyboard,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
 } from "react-native";
 
-import styles from "../styles/welcomepage";
-import formStyles from "../styles/formStyling";
+import styles from "../styles/globalStyles";
 import Button from "../components/button";
 import { Formik } from "formik";
 import * as yup from "yup";
 import AsyncStorage from "@react-native-community/async-storage";
-
+import { vw, vh } from "react-native-expo-viewport-units";
 
 export default function Registration(props) {
 	const validationSchema = yup.object().shape({
@@ -62,8 +61,8 @@ export default function Registration(props) {
 					source={require("../assets/background.jpg")}
 					style={styles.backgroundImage}
 				/>
-				<ScrollView style={formStyles.formContainerRegister}>
-					<Text style={formStyles.formTitleRegister}>Registration</Text>
+				<ScrollView style={styles.formContainerRegister}>
+					<Text style={styles.formTitleRegister}>Registration</Text>
 					<Formik
 						initialValues={{
 							username: "",
@@ -80,27 +79,28 @@ export default function Registration(props) {
 					>
 						{(formikProps) => (
 							<React.Fragment>
-								<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-									<Text style={formStyles.formTextRegister}>Name</Text>
+								<View style={styles.registerCenterContainer}>
+									<Text style={styles.formTextRegister}>Name</Text>
 									<TextInput
 										placeholder="John Doe"
 										placeholderTextColor="#AAAAAA"
-										style={formStyles.textbox}
+										style={styles.formTextbox}
 										onChangeText={formikProps.handleChange("username")}
 										onBlur={formikProps.handleBlur("username")}
 										value={formikProps.values.username}
 									/>
 									<Text style={{ color: "red" }}>
-										{formikProps.touched.username && formikProps.errors.username}
+										{formikProps.touched.username &&
+											formikProps.errors.username}
 									</Text>
 								</View>
 
-								<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-									<Text style={formStyles.formTextRegister}>Email</Text>
+								<View style={styles.registerCenterContainer}>
+									<Text style={styles.formTextRegister}>Email</Text>
 									<TextInput
 										placeholder="johndoe@example.com"
 										placeholderTextColor="#AAAAAA"
-										style={formStyles.textbox}
+										style={styles.formTextbox}
 										onChangeText={formikProps.handleChange("email")}
 										onBlur={formikProps.handleBlur("email")}
 										value={formikProps.values.email.toLowerCase()}
@@ -110,30 +110,29 @@ export default function Registration(props) {
 									</Text>
 								</View>
 
-								<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-									<Text style={formStyles.formTextRegister}>Password</Text>
+								<View style={styles.registerCenterContainer}>
+									<Text style={styles.formTextRegister}>Password</Text>
 									<TextInput
 										placeholder="Password"
 										placeholderTextColor="#AAAAAA"
-										style={formStyles.textbox}
+										style={styles.formTextbox}
 										onChangeText={formikProps.handleChange("password")}
 										onBlur={formikProps.handleBlur("password")}
 										secureTextEntry
 										value={formikProps.values.password}
 									/>
 									<Text style={{ color: "red" }}>
-										{formikProps.touched.password && formikProps.errors.password}
+										{formikProps.touched.password &&
+											formikProps.errors.password}
 									</Text>
 								</View>
 
-								<View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-									<Text style={formStyles.formTextRegister}>
-										Confirm Password
-									</Text>
+								<View style={styles.registerCenterContainer}>
+									<Text style={styles.formTextRegister}>Confirm Password</Text>
 									<TextInput
 										placeholder="Password"
 										placeholderTextColor="#AAAAAA"
-										style={formStyles.textbox}
+										style={styles.formTextbox}
 										onChangeText={formikProps.handleChange("confirmPassword")}
 										onBlur={formikProps.handleBlur("confirmPassword")}
 										secureTextEntry
@@ -153,20 +152,29 @@ export default function Registration(props) {
 									{formikProps.isSubmitting ? (
 										<ActivityIndicator />
 									) : (
-										<View>
+										<View
+											style={{
+												marginLeft: vw(2),
+												marginRight: vw(13),
+												marginTop: vh(3),
+												...styles.btnComponent,
+											}}
+										>
 											<Button
 												text="Register"
 												onPress={() => {
 													try {
 														register(formikProps.values).then((response) => {
-														Keyboard.dismiss();
+															Keyboard.dismiss();
 															if (response.jwt) {
-																AsyncStorage.setItem("Token", response.jwt).then(() => {
-																	alert("You are registered!");
-																	props.navigation.navigate("Organizations");
-																}).catch((err) => {
-																	console.log(err);
-																});
+																AsyncStorage.setItem("Token", response.jwt)
+																	.then(() => {
+																		alert("You are registered!");
+																		props.navigation.navigate("Organizations");
+																	})
+																	.catch((err) => {
+																		console.log(err);
+																	});
 															} else if (response.error) {
 																alert(response.error);
 															} else {

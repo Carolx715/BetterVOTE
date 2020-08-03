@@ -1,12 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
-var {
-	vw,
-	vh,
-	vmin,
-	vmax,
-} = require("../node_modules/react-native-expo-viewport-units");
-const screenHeight = Dimensions.get("window").height;
+var { vw, vh } = require("../node_modules/react-native-expo-viewport-units");
+const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
 	container: {
@@ -14,7 +9,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#dab",
 		alignItems: "center",
 		justifyContent: "center",
-		maxHeight: screenHeight,
+		maxHeight: height,
 		height: "auto",
 		marginTop: vh(3),
 	},
@@ -23,27 +18,26 @@ const styles = StyleSheet.create({
 		backgroundColor: "#dab",
 		alignItems: "center",
 		justifyContent: "center",
-		maxHeight: screenHeight,
+		maxHeight: height,
 		height: "auto",
 		paddingBottom: vh(15),
 	},
 	flatlistContainer: {
 		flex: 1,
 		backgroundColor: "rgba(0, 0, 0, 0)",
-		maxHeight: screenHeight,
-
+		maxHeight: height,
 		height: "auto",
 		paddingBottom: vh(8),
-
 	},
 	containerOrgDesc: {
 		flex: 1,
 		backgroundColor: "#dab",
 		alignItems: "center",
+		textAlign: "center",
 		justifyContent: "center",
-		maxHeight: screenHeight,
+		maxHeight: height,
 		height: "auto",
-		paddingBottom: vh(5),
+		paddingBottom: vh(10),
 	},
 
 	backgroundImage: {
@@ -84,14 +78,14 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontSize: 18,
 		margin: vw(2.2),
-		marginVertical: 0,
+		marginVertical: vh(0),
 	},
 	textTitle: {
 		fontWeight: "bold",
 		color: "white",
-		fontSize: 50,
+		fontSize: 40,
 		margin: vw(2.2),
-		marginTop: 0,
+		marginTop: vh(0),
 	},
 	textTitle2: {
 		fontWeight: "bold",
@@ -130,6 +124,10 @@ const styles = StyleSheet.create({
 	},
 	buttonContainer: {
 		marginBottom: vh(13.3),
+		alignItems: "center",
+	},
+	orgButtonContainer: {
+		alignItems: "center",
 	},
 
 	loginButton: {
@@ -146,6 +144,15 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.5,
 		shadowOffset: { width: 5, height: 5 },
 		width: 260,
+	},
+	imageTitle: {
+		flexDirection: "row",
+		justifyContent: "center",
+		marginBottom: height * 0.025,
+	},
+	inputContainer: {
+		marginLeft: width * 0.06,
+		marginRight: width * 0.02,
 	},
 });
 
