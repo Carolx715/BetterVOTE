@@ -108,9 +108,8 @@ export default function OrganizationDetails(props) {
 	return (
 		<View style={baseStyles.containerOrgDesc}>
 			<ScrollView 
+				contentContainerStyle={{alignItems: "center", justifyContent: "center"}}
 				showsVerticalScrollIndicator={false}>
-
-				<View style={baseStyles.container}>
 					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
 					{/* Put all these styles in files later */}
 					<View style={{backgroundColor: "rgba(255,255,255,1)",
@@ -141,11 +140,27 @@ export default function OrganizationDetails(props) {
 					/>
 
 					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
-					<TouchableOpacity
-						onPress={() => props.navigation.navigate("votingPage")}
-					>
-						{ballots}
-					</TouchableOpacity>
+						
+						{Object.keys(ballots).length === 0  ? (
+							<View style={{backgroundColor: "rgba(255,255,255,1)",
+								borderRadius: 1,
+								padding: 20,
+										
+								marginHorizontal: 4,
+								marginBottom: 30,
+								marginTop: 30,
+								minWidth: "95%",
+								maxWidth: "95%",}}>
+							<Text style={{color: "grey", fontSize: 16}}>There are no active ballots right now.</Text>
+							</View>
+						) : (
+
+							<TouchableOpacity
+								onPress={() => props.navigation.navigate("votingPage")}
+							>
+								{ballots}
+							</TouchableOpacity>
+						)}
 
 					<View
 						style={{
@@ -158,7 +173,7 @@ export default function OrganizationDetails(props) {
 
 
 
-				<View style={{backgroundColor: "rgba(255,255,255,1)",
+					<View style={{backgroundColor: "rgba(255,255,255,1)",
 						borderRadius: 1,
 						padding: 20,
 								
@@ -170,7 +185,6 @@ export default function OrganizationDetails(props) {
 					<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
 						{users} 
 					</View>
-				</View>
 			</ScrollView>
 		</View>
 	);

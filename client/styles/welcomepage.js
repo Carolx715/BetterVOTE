@@ -40,10 +40,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#dab",
 		alignItems: "center",
+		textAlign: "center",
 		justifyContent: "center",
 		maxHeight: screenHeight,
 		height: "auto",
-		paddingBottom: vh(5),
+		paddingBottom: vh(10),
 	},
 
 	backgroundImage: {
