@@ -54,9 +54,16 @@ export default function organizations(props) {
 			onPress={() => props.navigation.navigate("OrganizationDetails", item)}
 		>
 			<Card>
-				<Text numberOfLines={2} style={cardStyles.textOrgTitle}>{item.name}</Text>
-				<Text numberOfLines={4} style={cardStyles.textOrgDesc}>{item.description}</Text>
-				<Text style={cardStyles.textOrgCount}>Member Count: {item.memberCount}</Text>
+				<Text numberOfLines={2} style={cardStyles.textOrgTitle}>
+					{item.name}
+				</Text>
+				<Text numberOfLines={4} style={cardStyles.textOrgDesc}>
+					{item.description}
+				</Text>
+				<Text style={cardStyles.textOrgCount}>
+					<Text style={{ fontWeight: "bold" }}>Member Count: </Text>
+					{item.memberCount}
+				</Text>
 				{/* <Text>{Date(item.createdDate).getDate()}</Text> */}
 			</Card>
 		</TouchableOpacity>
@@ -73,7 +80,6 @@ export default function organizations(props) {
 					source={require("../assets/background-logged-in.jpg")}
 					style={orgStyles.backgroundImage}
 				/>
-
 
 				<View style={orgStyles.textContainer}>
 					<Text style={orgStyles.textTitleOrg}>My Organizations</Text>

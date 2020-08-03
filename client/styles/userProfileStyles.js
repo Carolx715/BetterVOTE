@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
 		top: vh(-8),
 	},
 	userPic: {
-		width: vh(11),
-		height: vh(11),
+		width: vh(7.5),
+		height: vh(7.5),
 	},
 	userPicButton: {
 		width: vh(7),
@@ -59,9 +59,10 @@ const styles = StyleSheet.create({
 	subTitle: {
 		fontWeight: "bold",
 		color: "white",
-		fontSize: 30,
+		fontSize: 28,
 		marginVertical: vh(2.2),
 		display: "flex",
+		alignItems: "center",
 	},
 
 	profileButton: {

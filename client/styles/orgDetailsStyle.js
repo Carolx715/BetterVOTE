@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
+const screenHeight = Dimensions.get("window").height;
 var {
 	vw,
 	vh,
@@ -9,12 +11,10 @@ var {
 const styles = StyleSheet.create({
 	textTitleOrg: {
 		fontWeight: "bold",
-		color: "black",
+		color: "white",
 		fontSize: 40,
-		textAlign: "center",
-		margin: vw(2.2),
-		marginTop: vh(5),
-		marginBottom: 10,
+		marginTop: screenHeight * 0.07,
+		marginBottom: screenHeight * 0.02,
 	},
 	textTitleBallot: {
 		fontWeight: "bold",
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: "center",
 		margin: vw(2.2),
-		marginBottom: 10,
+		marginBottom: screenHeight * 0.02,
+		marginTop: screenHeight * 0.002,
 	},
 
 	textSubitleBallot: {

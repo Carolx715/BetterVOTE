@@ -11,21 +11,31 @@ import {
 import Card from "../components/card";
 import baseStyles from "../styles/welcomepage";
 import orgStyles from "../styles/orgDetailsStyle";
-import styles from "../styles/welcomepage"; 
+import styles from "../styles/welcomepage";
 import AsyncStorage from "@react-native-community/async-storage";
-import cardStyles from "../styles/cardStyles"; 
+import cardStyles from "../styles/cardStyles";
 
 export default function OrganizationDetails(props) {
 	function formatDate(epoch) {
-		const dateFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-		const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
+		const dateFormat = {
+			weekday: "long",
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		};
+		const timeFormat = {
+			hour: "numeric",
+			minute: "numeric",
+			second: "numeric",
+			hour12: true,
+		};
 		let date = new Date(epoch);
 		if (date.getDay() === new Date().getDay()) {
-		  return `Today at ${date.toLocaleString('en-US', timeFormat)}`
+			return `Today at ${date.toLocaleString("en-US", timeFormat)}`;
 		} else if (date.getDay() === new Date().getDay() + 1) {
-		  return `Tomorrow at ${date.toLocaleString('en-US', timeFormat)}`
+			return `Tomorrow at ${date.toLocaleString("en-US", timeFormat)}`;
 		} else {
-		  return `${date.toLocaleString('en-US', dateFormat)} at ${date.toLocaleString('en-US', timeFormat)}`
+			return `${date.toLocaleString("en-US", dateFormat)}`;
 		}
 	}
 
@@ -60,13 +70,14 @@ export default function OrganizationDetails(props) {
 	}
 
 	const users = data.users.map((user) => (
-		<Text key={user.email}>{user.username}</Text>
+		<View style={{ alignItems: "center" }} key={user.email}>
+			<Text>{user.username}</Text>
+		</View>
 	));
 	const ballots = data.activeBallots.map((ballot) => (
 		<Card key={ballot._id}>
-
 			{ballot.hasVoted ? (
-				<View style={{alignItems: "center", justifyContent: "center"}}>
+				<View style={{ alignItems: "center", justifyContent: "center" }}>
 					<Text>
 						<View style={cardStyles.iconContainer}>
 							<Image
@@ -74,13 +85,11 @@ export default function OrganizationDetails(props) {
 								style={cardStyles.icon}
 							/>
 						</View>
-						<Text style={{fontSize: 15}}>
-							&nbsp; Status: Voted
-						</Text>
+						<Text style={{ fontSize: 15 }}>&nbsp; Status: Voted</Text>
 					</Text>
 				</View>
 			) : (
-				<View style={{alignItems: "center", justifyContent: "center"}}>
+				<View style={{ alignItems: "center", justifyContent: "center" }}>
 					<Text>
 						<View style={cardStyles.iconContainer}>
 							<Image
@@ -88,56 +97,62 @@ export default function OrganizationDetails(props) {
 								style={cardStyles.icon}
 							/>
 						</View>
-						<Text style={{fontSize: 15}}>
-							&nbsp; Status: Has Not Voted
-						</Text>
+						<Text style={{ fontSize: 15 }}>&nbsp; Status: Has Not Voted</Text>
 					</Text>
 				</View>
 			)}
-			<Text 
-				numberOfLines={1}
-				style={orgStyles.textSubitleBallot}>{ballot.title}</Text>
-			<Text 
-				numberOfLines={3}
-				style={cardStyles.textOrgDesc}>{ballot.description}</Text>
+			<Text numberOfLines={1} style={orgStyles.textSubitleBallot}>
+				{ballot.title}
+			</Text>
+			<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
+				{ballot.description}
+			</Text>
 			<Text>Vote Ends {formatDate(ballot.endTime)}</Text>
 		</Card>
 	));
 
 	return (
 		<View style={baseStyles.containerOrgDesc}>
-			<ScrollView 
-				showsVerticalScrollIndicator={false}>
-
+			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={baseStyles.container}>
 					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
-					{/* Put all these styles in files later */}
-					<View style={{backgroundColor: "rgba(255,255,255,1)",
-						borderRadius: 1,
-						padding: 20,
-								
-						marginHorizontal: 4,
-						marginBottom: 30,
-						marginTop: 30,
-						minWidth: "95%",
-						maxWidth: "95%",}}>
+					<Card>
+						<View style={{ alignItems: "center" }}>
+							<Text style={cardStyles.textOrgDesc}>{data.description}</Text>
+							<Text style={{ marginTop: 8, marginBottom: 5 }}>
+								<Text style={{ fontWeight: "bold" }}>
+									Your Representative:{" "}
+								</Text>{" "}
+								{data.representatives[0].username}
+							</Text>
+							<Text style={{ marginTop: 8, marginBottom: 5 }}>
+								<Text style={{ fontWeight: "bold" }}>User Count: </Text>
+								{data.memberCount}
+							</Text>
+							<Text style={{ marginTop: 8, marginBottom: 5 }}>
+								<Text style={{ fontWeight: "bold" }}>Invite Code: </Text>{" "}
+								{data.inviteCode}
+							</Text>
+							<Text style={{ marginTop: 8, marginBottom: 5 }}>
+								<Text style={{ fontWeight: "bold" }}>Date Created: </Text>{" "}
+								{formatDate(data.createdDate)}
+							</Text>
+						</View>
+					</Card>
 
-						<Text style={cardStyles.textOrgDesc}>Description: {data.description}</Text>
-						<Text style={cardStyles.textOrgCount}>Your Representative: {data.representatives[0].username}</Text>
-						<Text style={cardStyles.textOrgCount}>User Count: {data.memberCount}</Text>
-						<Text style={{marginTop: 10}}>Invite Code: {data.inviteCode}</Text>
-						<Text>Date Created: {formatDate(data.createdDate)}</Text>
-					</View>
+					<Card>
+						<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
+						{users}
+					</Card>
 
-
-					<View
+					{/* <View
 						style={{
 							width: "95%",
-							borderBottomColor: 'rgba(0,0,0,0.6)',
+							borderBottomColor: "rgba(0,0,0,0.6)",
 							borderBottomWidth: 5,
-							borderRadius: 5
+							borderRadius: 5,
 						}}
-					/>
+					/> */}
 
 					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
 					<TouchableOpacity
@@ -149,26 +164,11 @@ export default function OrganizationDetails(props) {
 					<View
 						style={{
 							width: "95%",
-							borderBottomColor: 'rgba(0,0,0,0.6)',
+							borderBottomColor: "rgba(0,0,0,0.6)",
 							borderBottomWidth: 5,
-							borderRadius: 5
+							borderRadius: 5,
 						}}
 					/>
-
-
-
-				<View style={{backgroundColor: "rgba(255,255,255,1)",
-						borderRadius: 1,
-						padding: 20,
-								
-						marginHorizontal: 4,
-						marginBottom: 30,
-						marginTop: 30,
-						minWidth: "95%",
-						maxWidth: "95%",}}>
-					<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
-						{users} 
-					</View>
 				</View>
 			</ScrollView>
 		</View>
