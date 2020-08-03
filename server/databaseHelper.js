@@ -105,13 +105,7 @@ async function addOrganization(data) {
 async function getOrganizationByID(id) {
 	return new Promise((resolve, reject) => {
 		try {
-			{
-				/* ObejctID function returns an ObjectId value()
-			- a 4-byte timestamp value
-			- a 5-byte random value
-			- a 3-byte incrementing counter, initialized to a random value	
-			*/
-			}
+			// ObjectID is used to convert a string objectID to the proper mongoDB ObjectID format
 			db.collection("organizations").findOne({ _id: ObjectID(id) }, function (
 				err,
 				result
@@ -182,19 +176,26 @@ async function joinOrganizationByCode(code, username, email) {
 }
 
 async function createBallot(ballot) {
+	// Insert ballot and return ID
 	return db.collection("ballots").insertOne(ballot)
 		.then(result => result.ops[0]._id)
-		.then(ballotID => {
-			const voterDocument = {
-				_id: ballotID,
-				voters: []
-			}
-			// Create a document using the inserted document's ID that stores the people who voted
-			db.collection("voters").insertOne(voterDocument, (err, result) => {
-				if (err) throw err;
-				return({ id: ballotID });
-			});
-		});
+}
+
+async function getBallots(org, status = null) {
+	if (status) {
+		return db.collection("ballots").find({
+			$and: [
+				{ organizationID: org },
+				{ status: status }
+			]
+		}).toArray();
+	} else {
+		return db.collection("ballots").find({ organizationID: org }).toArray();
+	}
+}
+
+async function getBallot(id) {
+	return db.collection("ballots").findOne({ _id: ObjectID(id) });
 }
 
 exports.getUser = getUser;
@@ -205,3 +206,5 @@ exports.getOrganizationByID = getOrganizationByID;
 exports.getOrganizationByCode = getOrganizationByCode;
 exports.joinOrganizationByCode = joinOrganizationByCode;
 exports.createBallot = createBallot;
+exports.getBallots = getBallots;
+exports.getBallot = getBallot;
