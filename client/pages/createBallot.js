@@ -24,15 +24,15 @@ import AsyncStorage from "@react-native-community/async-storage";
 export default function welcome(props) {
 
 const validationSchema = yup.object().shape({
-	ballot: yup.string().required(),
+	title: yup.string().required(),
     description: yup.string().required(),
-    percentToPass: yup.string().required()
+    voteThreshold: yup.string().required()
     
 });
 
-const url = "http://159.203.16.113:3000/organizations/create";
+const url = "http://159.203.16.113:3000/ballots/create";
 
-async function createNewOrg(info) {
+async function createNewBallot(info) {
 	try {
 		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
 			console.log("Error accessing jwt token", error);
@@ -69,6 +69,7 @@ const onChange = (event, selectedDate) => {
 };
 
 
+// sets to today's date and time
 const [date, setDate] = useState(new Date());
 const [mode, setMode] = useState('date');
 const [show, setShow] = useState(false);
@@ -78,11 +79,13 @@ const showMode = currentMode => {
     setMode(currentMode);
   };
 
+// switches to date picker
 const showDatepicker = () => {
     showMode('date');
 };
 
-  const showTimepicker = () => {
+// switches to time picker
+const showTimepicker = () => {
     showMode('time');
 };
 
@@ -103,8 +106,10 @@ return (
                 <Text style={{color: "white", textAlign: "center",}}>
 					Create a new ballot in *organization name* that people can vote on.
 				</Text>
+
+                {/* Form begins */}
 				<Formik
-                    initialValues={{ ballot: "", description: "", percentToPass: ''}}
+                    initialValues={{ title: "", description: "", voteThreshold: "", endTime: date}}
                     
 					onSubmit={(values, actions) => {
 						alert(JSON.stringify(values));
@@ -123,11 +128,11 @@ return (
 									placeholder="Ballot Name"
 									placeholderTextColor="#AAAAAA"
 									style={formStyles.textbox}
-									onChangeText={formikProps.handleChange("ballot")}
-									onBlur={formikProps.handleBlur("ballot")}
+									onChangeText={formikProps.handleChange("title")}
+									onBlur={formikProps.handleBlur("title")}
 								/>
 								<Text style={{ color: "red" }}>
-									{formikProps.touched.ballot && formikProps.errors.ballot}
+									{formikProps.touched.title && formikProps.errors.title}
 								</Text>
 
 								<Text style={formStyles.formText}>Description</Text>
@@ -151,31 +156,45 @@ return (
 									placeholder="e.g. 55%"
 									placeholderTextColor="#AAAAAA"
 									style={formStyles.textbox}
-									onChangeText={formikProps.handleChange("percentToPass")}
-									onBlur={formikProps.handleBlur("percentToPass")}
+									onChangeText={formikProps.handleChange("voteThreshold")}
+									onBlur={formikProps.handleBlur("voteThreshold")}
 									
 								/>
 								<Text style={{ color: "red" }}>
-									{formikProps.touched.percentToPass &&
-										formikProps.errors.percentToPass}
+									{formikProps.touched.voteThreshold &&
+										formikProps.errors.voteThreshold}
 								</Text>
 
+                                {/* END DATE STARTS HERE */}
+
 								<Text style={formStyles.formText}>Ballot End Date/Time</Text>
+								<TextInput
+                                    editable={false}
+									placeholder={date.toUTCString()} // SUNNY HOW DO YOU STYLE THE DATE
+									placeholderTextColor="#FFF"
+									style={formStyles.textbox}
+									onChangeText={formikProps.handleChange("endTime")}
+									onBlur={formikProps.handleBlur("endTime")}
+								/>
                                 <View>
-                                    <Button onPress={showDatepicker} text="Show date picker!" />
+                                    <Button onPress={showDatepicker} text="Change Date" />
                                 </View>
                                 <View>
-                                    <Button onPress={showTimepicker} text="Show time picker!" />
+                                    <Button onPress={showTimepicker} text="Change Time" />
                                 </View>
-                                <DateTimePicker
-                                    testID="dateTimePicker"
-                                    value={date}
-                                    mode={mode}
-                                    is24Hour={true}
-                                    display="default"
-                                    onChange={onChange}
-                                />
+                                {show && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={date}
+                                        mode={mode}
+                                        is24Hour={true}
+                                        display="default"
+                                        onChange={onChange}
+                                    />
+                                )}
 							</View>
+
+                            {/* END DATE ENDS */}
 
 							<View style={formStyles.btnComponent}>
 								{formikProps.isSubmitting ? (
@@ -186,7 +205,9 @@ return (
 										onPress={() => {
 											Keyboard.dismiss();
 											try {
-												createNewOrg(formikProps.values).then((response) => {
+                                                formikProps.values.endTime = date;
+                                                console.log(formikProps.values);
+												createNewBallot(formikProps.values).then((response) => {
 													if (!response?.error) {
 														formikProps.handleSubmit; //submit form
 														props.navigation
