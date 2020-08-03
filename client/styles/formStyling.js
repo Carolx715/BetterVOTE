@@ -81,6 +81,7 @@ const formStyling = StyleSheet.create({
 		marginBottom: 3,
 
 		maxWidth: "90%",
+		minWidth: "90%",
 	},
 
 	textarea: {

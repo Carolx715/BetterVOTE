@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		maxHeight: height,
 		height: "auto",
-		paddingBottom: vh(10),
+		// paddingBottom: vh(10),
 	},
 	backgroundImage2: {
 		flex: 1,
@@ -408,6 +408,7 @@ const styles = StyleSheet.create({
 
 	// Organization Detail Styles
 	textTitleOrgDetails: {
+		textAlign: "center",
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 40,

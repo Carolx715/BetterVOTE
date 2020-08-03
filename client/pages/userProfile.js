@@ -80,7 +80,7 @@ export default function welcome(props) {
 				</View>
 				<View style={{ alignItems: "center" }}>
 					<View style={styles.subTitleContainer}>
-						<Text style={styles.subTitle}>View & Manage Organizations</Text>
+						<Text style={styles.subTitle}>View Organizations</Text>
 					</View>
 					<Button
 						text="My Organizations"

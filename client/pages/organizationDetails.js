@@ -13,7 +13,7 @@ import Card from "../components/card";
 import AsyncStorage from "@react-native-community/async-storage";
 import cardStyles from "../styles/cardStyles";
 import styles from "../styles/globalStyles";
-import { vh } from "react-native-expo-viewport-units";
+import { vh, vw } from "react-native-expo-viewport-units";
 
 export default function OrganizationDetails(props) {
 	const [id, setID] = useState();
@@ -108,7 +108,7 @@ export default function OrganizationDetails(props) {
 					justifyContent: "center",
 				}}
 			>
-				<Text style={{ ...styles.textTitleOrgDetails, color: "white" }}>
+				<Text style={{ ...styles.textTitleOrgDetails, color: "white", marginHorizontal: vw(5) }}>
 					{data.name}
 				</Text>
 				<Card>
