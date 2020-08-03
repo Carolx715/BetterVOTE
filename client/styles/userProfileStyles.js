@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
 		top: vh(-8),
 	},
 	userPic: {
-		width: vh(7.5),
-		height: vh(7.5),
+		width: vh(7.15),
+		height: vh(7.15),
 	},
 	userPicButton: {
 		width: vh(7),
