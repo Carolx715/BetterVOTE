@@ -17,6 +17,7 @@ router.use((err, req, res, next) => {
 });
 
 router.post('/create', createBallot);
+router.get('/getBallot', getBallot);
 
 async function createBallot(req, res) {
     if (!req.body.title || !req.body.description || !req.body.endTime || !req.body.voteThreshold || !req.body.organizationID) {
@@ -55,6 +56,33 @@ async function createBallot(req, res) {
         res.status(500).send({ error: 'Internal server error' });
     });
 
+}
+
+async function getBallot(req, res) {
+    if (!req.query.id) {
+        res.status(400).send({ Error: "No ID was given" });
+        return;
+    }
+
+    database.getBallot(req.query.id).then(data => {
+        // if the status is active, don't send the current vote count
+        if (data.status === "active") {
+            delete data.votes;
+        }
+        // set the hasVoted variable
+        if (data.voters.includes(req.user.email)) {
+            data.hasVoted = true;
+        } else {
+            data.hasVoted = false;
+        }
+        delete data.voters;
+        // return the data after it's been processed
+        res.status(200).send(data);
+    })
+    .catch(err => {
+        console.log(`Error fetching ${req.query.id} ballot: ${err}`);
+        res.status(500).send({ error: 'Internal server error'});
+    })
 }
 
 module.exports = router;

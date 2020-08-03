@@ -194,6 +194,10 @@ async function getBallots(org, status = null) {
 	}
 }
 
+async function getBallot(id) {
+	return db.collection("ballots").findOne({ _id: ObjectID(id) });
+}
+
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
@@ -203,3 +207,4 @@ exports.getOrganizationByCode = getOrganizationByCode;
 exports.joinOrganizationByCode = joinOrganizationByCode;
 exports.createBallot = createBallot;
 exports.getBallots = getBallots;
+exports.getBallot = getBallot;
