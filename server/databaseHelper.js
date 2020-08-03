@@ -152,10 +152,10 @@ async function joinOrganizationByCode(code, username, email) {
 					if (result) {
 						resolve({ error: "You have already joined this organization" });
 					} else {
-						// find document with given invite code, push the user to the list of users and increment userCount
+						// find document with given invite code, push the user to the list of users and increment memberCount
 						db.collection("organizations").updateOne(
 							{ inviteCode: code },
-							{ $push: { users: userData }, $inc: { userCount: 1 } },
+							{ $push: { users: userData }, $inc: { memberCount: 1 } },
 							function (err, result) {
 								if (err) throw err;
 								if (result.result.nModified > 0) {
@@ -198,6 +198,10 @@ async function getBallot(id) {
 	return db.collection("ballots").findOne({ _id: ObjectID(id) });
 }
 
+async function vote(id, option, email) {
+	return db.collection("ballots").updateOne({ _id: ObjectID(id) }, { $push: { voters: email }, $inc: { ["votes." + option]: 1 } })
+}
+
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
@@ -208,3 +212,4 @@ exports.joinOrganizationByCode = joinOrganizationByCode;
 exports.createBallot = createBallot;
 exports.getBallots = getBallots;
 exports.getBallot = getBallot;
+exports.vote = vote;

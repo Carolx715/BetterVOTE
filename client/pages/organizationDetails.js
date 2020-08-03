@@ -156,7 +156,7 @@ export default function OrganizationDetails(props) {
 
 					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
 					<TouchableOpacity
-						onPress={() => props.navigation.navigate("votingPage")}
+						onPress={() => props.navigation.navigate("votingPage",)}
 					>
 						{ballots}
 					</TouchableOpacity>
