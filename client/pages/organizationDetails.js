@@ -17,29 +17,36 @@ import AsyncStorage from "@react-native-community/async-storage";
 import cardStyles from "../styles/cardStyles"; 
 
 export default function OrganizationDetails(props) {
+	const [id, setID] = useState();
 	const [data, setData] = useState();
-	id = props.navigation.getParam("_id");
+	if (!id) {
+		setID(props.navigation.getParam("_id"));
+	}
+
+	const fetchData = async () => {
+		const url = `http://159.203.16.113:3000/organizations/getOrg?id=${id}`;
+		let jwt = await AsyncStorage.getItem("Token").catch((err) => {
+			console.log(err);
+		});
+		try {
+			let response = await fetch(url, {
+				method: "GET",
+				headers: {
+					Authorization: `Bearer ${jwt}`,
+				},
+			});
+			let data = await response.json();
+			setData(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const url = `http://159.203.16.113:3000/organizations/getOrg?id=${id}`;
-			let jwt = await AsyncStorage.getItem("Token").catch((err) => {
-				console.log(err);
-			});
-			try {
-				let response = await fetch(url, {
-					method: "GET",
-					headers: {
-						Authorization: `Bearer ${jwt}`,
-					},
-				});
-				let data = await response.json();
-				setData(data);
-			} catch (error) {
-				console.log(error);
-			}
-		};
 		fetchData();
+		props.navigation.addListener('willFocus', () => {
+			fetchData();
+		});
 	}, []);
 	// empty array makes it so that the page doesn't rerender upon update instead renders upon component mounting
 
