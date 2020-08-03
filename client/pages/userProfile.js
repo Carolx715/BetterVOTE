@@ -82,8 +82,9 @@ export default function welcome(props) {
                 <Text style={styles.subTitle}>View and Manage Organizations</Text>
             </View>
                 <Text style={styles.text}></Text>
-                <Button text = "My Organizations" onPress = {() => props.navigation.navigate("Organizations")} />
-
+                <View style={baseStyles.orgButtonContainer}>
+                    <Button text = "My Organizations" onPress = {() => props.navigation.navigate("Organizations")} />
+                </View>
                 <View style={styles.subTitleContainer}>
                     <Text style={styles.subTitle}>More Information</Text>
                 </View>
