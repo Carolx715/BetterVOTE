@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		textAlign: "center",
 		margin: vw(2.2),
-		marginBottom: vh(2)
+		marginBottom: vh(2),
 	},
 
 	addNewBtn: {
