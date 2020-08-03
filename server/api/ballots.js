@@ -17,6 +17,7 @@ router.use((err, req, res, next) => {
 });
 
 router.post('/create', createBallot);
+router.post('/vote', vote);
 router.get('/getBallot', getBallot);
 router.get('/getList', getBallots);
 
@@ -120,6 +121,26 @@ async function getBallots(req, res) {
 
             res.status(200).send(ballots);
         });
+}
+
+async function vote(req, res) {
+    if (!req.body.ballotID && !req.body.vote) {
+        res.status(400).send({ error: "Not all fields were filled" });
+        return;
+    }
+
+    if (req.body.vote !== "support" && req.body.vote !== "against" && req.body.vote !== "abstain") {
+        res.status(403).send({ error: "Invalid vote option" });
+        return;
+    }
+
+    let ballot = await database.getBallot(req.body.ballotID);
+    if (ballot.voters.includes(req.user.email)) {
+        res.status(403).send({ error: "You have already voted on this ballot" });
+    } else {
+        database.vote(req.body.ballotID, req.body.vote, req.user.email);
+        res.status(200).send({ success: true });
+    }
 }
 
 module.exports = router;
