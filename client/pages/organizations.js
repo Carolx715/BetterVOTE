@@ -97,7 +97,7 @@ export default function organizations(props) {
 						props.navigation.navigate("Profile");
 					}}
 				/>
-				<NewOrgBtn onPress={onPressPlus} text="+" />
+				<NewOrgBtn onPress={onPressPlus} />
 				<AddOrgMenu
 					props={props}
 					isVisible={isVisible}

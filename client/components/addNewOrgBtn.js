@@ -1,12 +1,18 @@
 import styles from "../styles/organizations";
-import { TouchableOpacity, View, Text } from "react-native";
+import styles2 from "../styles/userProfileStyles";
+import { TouchableOpacity, View, Image } from "react-native";
 import React from "react";
 
-export default function add({ onPress, text }) {
+export default function add({ onPress }) {
 	return (
 		<TouchableOpacity onPress={onPress} style={styles.addNewBtn}>
-			<View style={styles.textPlusContainer}>
-				<Text style={styles.plus}>{text}</Text>
+			<View style={{ justifyContent: "center", alignItems: "center" }}>
+				<View style={styles2.userPicBtnContainer}>
+					<Image
+						source={require("../assets/plus.png")}
+						style={{...styles2.userPic}}
+					/>
+				</View>
 			</View>
 		</TouchableOpacity>
 	);
