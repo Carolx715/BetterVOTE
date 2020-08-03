@@ -42,28 +42,43 @@ export default function OrganizationDetails(props) {
 		return null;
 	}
 
+	const users = data.users.map((user) => (
+		<Text key={user.email}>{user.username}</Text>
+	));
+	const ballots = data.activeBallots.map((ballot) => (
+		<Card>
+			{/*Carol: Below title should be a subtitle :) */}
+			<Text style={styles.textTitleOrg}>{ballot.title}</Text>
+			{ballot.hasVoted ? (
+				<Text>Status: Voted</Text>
+			) : (
+				<Text>Status: Has Not Voted</Text>
+			)}
+			<Text>{ballot.description}</Text>
+			<Text>{ballot.endTime}</Text>
+		</Card>
+	));
+
 	return (
 		<View style={styles.container2}>
 			<ScrollView>
 				<View style={styles.flatlistContainer}>
 					<Text style={styles.textTitleOrg}>{data.name}</Text>
 					<Card>
-						<Text>DESCRIPTION</Text>
-						<Text>Test</Text>
-						<Text>{data.description}</Text>
-					</Card>
-					<Card>
-						<Text>YOUR REPRESENTATIVE</Text>
-						<Text>YOUR REPRESENTATIVE</Text>
-						<Text>{data.representatives[0].username}</Text>
+						<Text>Description: {data.description}</Text>
+						<Text>Your Representative: {data.representatives[0].username}</Text>
+						<Text>User Count: {data.memberCount}</Text>
+						<Text>Users List:</Text>
+						{users}
+						<Text>Invite Code: {data.inviteCode}</Text>
+						<Text>Date Created: {data.createdDate}</Text>
 					</Card>
 
-					<Text style={styles.textTitleOrg}>On the Ballot</Text>
-					{/*votes will probably be pulled from an arry*, onPress = {() => props.navigation.navigate("votingPage", item)}, item will contain all the info about the vote*/}
-					<TouchableOpacity onPress = {() => props.navigation.navigate("votingPage")}>
-						<Card>
-							<Text>Sample Vote 1</Text>
-						</Card>
+					<Text style={styles.textTitleOrg}>Ballots</Text>
+					<TouchableOpacity
+						onPress={() => props.navigation.navigate("votingPage")}
+					>
+						{ballots}
 					</TouchableOpacity>
 				</View>
 			</ScrollView>
