@@ -111,6 +111,7 @@ export default function OrganizationDetails(props) {
 				<Text style={{ ...styles.textTitleOrgDetails, color: "white", marginHorizontal: vw(5) }}>
 					{data.name}
 				</Text>
+
 				<Card>
 					<View style={{ alignItems: "center" }}>
 						<Text style={cardStyles.textOrgDesc}>{data.description}</Text>
@@ -145,6 +146,23 @@ export default function OrganizationDetails(props) {
 				) : (
 					ballots
 				)}
+
+				<View style={styles.imageTitle}>
+					<TouchableOpacity 
+						style={styles.userPicContainer}
+						onPress={() => {
+							props.navigation.navigate("createBallot", {
+								// retrieveData: retrieveData,
+								// setData: setData,
+							});
+						}}>
+						<Text style={{...styles.BallotTitle, fontSize: 20, 
+							margin: vw(2.2),
+							marginTop: 0,
+							marginBottom: 0,}}>+ Add New Ballot
+						</Text>
+					</TouchableOpacity>
+				</View>
 
 				<View style={styles.br} />
 				<View style={{ marginTop: vh(3.1) }}>

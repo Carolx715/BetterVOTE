@@ -19,9 +19,6 @@ import createBallot from "../pages/createBallot";
 //Main Stack Navigator (all screens listed below get access to navigate prop)
 //Screen on top is displayed first
 const screens = {
-	// createBallot: {
-	// 	screen: createBallot,
-	// },
 	Welcome: {
 		screen: Welcome,
 	},
@@ -57,6 +54,9 @@ const screens = {
 	},
 	Vote: {
 		screen: Vote,
+	},
+	createBallot: {
+		screen: createBallot,
 	},
 };
 
