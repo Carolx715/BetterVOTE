@@ -12,19 +12,49 @@ import styles from "../styles/welcomepage";
 import AsyncStorage from "@react-native-community/async-storage";
 import Button from "../components/button";
 
+
 export default function votingPage(props)
 {
+    const [data, setData] = useState();
+	id = "5f2729afde3e578ec4ab40c1"; 
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const url = `http://159.203.16.113:3000/ballots/getBallot?id=${id}`;
+			let jwt = await AsyncStorage.getItem("Token").catch((err) => {
+				console.log(err);
+			});
+			try {
+				let response = await fetch(url, {
+					method: "GET",
+					headers: {
+						Authorization: `Bearer ${jwt}`,
+					},
+				});
+                let data = await response.json();
+                console.log(JSON.stringify(data)); 
+				setData(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
+	}, []);
+	// empty array makes it so that the page doesn't rerender upon update instead renders upon component mounting
+
+	if (!data) {
+		return null;
+	}
     return(
         <ScrollView>
         <View>
         <Text style={styles.textTitle3}>Sample Vote: Not Yet Voted</Text>
         <Card>
             <Text style = {styles.text2}>Voting On:</Text>
-            {/*needs to be pulled from props once i figure that out*/}
             <View style = {styles.buttonContainer}>
-            <Text style = {styles.text3}>Sample Vote Description: War with Fake greece</Text> 
+            <Text style = {styles.text3}>{}</Text> 
             {/*passed from orgdetails*/}
-            <Text style = {styles.text3}>Proposed by: Sample person get from org detail</Text>
+            <Text style = {styles.text3}>{data.description}</Text>
             <Card>
                 <Text style = {styles.text2}>Points For:</Text>
             </Card>
