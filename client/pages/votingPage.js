@@ -16,7 +16,20 @@ import Button from "../components/button";
 export default function votingPage(props)
 {
     const [data, setData] = useState();
-	id = "5f2729afde3e578ec4ab40c1"; 
+    id = "5f2729afde3e578ec4ab40c1"; 
+    
+    function formatDate(epoch) {
+        const dateFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
+        let date = new Date(epoch);
+        if (date.getDay() === new Date().getDay()) {
+          return `Today at ${date.toLocaleString('en-US', timeFormat)}`
+        } else if (date.getDay() === new Date().getDay() + 1) {
+          return `Tomorrow at ${date.toLocaleString('en-US', timeFormat)}`
+        } else {
+          return `${date.toLocaleString('en-US', dateFormat)} at ${date.toLocaleString('en-US', timeFormat)}`
+        }
+      }
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -44,30 +57,56 @@ export default function votingPage(props)
 
 	if (!data) {
 		return null;
-	}
+    }
+
+    const supports = data.arguments["support"].map((s) => (
+		<Text key = {s}>{`\u2022 ${s}`}</Text>
+        
+    ));
+
+    const against = data.arguments["against"].map((a) => (
+		<Text key = {a}>{`\u2022 ${a}`}</Text>
+    ));
+    
     return(
         <ScrollView>
         <View>
-        <Text style={styles.textTitle3}>{data.title}</Text>
+        <Text style={styles.textTitle3}>Organization</Text>
         <Card>
             <Text style = {styles.text2}>Voting On: {data.title}</Text>
             <View style = {styles.buttonContainer}>
             <Text style = {styles.text3}>{}</Text> 
-            {/*passed from orgdetails*/}
-            <Text style = {styles.text3}>{data.description}</Text>
+            
+            <Text style = {styles.text3}>Description: {data.description}</Text>
+            <Card>
+                <Text style = {styles.text2}>Proposed By:</Text> 
+                <Text>{data.creator["username"]}</Text>
+            </Card>
             <Card>
                 <Text style = {styles.text2}>Points For:</Text>
+                    {supports}
             </Card>
             <Card>
                 <Text style = {styles.text2}>Points Against:</Text>
+                    {against}
             </Card>
+            {data.hasVoted == false &&
             <Card>
-                <Text style = {styles.text2}>Voter Turnout</Text>
+                <Text style = {styles.text2}>Vote Treshold</Text>
+                <Text>{data.voteThreshold}</Text>
             </Card>
+            }
+            {data.hasVoted == false && 
+            <Card>
+                <Text style = {styles.text2}>End Date</Text>
+                <Text>{formatDate(data.endTime)}</Text>
+            </Card>
+            
+            }
+
+            {data.hasVoted == false &&
                 <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote")} />
-                {/*}
-                <Button text = "VOTE AGAINST"/>
-                <Button text = "SUBMIT"/>**/}
+            }
              </View>
          </Card>
         </View>
