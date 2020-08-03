@@ -112,15 +112,7 @@ export default function OrganizationDetails(props) {
 				showsVerticalScrollIndicator={false}>
 					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
 					{/* Put all these styles in files later */}
-					<View style={{backgroundColor: "rgba(255,255,255,1)",
-						borderRadius: 1,
-						padding: 20,
-								
-						marginHorizontal: 4,
-						marginBottom: 30,
-						marginTop: 30,
-						minWidth: "95%",
-						maxWidth: "95%",}}>
+					<View style={orgStyles.textBoxDetails}>
 
 						<Text style={cardStyles.textOrgDesc}>Description: {data.description}</Text>
 						<Text style={cardStyles.textOrgCount}>Your Representative: {data.representatives[0].username}</Text>
@@ -130,31 +122,15 @@ export default function OrganizationDetails(props) {
 					</View>
 
 
-					<View
-						style={{
-							width: "95%",
-							borderBottomColor: 'rgba(0,0,0,0.6)',
-							borderBottomWidth: 5,
-							borderRadius: 5
-						}}
-					/>
+					<View style={orgStyles.br}/>
 
 					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
 						
 						{Object.keys(ballots).length === 0  ? (
-							<View style={{backgroundColor: "rgba(255,255,255,1)",
-								borderRadius: 1,
-								padding: 20,
-										
-								marginHorizontal: 4,
-								marginBottom: 30,
-								marginTop: 30,
-								minWidth: "95%",
-								maxWidth: "95%",}}>
+							<View style={orgStyles.textBoxDetails}>
 							<Text style={{color: "grey", fontSize: 16}}>There are no active ballots right now.</Text>
 							</View>
 						) : (
-
 							<TouchableOpacity
 								onPress={() => props.navigation.navigate("votingPage")}
 							>
@@ -162,26 +138,9 @@ export default function OrganizationDetails(props) {
 							</TouchableOpacity>
 						)}
 
-					<View
-						style={{
-							width: "95%",
-							borderBottomColor: 'rgba(0,0,0,0.6)',
-							borderBottomWidth: 5,
-							borderRadius: 5
-						}}
-					/>
+					<View style={orgStyles.br}/>
 
-
-
-					<View style={{backgroundColor: "rgba(255,255,255,1)",
-						borderRadius: 1,
-						padding: 20,
-								
-						marginHorizontal: 4,
-						marginBottom: 30,
-						marginTop: 30,
-						minWidth: "95%",
-						maxWidth: "95%",}}>
+					<View style={orgStyles.textBoxDetails}>
 					<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
 						{users} 
 					</View>
