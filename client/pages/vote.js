@@ -34,7 +34,7 @@ export default function vote(props)
 			body: JSON.stringify(info),
 		}).then((response) => {
 			if (response.ok) {
-                props.navigation.navigate("organizationDetails"); 
+                props.navigation.navigate("OrganizationDetails"); 
 				return {
 					success: true,
 				};
