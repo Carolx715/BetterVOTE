@@ -93,12 +93,10 @@ export default function votingPage(props)
                  <Text style = {styles.text2}>Voter Turnout</Text>
                  <Text>{`${(data.totalVotes/data.maxVotes*100).toFixed(2)}%`}</Text>
                  </Card>
-            {data.status === "active" ? 
             <Card>
-                <Text style = {styles.text2}>End Date</Text>
+              {data.status === "active" ? <Text style={styles.text2}>End Date</Text> : <Text style={styles.text2}>Ended</Text>}
                 <Text>{moment(data.endTime).format('MMMM Do YYYY [at] h:mm:ss a')} ({moment(data.endTime).fromNow()})</Text>
-            </Card> : null
-            }
+            </Card>
             {!data.hasVoted ?
                 <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
                 : null
