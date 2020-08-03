@@ -9,11 +9,11 @@ import {
 } from "react-native";
 
 import Card from "../components/card";
-import styles from "../styles/welcomepage";
 import baseStyles from "../styles/welcomepage";
 import orgStyles from "../styles/orgDetailsStyle";
 import styles from "../styles/welcomepage"; 
 import AsyncStorage from "@react-native-community/async-storage";
+import cardStyles from "../styles/cardStyles"; 
 
 export default function OrganizationDetails(props) {
 	function formatDate(epoch) {

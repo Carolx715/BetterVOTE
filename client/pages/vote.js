@@ -18,7 +18,8 @@ export default function vote(props)
         <ScrollView>
             <Text style = {styles.textTitle3}>Voting On:</Text>
             <Card>
-                <Text style = {styles.text2}>Insert descrip from props</Text>
+
+                <Text style = {styles.text2}>temp</Text>
                 <Button text = "VOTE FOR"/>
                 <Button text = "VOTE AGAINST"/>
                 <Button text = "VOTE ABSTAIN"/>

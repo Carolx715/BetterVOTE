@@ -18,6 +18,7 @@ export default function votingPage(props)
     const [data, setData] = useState();
     id = "5f2729afde3e578ec4ab40c1"; 
     
+    
     function formatDate(epoch) {
         const dateFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
@@ -58,7 +59,9 @@ export default function votingPage(props)
 	if (!data) {
 		return null;
     }
-
+    const s = {
+        description: data.description
+    }
     const supports = data.arguments["support"].map((s) => (
 		<Text key = {s}>{`\u2022 ${s}`}</Text>
         
@@ -71,9 +74,11 @@ export default function votingPage(props)
     return(
         <ScrollView>
         <View>
-        <Text style={styles.textTitle3}>Organization</Text>
+        {!data.hasVoted && 
+               <Text style = {styles.textTitle3}>Not Yet Voted</Text> 
+        }
         <Card>
-            <Text style = {styles.text2}>Voting On: {data.title}</Text>
+            <Text style = {styles.text2}>Voting Subject: {data.title}</Text>
             <View style = {styles.buttonContainer}>
             <Text style = {styles.text3}>{}</Text> 
             
@@ -90,13 +95,13 @@ export default function votingPage(props)
                 <Text style = {styles.text2}>Points Against:</Text>
                     {against}
             </Card>
-            {data.hasVoted == false &&
+            {!data.hasVoted &&
             <Card>
                 <Text style = {styles.text2}>Vote Treshold</Text>
-                <Text>{data.voteThreshold}</Text>
+                <Text>{`${data.voteThreshold*100}%`}</Text>
             </Card>
             }
-            {data.hasVoted == false && 
+            {!data.hasVoted && 
             <Card>
                 <Text style = {styles.text2}>End Date</Text>
                 <Text>{formatDate(data.endTime)}</Text>
@@ -104,8 +109,9 @@ export default function votingPage(props)
             
             }
 
-            {data.hasVoted == false &&
-                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote")} />
+            {!data.hasVoted &&
+                
+                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", s)} />
             }
              </View>
          </Card>
