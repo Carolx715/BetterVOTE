@@ -22,7 +22,7 @@ import { withOrientation } from "react-navigation";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
-
+console.log(props.navigation.getParam("_id")); 
 const validationSchema = yup.object().shape({
 	title: yup.string().required(),
     description: yup.string().required(),
@@ -32,7 +32,10 @@ const validationSchema = yup.object().shape({
 
 const url = "http://159.203.16.113:3000/ballots/create";
 
+
 async function createNewBallot(info) {
+	console.log(JSON.stringify(info));
+	{/*}
 	try {
 		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
 			console.log("Error accessing jwt token", error);
@@ -60,6 +63,7 @@ async function createNewBallot(info) {
 	} catch (error) {
 		console.log(error);
 	}
+*/}
 }
 
 const onChange = (event, selectedDate) => {
@@ -204,26 +208,28 @@ return (
 										text="Create"
 										onPress={() => {
 											Keyboard.dismiss();
-											try {
-                                                formikProps.values.endTime = date;
-                                                console.log(formikProps.values);
-												createNewBallot(formikProps.values).then((response) => {
-													if (!response?.error) {
+											try{
+												createNewBallot({
+													title: formikProps.values.title, 
+													description: formikProps.values.description, 
+													endTime: formikProps.values.endTime,
+													voteThreshold: formikProps.values.voteThreshold / 100,
+													organizationID: props.navigation.getParam("_id"),
+												 }).then((response) => {
+													if (!response?.error) { 
 														formikProps.handleSubmit; //submit form
-														props.navigation
-															.getParam("retrieveData")()
-															.then((response) => {
-																props.navigation.getParam("setData")(response);
-																alert("Successfully submitted", response);
-																props.navigation.navigate("Organizations");
-															});
+                                                        alert("Successfully submitted");
+                                                        props.navigation.navigate("OrganizationDetails", {_id: props.navigation.getParam("_id")});
+															
 													} else {
 														alert(response.error.message);
 													}
-												});
+												 });
 											} catch {
 												alert("Unknown Error");
 											}
+
+
 										}}
 									/>
 								)}

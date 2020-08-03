@@ -152,6 +152,7 @@ export default function OrganizationDetails(props) {
 						style={styles.userPicContainer}
 						onPress={() => {
 							props.navigation.navigate("createBallot", {
+								_id: props.navigation.getParam("_id"),
 								// retrieveData: retrieveData,
 								// setData: setData,
 							});
