@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		maxHeight: screenHeight,
 		height: "auto",
+		marginTop: vh(3),
 	},
 	container2: {
 		flex: 1,
@@ -34,6 +35,15 @@ const styles = StyleSheet.create({
 		height: "auto",
 		paddingBottom: vh(8),
 
+	},
+	containerOrgDesc: {
+		flex: 1,
+		backgroundColor: "#dab",
+		alignItems: "center",
+		justifyContent: "center",
+		maxHeight: screenHeight,
+		height: "auto",
+		paddingBottom: vh(5),
 	},
 
 	backgroundImage: {
