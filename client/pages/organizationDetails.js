@@ -81,7 +81,7 @@ export default function OrganizationDetails(props) {
 						</Text>
 					</View>
 				)}
-				<Text numberOfLines={1} style={orgStyles.textSubitleBallot}>
+				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
 					{ballot.title}
 				</Text>
 				<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
