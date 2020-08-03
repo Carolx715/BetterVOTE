@@ -15,11 +15,11 @@ import Button from "../components/button";
 export default function vote(props)
 { 
 
-
+    
     const resp = props.navigation.getParam("des");
     console.log(JSON.stringify(resp)); 
     const url = "http://159.203.16.113:3000/ballots/vote";
-
+    console.log("on Vote page");
     async function vote(info) {
 	try {
 		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
@@ -34,6 +34,7 @@ export default function vote(props)
 			body: JSON.stringify(info),
 		}).then((response) => {
 			if (response.ok) {
+                props.navigation.navigate("organizationDetails"); 
 				return {
 					success: true,
 				};
@@ -54,20 +55,25 @@ export default function vote(props)
         <ScrollView>
             <Text style = {styles.textTitle3}>Voting On:</Text>
             <Card>
-
                 <Text style = {styles.text2}>{resp}</Text>
                 <Button 
                     text = "VOTE FOR"
-                    onPress = {() => vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "support"}), props.navigation.navigate("votingPage")}
-                    />
+                    onPress = {() => 
+                        vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "support"})
+                    }
+                />
                 <Button 
                     text = "VOTE AGAINST"
-                    onPress = {() => vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "against"}), props.navigation.navigate("votingPage")}
+                    onPress = {() => 
+                        vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "against"})
+                    }
+
                 />
                 <Button 
                     text = "VOTE ABSTAIN"
-                    onPress = {() => vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "abstain"}), props.navigation.navigate("votingPage")}
-
+                    onPress = {() => 
+                        vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "abstain"})
+                    }
                 />
                 {/*submitting should lead you back to original votingPage.js*/}
             </Card>

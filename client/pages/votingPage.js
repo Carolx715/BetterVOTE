@@ -113,10 +113,11 @@ export default function votingPage(props)
             </Card>
             }
             {!data.hasVoted &&
-                
-                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
+
+            <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
+            
             }
-             </View>
+            </View>
         </View>
         </ScrollView>
     );
