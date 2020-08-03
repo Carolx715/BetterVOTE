@@ -65,9 +65,12 @@ async function getBallot(req, res) {
         return;
     }
 
-    database.getBallot(req.query.id).then(data => {
-        // if the status is active, don't send the current vote count
+    database.getBallot(req.query.id).then(async (data) => {
+        data.totalVotes = data.votes.support + data.votes.against + data.votes.abstain;
+        // if the status is active, don't send the current vote count & get the running org size for max votes
         if (data.status === "active") {
+            let orgData = await database.getOrganizationByID(data.organizationID);
+            data.maxVotes = orgData.memberCount;
             delete data.votes;
         }
         // set the hasVoted variable
