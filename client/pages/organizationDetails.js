@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
 	Text,
 	View,
-	FlatList,
+	Image,
 	TouchableOpacity,
 	ScrollView,
 	StyleSheet,
@@ -12,6 +12,7 @@ import Card from "../components/card";
 
 import baseStyles from "../styles/welcomepage";
 import orgStyles from "../styles/orgDetailsStyle";
+import cardStyles from "../styles/cardStyles";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -51,39 +52,110 @@ export default function OrganizationDetails(props) {
 	));
 	const ballots = data.activeBallots.map((ballot) => (
 		<Card>
-			{/*Carol: Below title should be a subtitle :) */}
-			<Text style={styles.textTitleOrg}>{ballot.title}</Text>
 			{ballot.hasVoted ? (
-				<Text>Status: Voted</Text>
+				<View style={{alignItems: "center", justifyContent: "center"}}>
+					<Text>
+						<View style={cardStyles.iconContainer}>
+							<Image
+								source={require("../assets/checkmark.png")}
+								style={cardStyles.icon}
+							/>
+						</View>
+						<Text style={{fontSize: 15}}>
+							&nbsp; Status: Voted
+						</Text>
+					</Text>
+				</View>
 			) : (
-				<Text>Status: Has Not Voted</Text>
+				<View style={{alignItems: "center", justifyContent: "center"}}>
+					<Text>
+						<View style={cardStyles.iconContainer}>
+							<Image
+								source={require("../assets/redx.png")}
+								style={cardStyles.icon}
+							/>
+						</View>
+						<Text style={{fontSize: 15}}>
+							&nbsp; Status: Has Not Voted
+						</Text>
+					</Text>
+				</View>
 			)}
-			<Text>{ballot.description}</Text>
+			<Text 
+				numberOfLines={1}
+				style={orgStyles.textSubitleBallot}>{ballot.title}</Text>
+			<Text 
+				numberOfLines={3}
+				style={cardStyles.textOrgDesc}>{ballot.description}</Text>
 			<Text>{ballot.endTime}</Text>
 		</Card>
 	));
 
 	return (
-		<View style={baseStyles.container2}>
-			<ScrollView>
-				<View style={baseStyles.flatlistContainer}>
-					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
-					<Card>
-						<Text>Description: {data.description}</Text>
-						<Text>Your Representative: {data.representatives[0].username}</Text>
-						<Text>User Count: {data.memberCount}</Text>
-						<Text>Users List:</Text>
-						{users}
-						<Text>Invite Code: {data.inviteCode}</Text>
-						<Text>Date Created: {data.createdDate}</Text>
-					</Card>
+		<View style={baseStyles.containerOrgDesc}>
+			<ScrollView 
+				showsVerticalScrollIndicator={false}>
 
-					<Text style={styles.textTitleOrg}>Ballots</Text>
+				<View style={baseStyles.container}>
+					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
+					{/* Put all these styles in files later */}
+					<View style={{backgroundColor: "rgba(255,255,255,1)",
+						borderRadius: 1,
+						padding: 20,
+								
+						marginHorizontal: 4,
+						marginBottom: 30,
+						marginTop: 30,
+						minWidth: "95%",
+						maxWidth: "95%",}}>
+
+						<Text style={cardStyles.textOrgDesc}>Description: {data.description}</Text>
+						<Text style={cardStyles.textOrgCount}>Your Representative: {data.representatives[0].username}</Text>
+						<Text style={cardStyles.textOrgCount}>User Count: {data.memberCount}</Text>
+						<Text style={{marginTop: 10}}>Invite Code: {data.inviteCode}</Text>
+						<Text>Date Created: {data.createdDate}</Text>
+					</View>
+
+
+					<View
+						style={{
+							width: "95%",
+							borderBottomColor: 'rgba(0,0,0,0.6)',
+							borderBottomWidth: 5,
+							borderRadius: 5
+						}}
+					/>
+
+					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
 					<TouchableOpacity
 						onPress={() => props.navigation.navigate("votingPage")}
 					>
 						{ballots}
 					</TouchableOpacity>
+
+					<View
+						style={{
+							width: "95%",
+							borderBottomColor: 'rgba(0,0,0,0.6)',
+							borderBottomWidth: 5,
+							borderRadius: 5
+						}}
+					/>
+
+
+
+				<View style={{backgroundColor: "rgba(255,255,255,1)",
+						borderRadius: 1,
+						padding: 20,
+								
+						marginHorizontal: 4,
+						marginBottom: 30,
+						marginTop: 30,
+						minWidth: "95%",
+						maxWidth: "95%",}}>
+					<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
+						{users} 
+					</View>
 				</View>
 			</ScrollView>
 		</View>

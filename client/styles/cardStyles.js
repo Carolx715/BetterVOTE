@@ -38,6 +38,14 @@ const styles = StyleSheet.create({
 	textOrgCount: {
 		color: "green",
 		fontSize: 12,
+	},
+	icon: {
+        width: vh(2.5),
+        height: vh(2.5),
+	},
+	iconContainer: {
+        width: vh(2.5),
+        height: vh(2.5),
 	}
 });
 
