@@ -48,7 +48,7 @@ export default function votingPage(props)
     return(
         <ScrollView>
         <View>
-        <Text style={styles.textTitle3}>Sample Vote: Not Yet Voted</Text>
+        <Text style={styles.textTitle3}>{data.title}</Text>
         <Card>
             <Text style = {styles.text2}>Voting On: {data.title}</Text>
             <View style = {styles.buttonContainer}>

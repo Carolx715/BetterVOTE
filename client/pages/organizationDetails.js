@@ -12,7 +12,7 @@ import Card from "../components/card";
 
 import baseStyles from "../styles/welcomepage";
 import orgStyles from "../styles/orgDetailsStyle";
-
+import styles from "../styles/welcomepage"; 
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function OrganizationDetails(props) {
