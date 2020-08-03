@@ -206,6 +206,21 @@ async function addArgument(id, type, argument) {
 	return db.collection("ballots").updateOne({ _id: ObjectID(id) }, { $push: { ["arguments." + type]: argument }})
 }
 
+async function resolveBallot(id) {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const ballot = await db.collection("ballots").findOne({ _id: ObjectID(id) });
+			if (ballot.endTime <= Date.now() && ballot.status === "active") {
+				const ballotOrg = await db.collection("organizations").findOne({ _id: ObjectID(ballot.organizationID) });
+				const updatedBallot = await db.collection("ballots").findOneAndUpdate({ _id: ObjectID(id) }, { $set: { maxVotes: ballotOrg.memberCount, status: "ended" } }, { returnOriginal: false });
+				resolve(updatedBallot.value);
+			}
+		} catch (err) {
+			reject(err);
+		}
+	});
+}
+
 exports.getUser = getUser;
 exports.addUser = addUser;
 exports.addOrganization = addOrganization;
@@ -218,3 +233,4 @@ exports.getBallots = getBallots;
 exports.getBallot = getBallot;
 exports.vote = vote;
 exports.addArgument = addArgument;
+exports.resolveBallot = resolveBallot;
