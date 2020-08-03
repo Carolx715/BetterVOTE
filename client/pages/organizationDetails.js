@@ -63,6 +63,10 @@ export default function OrganizationDetails(props) {
 		<Text key={user.email}>{user.username}</Text>
 	));
 	const ballots = data.activeBallots.map((ballot) => (
+		<TouchableOpacity
+			key = {ballot._id}
+			onPress={() => props.navigation.navigate("votingPage", {_id: ballot._id})}
+		>
 		<Card key={ballot._id}>
 
 			{ballot.hasVoted ? (
@@ -90,6 +94,7 @@ export default function OrganizationDetails(props) {
 				style={cardStyles.textOrgDesc}>{ballot.description}</Text>
 			<Text>Vote Ends {formatDate(ballot.endTime)}</Text>
 		</Card>
+		</TouchableOpacity>
 	));
 
 	return (
@@ -128,12 +133,7 @@ export default function OrganizationDetails(props) {
 					/>
 
 					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
-					<TouchableOpacity
-						onPress={() => props.navigation.navigate("votingPage",)}
-					>
 						{ballots}
-					</TouchableOpacity>
-
 					<View
 						style={{
 							width: "95%",

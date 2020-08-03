@@ -59,20 +59,20 @@ export default function vote(props)
                 <Button 
                     text = "VOTE FOR"
                     onPress = {() => 
-                        vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "support"})
+                        vote({ballotID: props.navigation.getParam("_id"), vote: "support"})
                     }
                 />
                 <Button 
                     text = "VOTE AGAINST"
                     onPress = {() => 
-                        vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "against"})
+                        vote({ballotID: props.navigation.getParam("_id"), vote: "against"})
                     }
 
                 />
                 <Button 
                     text = "VOTE ABSTAIN"
                     onPress = {() => 
-                        vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "abstain"})
+                        vote({ballotID: props.navigation.getParam("_id"), vote: "abstain"})
                     }
                 />
                 {/*submitting should lead you back to original votingPage.js*/}

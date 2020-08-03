@@ -17,10 +17,8 @@ export default function votingPage(props)
 {
     
     const [data, setData] = useState();
-    id = "5f2729afde3e578ec4ab40c1";
-
-    {/* Will be fixed on monday to get unique id for each ballot from orgdetails
-    id = props.navigation.getParam("_id"); */}
+    id = props.navigation.getParam("_id"); 
+    console.log(id); 
 
     
     function formatDate(epoch) {
@@ -114,7 +112,7 @@ export default function votingPage(props)
             </Card> : null
             }
             {!data.hasVoted ?
-                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
+                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title, _id: props.navigation.getParam("_id")})} />
                 : null
             }
             </View>
