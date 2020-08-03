@@ -33,7 +33,6 @@ export default function votingPage(props) {
 				},
 			});
 			let data = await response.json();
-			console.log(JSON.stringify(data));
 			setData(data);
 		} catch (error) {
 			console.log(error);
@@ -108,6 +107,11 @@ export default function votingPage(props) {
 							{moment(data.endTime).fromNow()})
 						</Text>
 					</Card>
+                    <Button 
+                        text = "Add New Argument"
+                        onPress={() => props.navigation.navigate("AddPoint", {_id: props.navigation.getParam("_id"),})}
+    
+                    />
 					{!data.hasVoted ? (
 						<Button
 							text="VOTE"
