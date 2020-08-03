@@ -128,7 +128,7 @@ export default function OrganizationDetails(props) {
 						</Text>
 						<Text style={styles.organizationDetailsContainer}>
 							<Text style={{ fontWeight: "bold" }}>Date Created: </Text>{" "}
-							{formatDate(data.createdDate)}
+							{moment(data.createdDate).format("MMM Do YYYY")}
 						</Text>
 					</View>
 				</Card>
