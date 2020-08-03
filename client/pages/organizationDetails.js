@@ -68,28 +68,16 @@ export default function OrganizationDetails(props) {
 			{ballot.hasVoted ? (
 				<View style={{alignItems: "center", justifyContent: "center"}}>
 					<Text>
-						<View style={cardStyles.iconContainer}>
-							<Image
-								source={require("../assets/checkmark.png")}
-								style={cardStyles.icon}
-							/>
-						</View>
 						<Text style={{fontSize: 15}}>
-							&nbsp; Status: Voted
+							✅ Status: Voted
 						</Text>
 					</Text>
 				</View>
 			) : (
 				<View style={{alignItems: "center", justifyContent: "center"}}>
 					<Text>
-						<View style={cardStyles.iconContainer}>
-							<Image
-								source={require("../assets/redx.png")}
-								style={cardStyles.icon}
-							/>
-						</View>
 						<Text style={{fontSize: 15}}>
-							&nbsp; Status: Has Not Voted
+								❌ Status: Has Not Voted
 						</Text>
 					</Text>
 				</View>

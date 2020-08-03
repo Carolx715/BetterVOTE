@@ -76,8 +76,9 @@ export default function votingPage(props)
     return(
         <ScrollView>
         <View>
-        {!data.hasVoted && 
+        {!data.hasVoted ? 
                <Text style = {styles.textTitle3}>Not Yet Voted</Text> 
+               : null
         }
             <Text style = {styles.text2}>Voting Subject: {data.title}</Text>
             <View style = {styles.buttonContainer}>
@@ -96,26 +97,25 @@ export default function votingPage(props)
                 <Text style = {styles.text2}>Points Against:</Text>
                     {against}
             </Card>
-            {!data.hasVoted &&
+            {!data.hasVoted ?
             <Card>
                 <Text style = {styles.text2}>Vote Treshold</Text>
                 <Text>{`${data.voteThreshold*100}%`}</Text>
-            </Card>
+            </Card> : null
             }
             <Card>
                  <Text style = {styles.text2}>Voter Turnout</Text>
                  <Text>{`${data.totalVotes/data.maxVotes*100}%`}</Text>
                  </Card>
-            {!data.hasVoted && 
+            {!data.hasVoted ? 
             <Card>
                 <Text style = {styles.text2}>End Date</Text>
                 <Text>{formatDate(data.endTime)}</Text>
-            </Card>
+            </Card> : null
             }
-            {!data.hasVoted &&
-
-            <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
-            
+            {!data.hasVoted ?
+                <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
+                : null
             }
             </View>
         </View>
