@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
 	Text,
 	View,
@@ -16,19 +17,6 @@ import AsyncStorage from "@react-native-community/async-storage";
 import cardStyles from "../styles/cardStyles"; 
 
 export default function OrganizationDetails(props) {
-	function formatDate(epoch) {
-		const dateFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-		const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
-		let date = new Date(epoch);
-		if (date.getDay() === new Date().getDay()) {
-		  return `Today at ${date.toLocaleString('en-US', timeFormat)}`
-		} else if (date.getDay() === new Date().getDay() + 1) {
-		  return `Tomorrow at ${date.toLocaleString('en-US', timeFormat)}`
-		} else {
-		  return `${date.toLocaleString('en-US', dateFormat)} at ${date.toLocaleString('en-US', timeFormat)}`
-		}
-	}
-
 	const [data, setData] = useState();
 	id = props.navigation.getParam("_id");
 
@@ -92,7 +80,7 @@ export default function OrganizationDetails(props) {
 			<Text 
 				numberOfLines={3}
 				style={cardStyles.textOrgDesc}>{ballot.description}</Text>
-			<Text>Vote Ends {formatDate(ballot.endTime)}</Text>
+			<Text>Voting ends {moment(ballot.endTime).calendar()} ({moment(ballot.endTime).fromNow()})</Text>
 		</Card>
 		</TouchableOpacity>
 	));
@@ -119,7 +107,7 @@ export default function OrganizationDetails(props) {
 						<Text style={cardStyles.textOrgCount}>Your Representative: {data.representatives[0].username}</Text>
 						<Text style={cardStyles.textOrgCount}>User Count: {data.memberCount}</Text>
 						<Text style={{marginTop: 10}}>Invite Code: {data.inviteCode}</Text>
-						<Text>Date Created: {formatDate(data.createdDate)}</Text>
+						<Text>Date Created: {moment(data.createdDate).format("MMM Do YYYY")}</Text>
 					</View>
 
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
 	Text,
 	View,
@@ -97,20 +98,18 @@ export default function votingPage(props)
             </Card>
             {!data.hasVoted ?
             <Card>
-                <Text style = {styles.text2}>Vote Treshold</Text>
+                <Text style = {styles.text2}>Threshold to Pass</Text>
                 <Text>{`${data.voteThreshold*100}%`}</Text>
             </Card> : null
             }
             <Card>
                  <Text style = {styles.text2}>Voter Turnout</Text>
-                 <Text>{`${data.totalVotes/data.maxVotes*100}%`}</Text>
+                 <Text>{`${(data.totalVotes/data.maxVotes*100).toFixed(2)}%`}</Text>
                  </Card>
-            {!data.hasVoted ? 
             <Card>
-                <Text style = {styles.text2}>End Date</Text>
-                <Text>{formatDate(data.endTime)}</Text>
-            </Card> : null
-            }
+              {data.status === "active" ? <Text style={styles.text2}>End Date</Text> : <Text style={styles.text2}>Ended</Text>}
+                <Text>{moment(data.endTime).format('MMMM Do YYYY [at] h:mm:ss a')} ({moment(data.endTime).fromNow()})</Text>
+            </Card>
             {!data.hasVoted ?
                 <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title, _id: props.navigation.getParam("_id")})} />
                 : null
