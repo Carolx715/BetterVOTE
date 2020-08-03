@@ -32,12 +32,6 @@ export default function votingPage(props)
                 <Text style = {styles.text2}>Points Against:</Text>
             </Card>
             <Card>
-                <Text style = {styles.text2}>Votes For:</Text>
-            </Card>
-            <Card>
-                <Text style = {styles.text2}>Votes Against:</Text>
-            </Card>
-            <Card>
                 <Text style = {styles.text2}>Voter Turnout</Text>
             </Card>
                 <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote")} />

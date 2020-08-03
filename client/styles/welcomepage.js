@@ -89,6 +89,13 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		margin: vw(2.2),
 	},
+	textTitle3: {
+		fontWeight: "bold",
+		color: "black",
+		fontSize: 30,
+		textAlign: "center",
+		margin: vw(2.2),
+	},
 	subText: {
 		color: "white",
 		marginBottom: vh(2),
