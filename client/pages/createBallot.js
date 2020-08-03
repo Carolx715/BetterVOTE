@@ -94,12 +94,13 @@ return (
 				style={styles.backgroundImage}
 			/>
 			<ScrollView
-                style={{maxWidth: "90%"}}
+                style={{maxWidth: "95%"}}
+                contentContainerStyle={{margin: 20}}
                 showsVerticalScrollIndicator={false}>
 				<Text style={formStyles.formTitleCreateNew}>
 					Create a Ballot
 				</Text>
-                <Text style={{color: "white", textAlign: "center", width: "90%"}}>
+                <Text style={{color: "white", textAlign: "center",}}>
 					Create a new ballot in *organization name* that people can vote on.
 				</Text>
 				<Formik
