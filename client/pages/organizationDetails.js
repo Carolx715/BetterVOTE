@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import Card from "../components/card";
-
+import styles from "../styles/welcomepage";
 import baseStyles from "../styles/welcomepage";
 import orgStyles from "../styles/orgDetailsStyle";
 
