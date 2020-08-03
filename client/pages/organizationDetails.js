@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import Card from "../components/card";
-
+import styles from "../styles/welcomepage";
 import baseStyles from "../styles/welcomepage";
 import orgStyles from "../styles/orgDetailsStyle";
 import cardStyles from "../styles/cardStyles";
@@ -51,7 +51,10 @@ export default function OrganizationDetails(props) {
 		<Text key={user.email}>{user.username}</Text>
 	));
 	const ballots = data.activeBallots.map((ballot) => (
-		<Card>
+		<Card key={ballot._id}>
+			{/*Carol: Below title should be a subtitle :) */}
+			<Text style={styles.textTitleOrg}>{ballot.title}</Text>
+
 			{ballot.hasVoted ? (
 				<View style={{alignItems: "center", justifyContent: "center"}}>
 					<Text>
