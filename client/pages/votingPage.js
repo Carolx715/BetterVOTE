@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
 	Text,
 	View,
@@ -21,21 +22,6 @@ export default function votingPage(props)
 
     {/* Will be fixed on monday to get unique id for each ballot from orgdetails
     id = props.navigation.getParam("_id"); */}
-
-    
-    function formatDate(epoch) {
-        const dateFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
-        let date = new Date(epoch);
-        if (date.getDay() === new Date().getDay()) {
-          return `Today at ${date.toLocaleString('en-US', timeFormat)}`
-        } else if (date.getDay() === new Date().getDay() + 1) {
-          return `Tomorrow at ${date.toLocaleString('en-US', timeFormat)}`
-        } else {
-          return `${date.toLocaleString('en-US', dateFormat)} at ${date.toLocaleString('en-US', timeFormat)}`
-        }
-      }
-
       useEffect(() => {
 		const fetchData = async () => {
 			const url = `http://159.203.16.113:3000/ballots/getBallot?id=${id}`;
@@ -99,20 +85,18 @@ export default function votingPage(props)
             </Card>
             {!data.hasVoted ?
             <Card>
-                <Text style = {styles.text2}>Vote Treshold</Text>
+                <Text style = {styles.text2}>Threshold to Pass</Text>
                 <Text>{`${data.voteThreshold*100}%`}</Text>
             </Card> : null
             }
             <Card>
                  <Text style = {styles.text2}>Voter Turnout</Text>
-                 <Text>{`${data.totalVotes/data.maxVotes*100}%`}</Text>
+                 <Text>{`${(data.totalVotes/data.maxVotes*100).toFixed(2)}%`}</Text>
                  </Card>
-            {!data.hasVoted ? 
             <Card>
-                <Text style = {styles.text2}>End Date</Text>
-                <Text>{formatDate(data.endTime)}</Text>
-            </Card> : null
-            }
+              {data.status === "active" ? <Text style={styles.text2}>End Date</Text> : <Text style={styles.text2}>Ended</Text>}
+                <Text>{moment(data.endTime).format('MMMM Do YYYY [at] h:mm:ss a')} ({moment(data.endTime).fromNow()})</Text>
+            </Card>
             {!data.hasVoted ?
                 <Button text = "VOTE" onPress={() => props.navigation.navigate("Vote", {des: data.title})} />
                 : null
