@@ -154,7 +154,7 @@ async function vote(req, res) {
     }
 
     let ballot = await database.getBallot(req.body.ballotID);
-    if (ballot.voters.includes(req.user.email)) {
+    if (ballot.voters.includes(req.user.email) && ballot.status === "active") {
         res.status(403).send({ error: "You have already voted on this ballot" });
     } else {
         await database.vote(req.body.ballotID, req.body.vote, req.user.email).catch(err => {
