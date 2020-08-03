@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
 		top: vh(-10),
 	},
 
-	textTitleOrg: {
+	//formerly textTitleOrg
+	organizationTextTitle: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 30,
@@ -52,7 +53,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 
-	textContainer: {
+	//formerly text container
+	organizationTextContainer: {
 		width: "100%",
 		height: "100%",
 		flex: 1,
@@ -91,12 +93,12 @@ const styles = StyleSheet.create({
 		elevation: 5,
 	},
 
-	text: {
+	organizationText: {
 		fontSize: 18,
 		marginVertical: vw(3),
 	},
 
-	textContainer: {
+	organizationTextContainer: {
 		fontWeight: "bold",
 		color: "white",
 		justifyContent: "center",

@@ -9,11 +9,10 @@ import {
 } from "react-native";
 
 import Card from "../components/card";
-import baseStyles from "../styles/welcomepage";
-import orgStyles from "../styles/orgDetailsStyle";
-import styles from "../styles/welcomepage";
 import AsyncStorage from "@react-native-community/async-storage";
 import cardStyles from "../styles/cardStyles";
+import styles from "../styles/globalStyles";
+import { vh } from "react-native-expo-viewport-units";
 
 export default function OrganizationDetails(props) {
 	function formatDate(epoch) {
@@ -71,174 +70,114 @@ export default function OrganizationDetails(props) {
 
 	const users = data.users.map((user) => (
 		<View style={{ alignItems: "center" }} key={user.email}>
-			<Text>{user.username}</Text>
+			<Text style={{ fontStyle: "italic", marginBottom: vh(1) }}>
+				{user.username}
+			</Text>
 		</View>
 	));
 	const ballots = data.activeBallots.map((ballot) => (
-		<Card key={ballot._id}>
-			{ballot.hasVoted ? (
-				<View style={{ alignItems: "center", justifyContent: "center" }}>
-					<Text>
-						<View style={cardStyles.iconContainer}>
-							<Image
-								source={require("../assets/checkmark.png")}
-								style={cardStyles.icon}
-							/>
-						</View>
-						<Text style={{ fontSize: 15 }}>&nbsp; Status: Voted</Text>
-					</Text>
-				</View>
-			) : (
-				<View style={{ alignItems: "center", justifyContent: "center" }}>
-					<Text>
-						<View style={cardStyles.iconContainer}>
-							<Image
-								source={require("../assets/redx.png")}
-								style={cardStyles.icon}
-							/>
-						</View>
-						<Text style={{ fontSize: 15 }}>&nbsp; Status: Has Not Voted</Text>
-					</Text>
-				</View>
-			)}
-			<Text numberOfLines={1} style={orgStyles.textSubitleBallot}>
-				{ballot.title}
-			</Text>
-			<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
-				{ballot.description}
-			</Text>
-			<Text>Vote Ends {formatDate(ballot.endTime)}</Text>
-		</Card>
+		<TouchableOpacity
+			key={ballot._id}
+			onPress={() =>
+				props.navigation.navigate("votingPage", { _id: ballot._id })
+			}
+		>
+			<Card>
+				{ballot.hasVoted ? (
+					<View style={{ alignItems: "center", justifyContent: "center" }}>
+						<Text>
+							<View style={cardStyles.iconContainer}>
+								<Image
+									source={require("../assets/checkmark.png")}
+									style={cardStyles.icon}
+								/>
+							</View>
+							<Text style={{ fontSize: 15 }}>&nbsp; Status: Voted</Text>
+						</Text>
+					</View>
+				) : (
+					<View style={{ alignItems: "center", justifyContent: "center" }}>
+						<Text>
+							<View style={cardStyles.iconContainer}>
+								<Image
+									source={require("../assets/redx.png")}
+									style={cardStyles.icon}
+								/>
+							</View>
+							<Text style={{ fontSize: 15 }}>&nbsp; Status: Has Not Voted</Text>
+						</Text>
+					</View>
+				)}
+				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
+					{ballot.title}
+				</Text>
+				<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
+					{ballot.description}
+				</Text>
+				<Text>Vote Ends {formatDate(ballot.endTime)}</Text>
+			</Card>
+		</TouchableOpacity>
 	));
 
 	return (
-		<View style={baseStyles.containerOrgDesc}>
-<<<<<<< HEAD
-			<ScrollView showsVerticalScrollIndicator={false}>
-				<View style={baseStyles.container}>
-					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
-					<Card>
-						<View style={{ alignItems: "center" }}>
-							<Text style={cardStyles.textOrgDesc}>{data.description}</Text>
-							<Text style={{ marginTop: 8, marginBottom: 5 }}>
-								<Text style={{ fontWeight: "bold" }}>
-									Your Representative:{" "}
-								</Text>{" "}
-								{data.representatives[0].username}
-							</Text>
-							<Text style={{ marginTop: 8, marginBottom: 5 }}>
-								<Text style={{ fontWeight: "bold" }}>User Count: </Text>
-								{data.memberCount}
-							</Text>
-							<Text style={{ marginTop: 8, marginBottom: 5 }}>
-								<Text style={{ fontWeight: "bold" }}>Invite Code: </Text>{" "}
-								{data.inviteCode}
-							</Text>
-							<Text style={{ marginTop: 8, marginBottom: 5 }}>
-								<Text style={{ fontWeight: "bold" }}>Date Created: </Text>{" "}
-								{formatDate(data.createdDate)}
-							</Text>
-						</View>
-					</Card>
-=======
-			<ScrollView 
-				contentContainerStyle={{alignItems: "center", justifyContent: "center"}}
-				showsVerticalScrollIndicator={false}>
-					<Text style={orgStyles.textTitleOrg}>{data.name}</Text>
-					{/* Put all these styles in files later */}
-					<View style={orgStyles.textBoxDetails}>
-
-						<Text style={cardStyles.textOrgDesc}>Description: {data.description}</Text>
-						<Text style={cardStyles.textOrgCount}>Your Representative: {data.representatives[0].username}</Text>
-						<Text style={cardStyles.textOrgCount}>User Count: {data.memberCount}</Text>
-						<Text style={{marginTop: 10}}>Invite Code: {data.inviteCode}</Text>
-						<Text>Date Created: {formatDate(data.createdDate)}</Text>
+		<View style={styles.containerOrgDesc}>
+			<Image
+				source={require("../assets/background-logged-in.jpg")}
+				style={styles.organizationBackgroundImage}
+			/>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+			>
+				<Text style={{ ...styles.textTitleOrgDetails, color: "white" }}>
+					{data.name}
+				</Text>
+				<Card>
+					<View style={{ alignItems: "center" }}>
+						<Text style={cardStyles.textOrgDesc}>{data.description}</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>Your Representative: </Text>{" "}
+							{data.representatives[0].username}
+						</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>User Count: </Text>
+							{data.memberCount}
+						</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>Invite Code: </Text>{" "}
+							{data.inviteCode}
+						</Text>
+						<Text style={styles.organizationDetailsContainer}>
+							<Text style={{ fontWeight: "bold" }}>Date Created: </Text>{" "}
+							{formatDate(data.createdDate)}
+						</Text>
 					</View>
->>>>>>> origin/carol
+				</Card>
+				<View style={styles.br} />
 
+				<Text style={styles.BallotTitle}>Ballots</Text>
+
+				{Object.keys(ballots).length === 0 ? (
 					<Card>
-						<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
+						<Text style={{ color: "grey", fontSize: 16 }}>
+							There are no active ballots right now.
+						</Text>
+					</Card>
+				) : (
+					ballots
+				)}
+
+				<View style={styles.br} />
+				<View style={{ marginTop: vh(3.1) }}>
+					<Card>
+						<Text style={styles.OrgDescUserListTitle}>Users List:</Text>
 						{users}
 					</Card>
-
-<<<<<<< HEAD
-					{/* <View
-						style={{
-							width: "95%",
-							borderBottomColor: "rgba(0,0,0,0.6)",
-							borderBottomWidth: 5,
-							borderRadius: 5,
-						}}
-					/> */}
-
-					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
-					<TouchableOpacity
-						onPress={() => props.navigation.navigate("votingPage",)}
-					>
-						{ballots}
-					</TouchableOpacity>
-
-					<View
-						style={{
-							width: "95%",
-							borderBottomColor: "rgba(0,0,0,0.6)",
-							borderBottomWidth: 5,
-							borderRadius: 5,
-						}}
-					/>
 				</View>
-=======
-					<View style={orgStyles.br}/>
-
-					<Text style={orgStyles.textTitleBallot}>Ballots</Text>
-						
-						{Object.keys(ballots).length === 0  ? (
-							<View style={orgStyles.textBoxDetails}>
-							<Text style={{color: "grey", fontSize: 16}}>There are no active ballots right now.</Text>
-							</View>
-						) : (
-							<TouchableOpacity
-								onPress={() => props.navigation.navigate("votingPage")}
-							>
-								{ballots}
-							</TouchableOpacity>
-						)}
-
-					<View style={orgStyles.br}/>
-
-					<View style={orgStyles.textBoxDetails}>
-					<Text style={orgStyles.textTitleUserlist}>Users List:</Text>
-						{users} 
-					</View>
->>>>>>> origin/carol
 			</ScrollView>
 		</View>
 	);
 }
-
-const styles2 = StyleSheet.create({
-	card: {
-		borderRadius: 6,
-		elevation: 3,
-		backgroundColor: "#fff",
-		shadowOffset: { width: 1, height: 1 },
-		shadowColor: "#333",
-		shadowOpacity: 0.3,
-		shadowRadius: 2,
-		marginHorizontal: 15,
-		marginVertical: 30,
-		padding: 20,
-		width: 10,
-		height: 10,
-		flex: 2,
-	},
-	scrollView: {
-		backgroundColor: "pink",
-		marginHorizontal: 20,
-	},
-	cardContent: {
-		marginHorizontal: 18,
-		marginVertical: 20,
-		width: "100%",
-	},
-});

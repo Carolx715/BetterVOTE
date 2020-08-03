@@ -124,9 +124,10 @@ const styles = StyleSheet.create({
 	},
 	buttonContainer: {
 		marginBottom: vh(13.3),
-		alignItems: "center"
-	}, orgButtonContainer: {
-		alignItems: "center"
+		alignItems: "center",
+	},
+	orgButtonContainer: {
+		alignItems: "center",
 	},
 
 	loginButton: {

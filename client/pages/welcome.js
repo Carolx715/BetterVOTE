@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Text, View, Image } from "react-native";
-import styles from "../styles/welcomepage";
+import styles from "../styles/globalStyles";
 import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
 

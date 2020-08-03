@@ -7,11 +7,10 @@ import {
 	View,
 	Image,
 	Keyboard,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
 } from "react-native";
 
-import styles from "../styles/welcomepage";
-import formStyles from "../styles/formStyling";
+import styles from "../styles/globalStyles";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Button from "../components/button";
@@ -50,8 +49,8 @@ export default function Login(props) {
 					source={require("../assets/background.jpg")}
 					style={styles.backgroundImage}
 				/>
-				<View style={formStyles.formContainer}>
-					<Text style={formStyles.formTitle}>Login</Text>
+				<View style={styles.formContainer}>
+					<Text style={styles.formTitle}>Login</Text>
 					<Formik
 						initialValues={{ email: "", password: "" }}
 						onSubmit={(values, actions) => {
@@ -63,12 +62,17 @@ export default function Login(props) {
 					>
 						{(formikProps) => (
 							<React.Fragment>
-								<View style={formStyles.formComponent}>
-									<Text style={formStyles.formText}>Email</Text>
+								<View
+									style={{
+										...styles.formComponent,
+										...styles.loginCenterContainer,
+									}}
+								>
+									<Text style={styles.formText}>Email</Text>
 									<TextInput
 										placeholder="johndoe@example.com"
 										placeholderTextColor="#AAAAAA"
-										style={formStyles.textbox}
+										style={styles.formTextbox}
 										onChangeText={formikProps.handleChange("email")} //
 										onBlur={formikProps.handleBlur("email")}
 										value={formikProps.values.email.toLowerCase()}
@@ -78,23 +82,34 @@ export default function Login(props) {
 									</Text>
 								</View>
 
-								<View style={formStyles.formComponent}>
-									<Text style={formStyles.formText}>Password</Text>
+								<View
+									style={{
+										...styles.formComponent,
+										...styles.loginCenterContainer,
+									}}
+								>
+									<Text style={styles.formText}>Password</Text>
 									<TextInput
 										placeholder="Password"
 										placeholderTextColor="#AAAAAA"
-										style={formStyles.textbox}
+										style={styles.formTextbox}
 										onChangeText={formikProps.handleChange("password")}
 										onBlur={formikProps.handleBlur("password")}
 										secureTextEntry
 										value={formikProps.values.password}
 									/>
 									<Text style={{ color: "red" }}>
-										{formikProps.touched.password && formikProps.errors.password}
+										{formikProps.touched.password &&
+											formikProps.errors.password}
 									</Text>
 								</View>
 
-								<View style={formStyles.formComponent}></View>
+								<View
+									style={{
+										...styles.formComponent,
+										...styles.loginCenterContainer,
+									}}
+								></View>
 								{formikProps.isSubmitting ? (
 									<ActivityIndicator />
 								) : (
@@ -107,12 +122,14 @@ export default function Login(props) {
 													Keyboard.dismiss();
 													if (response.jwt) {
 														console.log(response.jwt);
-														AsyncStorage.setItem("Token", response.jwt).then(() => {
-															alert("You are logged in!");
-															props.navigation.navigate("Organizations");
-														}).catch((err) => {
-															console.log(err);
-														});
+														AsyncStorage.setItem("Token", response.jwt)
+															.then(() => {
+																alert("You are logged in!");
+																props.navigation.navigate("Organizations");
+															})
+															.catch((err) => {
+																console.log(err);
+															});
 													} else if (response.error) {
 														alert(response.error);
 													} else {
