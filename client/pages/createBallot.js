@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	SafeAreaView,
 	ScrollView,
@@ -10,23 +10,29 @@ import {
 	Keyboard,
 	TouchableWithoutFeedback,
 } from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import styles from "../styles/welcomepage";
 import formStyles from "../styles/formStyling";
+import userStyles from "../styles/userProfileStyles";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Button from "../components/button";
 import { withOrientation } from "react-navigation";
 import AsyncStorage from "@react-native-community/async-storage";
 
+export default function welcome(props) {
+
 const validationSchema = yup.object().shape({
-	name: yup.string().required(),
-	description: yup.string().required(),
+	title: yup.string().required(),
+    description: yup.string().required(),
+    voteThreshold: yup.string().required()
+    
 });
 
-const url = "http://159.203.16.113:3000/organizations/create";
+const url = "http://159.203.16.113:3000/ballots/create";
 
-async function createNewOrg(info) {
+async function createNewBallot(info) {
 	try {
 		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
 			console.log("Error accessing jwt token", error);
@@ -56,30 +62,61 @@ async function createNewOrg(info) {
 	}
 }
 
-export default (props) => (
+const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+};
+
+
+// sets to today's date and time
+const [date, setDate] = useState(new Date());
+const [mode, setMode] = useState('date');
+const [show, setShow] = useState(false);
+
+const showMode = currentMode => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+// switches to date picker
+const showDatepicker = () => {
+    showMode('date');
+};
+
+// switches to time picker
+const showTimepicker = () => {
+    showMode('time');
+};
+
+return (
 	<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView style={userStyles.container}>
 			<Image
 				source={require("../assets/background.jpg")}
 				style={styles.backgroundImage}
 			/>
 			<ScrollView
-				style={formStyles.formContainerRegister}
-				contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}
-			>
+                style={{maxWidth: "95%"}}
+                contentContainerStyle={{margin: 20}}
+                showsVerticalScrollIndicator={false}>
 				<Text style={formStyles.formTitleCreateNew}>
 					Create a Ballot
 				</Text>
-                <Text style={{color: "white", textAlign: "center", width: "90%"}}>
+                <Text style={{color: "white", textAlign: "center",}}>
 					Create a new ballot in *organization name* that people can vote on.
 				</Text>
+
+                {/* Form begins */}
 				<Formik
-					initialValues={{ name: "", description: "" }}
+                    initialValues={{ title: "", description: "", voteThreshold: "", endTime: date}}
+                    
 					onSubmit={(values, actions) => {
 						alert(JSON.stringify(values));
 						setTimeout(() => {
 							actions.setSubmitting(false);
-						}, 1000);
+                        }, 1000);
+                        console.log(values)
 					}}
 					validationSchema={validationSchema}
 				>
@@ -91,11 +128,11 @@ export default (props) => (
 									placeholder="Ballot Name"
 									placeholderTextColor="#AAAAAA"
 									style={formStyles.textbox}
-									onChangeText={formikProps.handleChange("name")}
-									onBlur={formikProps.handleBlur("name")}
+									onChangeText={formikProps.handleChange("title")}
+									onBlur={formikProps.handleBlur("title")}
 								/>
 								<Text style={{ color: "red" }}>
-									{formikProps.touched.name && formikProps.errors.name}
+									{formikProps.touched.title && formikProps.errors.title}
 								</Text>
 
 								<Text style={formStyles.formText}>Description</Text>
@@ -106,13 +143,58 @@ export default (props) => (
 									style={formStyles.textarea}
 									onChangeText={formikProps.handleChange("description")}
 									onBlur={formikProps.handleBlur("description")}
-									secureTextEntry
+									
 								/>
 								<Text style={{ color: "red" }}>
 									{formikProps.touched.description &&
 										formikProps.errors.description}
 								</Text>
+
+								<Text style={formStyles.formText}>Percent to Pass</Text>
+								<TextInput
+                                    keyboardType="numeric"
+									placeholder="e.g. 55%"
+									placeholderTextColor="#AAAAAA"
+									style={formStyles.textbox}
+									onChangeText={formikProps.handleChange("voteThreshold")}
+									onBlur={formikProps.handleBlur("voteThreshold")}
+									
+								/>
+								<Text style={{ color: "red" }}>
+									{formikProps.touched.voteThreshold &&
+										formikProps.errors.voteThreshold}
+								</Text>
+
+                                {/* END DATE STARTS HERE */}
+
+								<Text style={formStyles.formText}>Ballot End Date/Time</Text>
+								<TextInput
+                                    editable={false}
+									placeholder={date.toUTCString()} // SUNNY HOW DO YOU STYLE THE DATE
+									placeholderTextColor="#FFF"
+									style={formStyles.textbox}
+									onChangeText={formikProps.handleChange("endTime")}
+									onBlur={formikProps.handleBlur("endTime")}
+								/>
+                                <View>
+                                    <Button onPress={showDatepicker} text="Change Date" />
+                                </View>
+                                <View>
+                                    <Button onPress={showTimepicker} text="Change Time" />
+                                </View>
+                                {show && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={date}
+                                        mode={mode}
+                                        is24Hour={true}
+                                        display="default"
+                                        onChange={onChange}
+                                    />
+                                )}
 							</View>
+
+                            {/* END DATE ENDS */}
 
 							<View style={formStyles.btnComponent}>
 								{formikProps.isSubmitting ? (
@@ -123,7 +205,9 @@ export default (props) => (
 										onPress={() => {
 											Keyboard.dismiss();
 											try {
-												createNewOrg(formikProps.values).then((response) => {
+                                                formikProps.values.endTime = date;
+                                                console.log(formikProps.values);
+												createNewBallot(formikProps.values).then((response) => {
 													if (!response?.error) {
 														formikProps.handleSubmit; //submit form
 														props.navigation
@@ -151,3 +235,5 @@ export default (props) => (
 		</SafeAreaView>
 	</TouchableWithoutFeedback>
 );
+
+}

@@ -18,6 +18,7 @@ router.use((err, req, res, next) => {
 
 router.post('/create', createBallot);
 router.post('/vote', vote);
+router.post('/addArgument', addArgument)
 router.get('/getBallot', getBallot);
 router.get('/getList', getBallots);
 
@@ -124,7 +125,7 @@ async function getBallots(req, res) {
 }
 
 async function vote(req, res) {
-    if (!req.body.ballotID && !req.body.vote) {
+    if (!req.body.ballotID || !req.body.vote) {
         res.status(400).send({ error: "Not all fields were filled" });
         return;
     }
@@ -138,8 +139,25 @@ async function vote(req, res) {
     if (ballot.voters.includes(req.user.email)) {
         res.status(403).send({ error: "You have already voted on this ballot" });
     } else {
-        database.vote(req.body.ballotID, req.body.vote, req.user.email);
+        await database.vote(req.body.ballotID, req.body.vote, req.user.email).catch(err => {
+            res.status(500).send({ error: "Internal server error" });
+        });
         res.status(200).send({ success: true });
+    }
+}
+
+async function addArgument(req, res) {
+    if (!req.body.type || !req.body.argument || !req.body.ballotID ) {
+        res.status(400).send({ error: "Not all fields were filled" });
+        return;
+    }
+    if (req.body.type === "support" || req.body.type === "against") {
+        await database.addArgument(req.body.ballotID, req.body.type, req.body.argument).catch(err => {
+            res.status(500).send({ error: "Internal server error. Maybe the ballot ID was incorrect?" });
+        });
+        res.status(200).send({ success: true });
+    } else {
+        res.status(400).send({ error: "Invalid type" });
     }
 }
 
