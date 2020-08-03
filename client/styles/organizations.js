@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
 		top: vh(-10),
 	},
 
-	textTitle2: {
+	textTitleOrg: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 30,
 		textAlign: "center",
 		margin: vw(2.2),
-		// marginTop: vh(10)
+		marginBottom: vh(2)
 	},
 
 	addNewBtn: {

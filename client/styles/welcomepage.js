@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 
 		height: "auto",
 		paddingBottom: vh(8),
+
 	},
 
 	backgroundImage: {
@@ -99,15 +100,6 @@ const styles = StyleSheet.create({
 	subText: {
 		color: "white",
 		marginBottom: vh(2),
-	},
-	textTitleOrg:{
-		fontWeight: "bold",
-		color: "black",
-		fontSize: 50,
-		textAlign: "center",
-		margin: vw(2.2),
-		marginTop: vh(2),
-		marginBottom: 10
 	},
 	text2: {
 		fontWeight: "bold",

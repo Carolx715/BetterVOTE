@@ -1,4 +1,10 @@
 import { StyleSheet } from "react-native";
+var {
+	vw,
+	vh,
+	vmin,
+	vmax,
+} = require("../node_modules/react-native-expo-viewport-units");
 
 const styles = StyleSheet.create({
 	card: {
@@ -10,13 +16,29 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.3,
 		shadowRadius: 2,
 		marginHorizontal: 4,
-		marginVertical: 30,
-		// width: "90%"
+		marginBottom: 30,
+		minWidth: "95%",
+		maxWidth: "95%",
 	},
 	cardContent: {
 		marginHorizontal: 18,
 		marginVertical: 20,
 	},
+	textOrgTitle:{
+		fontWeight: "bold",
+		color: "black",
+		fontSize: 20,
+		marginBottom: vw(2.2),
+	}, 
+	textOrgDesc: {
+		color: "#999999",
+		fontSize: 15,
+		marginBottom: vw(2.2),
+	},
+	textOrgCount: {
+		color: "green",
+		fontSize: 12,
+	}
 });
 
 export default styles;
