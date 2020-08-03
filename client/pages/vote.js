@@ -58,10 +58,17 @@ export default function vote(props)
                 <Text style = {styles.text2}>{resp}</Text>
                 <Button 
                     text = "VOTE FOR"
-                    onPress = {() => vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "support"})}
+                    onPress = {() => vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "support"}), props.navigation.navigate("votingPage")}
                     />
-                <Button text = "VOTE AGAINST"/>
-                <Button text = "VOTE ABSTAIN"/>
+                <Button 
+                    text = "VOTE AGAINST"
+                    onPress = {() => vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "against"}), props.navigation.navigate("votingPage")}
+                />
+                <Button 
+                    text = "VOTE ABSTAIN"
+                    onPress = {() => vote({ballotID: "5f2729afde3e578ec4ab40c1", vote: "abstain"}), props.navigation.navigate("votingPage")}
+
+                />
                 {/*submitting should lead you back to original votingPage.js*/}
             </Card>
         </ScrollView>
