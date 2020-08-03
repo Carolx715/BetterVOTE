@@ -50,7 +50,7 @@ export default function OrganizationDetails(props) {
 		<Text key={user.email}>{user.username}</Text>
 	));
 	const ballots = data.activeBallots.map((ballot) => (
-		<Card>
+		<Card key={ballot._id}>
 			{/*Carol: Below title should be a subtitle :) */}
 			<Text style={styles.textTitleOrg}>{ballot.title}</Text>
 			{ballot.hasVoted ? (
