@@ -77,7 +77,10 @@ export default function votingPage(props) {
 				source={require("../assets/background-logged-in.jpg")}
 				style={styles.organizationBackgroundImage}
 			/>
-			<ScrollView showsHorizontalScrollIndicator={false}>
+			<ScrollView
+				showsHorizontalScrollIndicator={false}
+				showsVerticalScrollIndicator={false}
+			>
 				<View>
 					<Text
 						style={{
@@ -122,7 +125,7 @@ export default function votingPage(props) {
 									marginTop: vh(0.4),
 								}}
 							>
-								❌ Status: Has Not Voted
+								❌ Status: Not Voted
 							</Text>
 						</View>
 					)}
@@ -221,15 +224,17 @@ export default function votingPage(props) {
 							</View>
 							{/* </View> */}
 						</Card>
-						<Button
-							text="Add New Argument"
-							onPress={() =>
-								props.navigation.navigate("AddPoint", {
-									_id: props.navigation.getParam("_id"),
-								})
-							}
-						/>
-						{!data.hasVoted ? (
+						{data.status === "active" ? (
+							<Button
+								text="Add New Argument"
+								onPress={() =>
+									props.navigation.navigate("AddPoint", {
+										_id: props.navigation.getParam("_id"),
+									})
+								}
+							/>
+						) : null}
+						{!data.hasVoted && data.status === "active" ? (
 							<Button
 								text="Vote!"
 								onPress={() =>

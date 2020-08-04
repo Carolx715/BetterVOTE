@@ -77,6 +77,16 @@ async function getBallot(req, res) {
                 data = resolvedBallot;
             }
         }
+        if (data.status === "ended") {
+            if (data.votes.against === 0 && data.votes.support > 0) {
+                data.result = "passed";
+            }
+            else if ((data.votes.support / data.votes.against) > data.voteThreshold) {
+                data.result = "passed";
+            } else {
+                data.result = "failed";
+            }
+        };
         data.totalVotes = data.votes.support + data.votes.against + data.votes.abstain;
         // if the status is active, don't send the current vote count & get the running org size for max votes
         if (data.status === "active") {
@@ -84,6 +94,7 @@ async function getBallot(req, res) {
             data.maxVotes = orgData.memberCount;
             delete data.votes;
         }
+
         // set the hasVoted variable
         if (data.voters.includes(req.user.email)) {
             data.hasVoted = true;

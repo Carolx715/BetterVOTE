@@ -74,7 +74,7 @@ export default function OrganizationDetails(props) {
 				) : (
 					<View style={{ alignItems: "center", justifyContent: "center" }}>
 						<Text>
-							<Text style={{ fontSize: 15 }}>❌ Status: Has Not Voted</Text>
+							<Text style={{ fontSize: 15 }}>❌ Status: Not Voted</Text>
 						</Text>
 					</View>
 				)}
