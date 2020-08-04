@@ -124,7 +124,7 @@ export default function votingPage(props) {
 									marginTop: vh(0.4),
 								}}
 							>
-								❌ Status: Has Not Voted
+								❌ Status: Not Voted
 							</Text>
 						</View>
 					)}
@@ -223,6 +223,7 @@ export default function votingPage(props) {
 							</View>
 							{/* </View> */}
 						</Card>
+                        {(data.status === "active") ? (
 						<Button
 							text="Add New Argument"
 							onPress={() =>
@@ -231,7 +232,8 @@ export default function votingPage(props) {
 								})
 							}
 						/>
-						{!data.hasVoted ? (
+                        ) : null}
+						{(!data.hasVoted && data.status === "active") ? (
 							<Button
 								text="Vote!"
 								onPress={() =>
