@@ -78,7 +78,8 @@ export default function votingPage(props) {
 				style={styles.organizationBackgroundImage}
 			/>
 			<ScrollView
-				showsHorizontalScrollIndicator={false}>
+				showsHorizontalScrollIndicator={false}
+				showsVerticalScrollIndicator={false}>
 				<View>
 					<Text
 						style={{

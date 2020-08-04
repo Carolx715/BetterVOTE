@@ -1,11 +1,12 @@
 import React from "react";
-import { View, ScrollView, Image } from "react-native";
+import { View, ScrollView, Image, Text } from "react-native";
 import { Dimensions } from "react-native";
 const { height, width } = Dimensions.get("window");
 import Card from "../components/card";
 import styles from "../styles/globalStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import Button from "../components/button";
+import { vh, vw } from "react-native-expo-viewport-units";
 
 export default function vote(props) {
 	const resp = props.navigation.getParam("des");
@@ -48,42 +49,53 @@ export default function vote(props) {
 		<View
 			style={{
 				marginTop: height * 0.25,
-				marginLeft: width * 0.05,
-				marginRight: width * 0.05,
+				alignItems: "center", justifyContent: "center"
 			}}
 		>
-			<Card>
-				{/* <Text style={styles.text2}>{resp}</Text> */}
-				{/* <View style={{ alignItems: "center", justifyContent: "center" }}> */}
-				<Button
-					text="VOTE FOR"
-					onPress={() =>
-						vote({
-							ballotID: props.navigation.getParam("_id"),
-							vote: "support",
-						})
-					}
-				/>
-				<Button
-					text="VOTE AGAINST"
-					onPress={() =>
-						vote({
-							ballotID: props.navigation.getParam("_id"),
-							vote: "against",
-						})
-					}
-				/>
-				<Button
-					text="VOTE ABSTAIN"
-					onPress={() =>
-						vote({
-							ballotID: props.navigation.getParam("_id"),
-							vote: "abstain",
-						})
-					}
-				/>
-				{/* </View> */}
-				{/*submitting should lead you back to original votingPage.js*/}
+
+			<Image
+				source={require("../assets/background.jpg")}
+				style={{...styles.backgroundImage, position: "absolute",
+			
+				transform: [
+					{ scaleY: 2 },
+					{ scaleX: 1.5 },
+					{ rotate: "90deg" },
+					{ translateX: vw(10) },
+					{ translateY: vh(0) },
+				],}}
+			/>
+			<Card style={{ alignItems: "center", justifyContent: "center" }}>
+				<Text style={styles.text2}>Topic: {resp}</Text>
+				<View style={{ width: "100%", alignItems: "center", justifyContent: "center" }}>
+					<Button
+						text="VOTE FOR"
+						onPress={() =>
+							vote({
+								ballotID: props.navigation.getParam("_id"),
+								vote: "support",
+							})
+						}
+					/>
+					<Button
+						text="VOTE AGAINST"
+						onPress={() =>
+							vote({
+								ballotID: props.navigation.getParam("_id"),
+								vote: "against",
+							})
+						}
+					/>
+					<Button
+						text="VOTE ABSTAIN"
+						onPress={() =>
+							vote({
+								ballotID: props.navigation.getParam("_id"),
+								vote: "abstain",
+							})
+						}
+					/>
+				</View>
 			</Card>
 		</View>
 	);
