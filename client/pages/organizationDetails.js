@@ -155,38 +155,44 @@ export default function OrganizationDetails(props) {
 				)}
 
 				<View style={styles.imageTitle}>
-					<TouchableOpacity 
+					<TouchableOpacity
 						onPress={() => {
 							props.navigation.navigate("createBallot", {
 								_id: props.navigation.getParam("_id"),
 								// retrieveData: retrieveData,
 								// setData: setData,
 							});
-						}}>
-						<Text style={{...styles.BallotTitle, fontSize: 20, 
-							margin: vw(2.2),
-							marginTop: 0,
-							marginBottom: 0}}>+ Add New Ballot
+						}}
+					>
+						<Text
+							style={{
+								...styles.BallotTitle,
+								fontSize: 20,
+								margin: vw(2.2),
+								marginTop: 0,
+								marginBottom: 0,
+							}}
+						>
+							+ Add New Ballot
 						</Text>
 					</TouchableOpacity>
 				</View>
-				<Button text="View All Ballots"
+				<Button
+					text="View All Ballots"
 					onPress={() => {
-						console.log(data.name); 
+						console.log(data.name);
 						props.navigation.navigate("ballotList", {
 							_id: id,
 						});
 					}}
 				/>
 
-				<View style={{ marginTop: vh(3.1) }}>
+				<View style={{ marginTop: vh(1.8) }}>
 					<Card>
 						<Text style={styles.OrgDescUserListTitle}>Users List:</Text>
 						{users}
 					</Card>
 				</View>
-
-
 			</ScrollView>
 		</View>
 	);

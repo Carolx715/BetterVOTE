@@ -9,6 +9,7 @@ import {
 	Image,
 	Keyboard,
 	TouchableWithoutFeedback,
+	KeyboardAvoidingView,
 } from "react-native";
 
 import styles from "../styles/globalStyles";
@@ -61,7 +62,7 @@ export default function Registration(props) {
 					source={require("../assets/background.jpg")}
 					style={styles.backgroundImage}
 				/>
-				<ScrollView style={styles.formContainerRegister}>
+				<ScrollView style={{ ...styles.formContainerRegister, top: vh(5) }}>
 					<Text style={styles.formTitleRegister}>Registration</Text>
 					<Formik
 						initialValues={{
