@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import {
-	Text,
-	View,
-	FlatList,
-	TouchableOpacity,
-	ScrollView,
-	StyleSheet,
-} from "react-native";
+import { Text, View, ScrollView, Image } from "react-native";
 import Card from "../components/card";
-import styles from "../styles/welcomepage";
+import styles from "../styles/globalStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import Button from "../components/button";
+import { vh, vw } from "react-native-expo-viewport-units";
 
 export default function votingPage(props) {
 	const [id, setID] = useState();
@@ -52,79 +46,205 @@ export default function votingPage(props) {
 	}
 
 	const supports = data.arguments["support"].map((s) => (
-		<Text key={s}>{`\u2022 ${s}`}</Text>
+		<View style={{ marginLeft: vw(3) }}>
+			<Text
+				style={{
+					fontStyle: "italic",
+					color: "black",
+					marginTop: vh(0.3),
+					marginBottom: vh(0.3),
+				}}
+				key={s}
+			>{`\u2022 ${s}`}</Text>
+		</View>
 	));
 
 	const against = data.arguments["against"].map((a) => (
-		<Text key={a}>{`\u2022 ${a}`}</Text>
+		<View style={{ marginLeft: vw(3) }}>
+			<Text
+				style={{
+					fontStyle: "italic",
+					color: "black",
+					marginTop: vh(0.3),
+					marginBottom: vh(0.3),
+				}}
+				key={a}
+			>{`\u2022 ${a}`}</Text>
+		</View>
 	));
 
 	return (
-		<ScrollView>
-			<View>
-				{data.hasVoted ? (
-					<Text style={styles.textTitle3}>✅ Status: Voted</Text>
-				) : (
-					<Text style={styles.textTitle3}>❌ Status: Has Not Voted</Text>
-				)}
-				<Text style={styles.text2}>Voting Subject: {data.title}</Text>
-				<View style={styles.buttonContainer}>
-					<Text style={styles.text3}>{}</Text>
-
-					<Text style={styles.text3}>Description: {data.description}</Text>
-					<Card>
-						<Text style={styles.text2}>Proposed By:</Text>
-						<Text>{data.creator["username"]}</Text>
-					</Card>
-					<Card>
-						<Text style={styles.text2}>Points For:</Text>
-						{supports}
-					</Card>
-					<Card>
-						<Text style={styles.text2}>Points Against:</Text>
-						{against}
-					</Card>
-					{!data.hasVoted ? (
+		<React.Fragment>
+			<Image
+				source={require("../assets/background-logged-in.jpg")}
+				style={styles.organizationBackgroundImage}
+			/>
+			<ScrollView>
+				<View>
+					<Text
+						style={{
+							...styles.textTitleOrgDetails,
+							color: "white",
+							marginHorizontal: vw(5),
+							fontSize: 36,
+						}}
+					>
+						<Text>{data.title}</Text>
+					</Text>
+					{data.hasVoted ? (
+						<View
+							style={{
+								borderTopWidth: 1,
+								borderColor: "green",
+								borderBottomWidth: 1,
+							}}
+						>
+							<Text
+								style={{
+									...styles.BallotTitle,
+									fontSize: 20,
+									marginTop: vh(0.4),
+								}}
+							>
+								✅ Status: Voted
+							</Text>
+						</View>
+					) : (
+						<View
+							style={{
+								borderTopWidth: 1,
+								borderColor: "red",
+								borderBottomWidth: 1,
+							}}
+						>
+							<Text
+								style={{
+									...styles.BallotTitle,
+									fontSize: 20,
+									marginTop: vh(0.4),
+								}}
+							>
+								❌ Status: Has Not Voted
+							</Text>
+						</View>
+					)}
+					<Text
+						style={{
+							fontWeight: "bold",
+							color: "#cccccc",
+							textAlign: "center",
+							fontStyle: "italic",
+							marginTop: vh(2.5),
+							marginBottom: vh(2),
+						}}
+					>
+						"{data.description}"
+					</Text>
+					<View
+						style={{
+							...styles.buttonContainer,
+							marginLeft: vw(3),
+							marginRight: vw(3),
+						}}
+					>
 						<Card>
-							<Text style={styles.text2}>Threshold to Pass</Text>
-							<Text>{`${data.voteThreshold * 100}%`}</Text>
+							{/* <View style={{ alignItems: "center" }}> */}
+							<Text style={{ ...styles.textSubtitleBallot, color: "black" }}>
+								Proposed By:
+							</Text>
+							<View style={styles.votingInfoTextWrapper}>
+								<Text>{data.creator["username"]}</Text>
+							</View>
+							<View style={styles.votingInfoTextWrapper}>
+								<View style={styles.votingBr} />
+							</View>
+							<Text style={{ ...styles.textSubtitleBallot, color: "black" }}>
+								Points For:
+							</Text>
+							{supports}
+							<View style={styles.votingInfoTextWrapper}>
+								<View style={styles.votingBr} />
+							</View>
+							<Text style={{ ...styles.textSubtitleBallot, color: "black" }}>
+								Points Against:
+							</Text>
+							{against}
+							<View style={styles.votingInfoTextWrapper}>
+								<View style={styles.votingBr} />
+							</View>
+							{!data.hasVoted ? (
+								<React.Fragment>
+									<Text
+										style={{ ...styles.textSubtitleBallot, color: "black" }}
+									>
+										Threshold to Pass
+									</Text>
+									<View style={styles.votingInfoTextWrapper}>
+										<Text style={{ fontWeight: "bold", color: "red" }}>{`${
+											data.voteThreshold * 100
+										}%`}</Text>
+									</View>
+								</React.Fragment>
+							) : null}
+							<View style={styles.votingInfoTextWrapper}>
+								<View style={styles.votingBr} />
+							</View>
+							<Text style={{ ...styles.textSubtitleBallot, color: "black" }}>
+								Voter Turnout
+							</Text>
+							<View style={styles.votingInfoTextWrapper}>
+								<Text
+									style={{
+										...styles.ballotTextContainer,
+										fontWeight: "bold",
+										color: "green",
+									}}
+								>{`${((data.totalVotes / data.maxVotes) * 100).toFixed(
+									2
+								)}%`}</Text>
+							</View>
+							<View style={styles.votingInfoTextWrapper}>
+								<View style={styles.votingBr} />
+							</View>
+							{data.status === "active" ? (
+								<Text style={{ ...styles.textSubtitleBallot, color: "black" }}>
+									End Date
+								</Text>
+							) : (
+								<Text style={{ ...styles.textSubtitleBallot, color: "black" }}>
+									Ended
+								</Text>
+							)}
+							<View style={styles.votingInfoTextWrapper}>
+								<Text style={styles.ballotTextContainer}>
+									{moment(data.endTime).format("MMMM Do YYYY [at] h:mm:ss a")} (
+									{moment(data.endTime).fromNow()})
+								</Text>
+							</View>
+							{/* </View> */}
 						</Card>
-					) : null}
-					<Card>
-						<Text style={styles.text2}>Voter Turnout</Text>
-						<Text>{`${((data.totalVotes / data.maxVotes) * 100).toFixed(
-							2
-						)}%`}</Text>
-					</Card>
-					<Card>
-						{data.status === "active" ? (
-							<Text style={styles.text2}>End Date</Text>
-						) : (
-							<Text style={styles.text2}>Ended</Text>
-						)}
-						<Text>
-							{moment(data.endTime).format("MMMM Do YYYY [at] h:mm:ss a")} (
-							{moment(data.endTime).fromNow()})
-						</Text>
-					</Card>
-                    <Button 
-                        text = "Add New Argument"
-                        onPress={() => props.navigation.navigate("AddPoint", {_id: props.navigation.getParam("_id"),})}
-    
-                    />
-					{!data.hasVoted ? (
 						<Button
-							text="VOTE"
+							text="Add New Argument"
 							onPress={() =>
-								props.navigation.navigate("Vote", {
-									des: data.title,
+								props.navigation.navigate("AddPoint", {
 									_id: props.navigation.getParam("_id"),
 								})
 							}
 						/>
-					) : null}
+						{!data.hasVoted ? (
+							<Button
+								text="Vote!"
+								onPress={() =>
+									props.navigation.navigate("Vote", {
+										des: data.title,
+										_id: props.navigation.getParam("_id"),
+									})
+								}
+							/>
+						) : null}
+					</View>
 				</View>
-			</View>
-		</ScrollView>
+			</ScrollView>
+		</React.Fragment>
 	);
 }

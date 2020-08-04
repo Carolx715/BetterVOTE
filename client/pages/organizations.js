@@ -17,7 +17,7 @@ import cardStyles from "../styles/cardStyles";
 
 import AsyncStorage from "@react-native-community/async-storage";
 import ProfileButton from "../components/profileButton.js";
-import { vh } from "react-native-expo-viewport-units";
+import { vh, vw } from "react-native-expo-viewport-units";
 
 export default function organizations(props) {
 	useEffect(() => {

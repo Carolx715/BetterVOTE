@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import {
-	Text,
-	View,
-	Image,
-	TouchableOpacity,
-	ScrollView,
-	StyleSheet,
-} from "react-native";
+import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 
 import Card from "../components/card";
+import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
 import cardStyles from "../styles/cardStyles";
 import styles from "../styles/globalStyles";
@@ -68,6 +62,9 @@ export default function OrganizationDetails(props) {
 			}
 		>
 			<Card key={ballot._id}>
+				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
+					{ballot.title}
+				</Text>
 				{ballot.hasVoted ? (
 					<View style={{ alignItems: "center", justifyContent: "center" }}>
 						<Text>
@@ -81,13 +78,17 @@ export default function OrganizationDetails(props) {
 						</Text>
 					</View>
 				)}
-				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
-					{ballot.title}
-				</Text>
-				<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
+				<Text
+					numberOfLines={3}
+					style={{
+						...cardStyles.textOrgDesc,
+						textAlign: "center",
+						marginTop: vh(1.5),
+					}}
+				>
 					{ballot.description}
 				</Text>
-				<Text>
+				<Text style={{ textAlign: "center" }}>
 					Voting ends {moment(ballot.endTime).calendar()} (
 					{moment(ballot.endTime).fromNow()})
 				</Text>
@@ -108,7 +109,13 @@ export default function OrganizationDetails(props) {
 					justifyContent: "center",
 				}}
 			>
-				<Text style={{ ...styles.textTitleOrgDetails, color: "white", marginHorizontal: vw(5) }}>
+				<Text
+					style={{
+						...styles.textTitleOrgDetails,
+						color: "white",
+						marginHorizontal: vw(5),
+					}}
+				>
 					{data.name}
 				</Text>
 
@@ -135,11 +142,11 @@ export default function OrganizationDetails(props) {
 				</Card>
 				<View style={styles.br} />
 
-				<Text style={styles.BallotTitle}>Ballots</Text>
+				<Text style={styles.BallotTitle}>Active Ballots</Text>
 
 				{Object.keys(ballots).length === 0 ? (
 					<Card>
-						<Text style={{ color: "grey", fontSize: 16 }}>
+						<Text style={{ color: "grey", fontSize: 16, textAlign: "center" }}>
 							There are no active ballots right now.
 						</Text>
 					</Card>
@@ -149,7 +156,6 @@ export default function OrganizationDetails(props) {
 
 				<View style={styles.imageTitle}>
 					<TouchableOpacity 
-						style={styles.userPicContainer}
 						onPress={() => {
 							props.navigation.navigate("createBallot", {
 								_id: props.navigation.getParam("_id"),
@@ -160,33 +166,26 @@ export default function OrganizationDetails(props) {
 						<Text style={{...styles.BallotTitle, fontSize: 20, 
 							margin: vw(2.2),
 							marginTop: 0,
-							marginBottom: 0,}}>+ Add New Ballot
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						style={styles.userPicContainer}
-						onPress={() => {
-							props.navigation.navigate("ballotList", {
-								_id: id
-							});
-						}}>
-						<Text style={{
-							...styles.BallotTitle, fontSize: 20,
-							margin: vw(2.2),
-							marginTop: 0,
-							marginBottom: 0,
-						}}>View All Ballots
+							marginBottom: 0}}>+ Add New Ballot
 						</Text>
 					</TouchableOpacity>
 				</View>
+				<Button text="View All Ballots"
+					onPress={() => {
+						props.navigation.navigate("ballotList", {
+							_id: id
+						});
+					}}
+				/>
 
-				<View style={styles.br} />
 				<View style={{ marginTop: vh(3.1) }}>
 					<Card>
 						<Text style={styles.OrgDescUserListTitle}>Users List:</Text>
 						{users}
 					</Card>
 				</View>
+
+
 			</ScrollView>
 		</View>
 	);

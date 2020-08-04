@@ -1,8 +1,9 @@
-import styles from "../styles/organizations";
+import styles from "../styles/globalStyles";
 import { Text, TouchableOpacity, View, Modal } from "react-native";
 import React, { useState } from "react";
 import ModalForm from "./modalForm";
 import { MaterialIcons } from "@expo/vector-icons";
+import { vh } from "react-native-expo-viewport-units";
 
 export default function menu({
 	props,
@@ -15,7 +16,7 @@ export default function menu({
 	return (
 		<View>
 			{isVisible ? (
-				<View style={styles.menuView}>
+				<View style={{ ...styles.menuView, left: vh(-18), bottom: vh(-5.42) }}>
 					<View style={styles.modal}>
 						<TouchableOpacity
 							// style={styles.menuitem}
@@ -27,7 +28,9 @@ export default function menu({
 								});
 							}}
 						>
-							<Text style={styles.text}>Create New Organization</Text>
+							<Text style={styles.organizationText}>
+								Create New Organization
+							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
 							// style={styles.menuitem}
@@ -36,7 +39,9 @@ export default function menu({
 								setIsVisible(false);
 							}}
 						>
-							<Text style={styles.text}>Join Existing Organization</Text>
+							<Text style={styles.organizationText}>
+								Join Existing Organization
+							</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
@@ -45,7 +50,9 @@ export default function menu({
 				<Modal transparent={true} visible={modalOpen} animationType="fade">
 					<View style={styles.modalContentContainer}>
 						<View style={styles.modalContent}>
-							<Text style={styles.text}>Join Organization By Code</Text>
+							<Text style={styles.organizationText}>
+								Join Organization By Code
+							</Text>
 							<ModalForm retrieveData={retrieveData} setData={setData} />
 							<MaterialIcons
 								style={styles.close}
