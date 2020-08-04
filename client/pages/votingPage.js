@@ -117,7 +117,7 @@ export default function votingPage(props) {
 					>
 						<Text>{data.title}</Text>
 					</Text>
-					{data.hasVoted ? (
+					{(data.hasVoted || data.result === "passed") ? (
 						<View
 							style={{
 								borderTopWidth: 1,
@@ -132,28 +132,28 @@ export default function votingPage(props) {
 									marginTop: vh(0.4),
 								}}
 							>
-								✅ Status: Voted
+								{data.result === "passed" ? "✅ Legislation Passed" : "✅ Status: Voted"}
 							</Text>
 						</View>
-					) : (
-						<View
-							style={{
-								borderTopWidth: 1,
-								borderColor: "red",
-								borderBottomWidth: 1,
-							}}
-						>
-							<Text
+							) : (
+							<View
 								style={{
-									...styles.BallotTitle,
-									fontSize: 20,
-									marginTop: vh(0.4),
+									borderTopWidth: 1,
+									borderColor: "red",
+									borderBottomWidth: 1,
 								}}
 							>
-								❌ Status: Not Voted
-							</Text>
-						</View>
-					)}
+								<Text
+									style={{
+										...styles.BallotTitle,
+										fontSize: 20,
+										marginTop: vh(0.4),
+									}}
+								>
+									{data.result === "failed" ? "❌ Failed to Pass" : "❌ Status: Not Voted"}
+								</Text>
+							</View>)
+					}
 					<Text
 						style={{
 							fontWeight: "bold",
