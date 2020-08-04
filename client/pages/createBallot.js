@@ -22,7 +22,6 @@ import { withOrientation } from "react-navigation";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
-console.log(props.navigation.getParam("_id")); 
 const validationSchema = yup.object().shape({
 	title: yup.string().required(),
     description: yup.string().required(),
@@ -64,6 +63,7 @@ async function createNewBallot(info) {
 		console.log(error);
 	}
 */}
+
 }
 
 const onChange = (event, selectedDate) => {
@@ -166,7 +166,7 @@ return (
 								/>
 								<Text style={{ color: "red" }}>
 									{formikProps.touched.voteThreshold &&
-										formikProps.errors.voteThreshold}
+										formikProps.errors.voteThreshold}	e
 								</Text>
 
                                 {/* END DATE STARTS HERE */}
@@ -209,10 +209,12 @@ return (
 										onPress={() => {
 											Keyboard.dismiss();
 											try{
+												console.log(formikProps.values.endTime);
+												console.log(Date.parse(formikProps.values.endTime)); 
 												createNewBallot({
 													title: formikProps.values.title, 
 													description: formikProps.values.description, 
-													endTime: formikProps.values.endTime,
+													endTime: Date.parse(formikProps.values.endTime),
 													voteThreshold: formikProps.values.voteThreshold / 100,
 													organizationID: props.navigation.getParam("_id"),
 												 }).then((response) => {
