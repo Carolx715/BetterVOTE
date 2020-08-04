@@ -70,12 +70,10 @@ export default function ballotList(props) {
 						<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
 							{ballot.description}
 						</Text>
-						<Text>
+						<Text style={{ textAlign: "center", fontSize: 12 }}>
 							{ballot.status === "active"
-								? `Voting ends ${moment(ballot.endTime).calendar()} (
-					${moment(ballot.endTime).fromNow()})`
-								: `Voting ended ${moment(ballot.endTime).calendar()} (
-					${moment(ballot.endTime).fromNow()})`}
+								? `Voting ends ${moment(ballot.endTime).calendar()} (${moment(ballot.endTime).fromNow()})`
+								: `Voting ended ${moment(ballot.endTime).calendar()} (${moment(ballot.endTime).fromNow()})`}
 						</Text>
 					</View>
 				</Card>
