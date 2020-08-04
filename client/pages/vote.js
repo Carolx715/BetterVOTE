@@ -87,7 +87,7 @@ export default function vote(props) {
 						}
 					/>
 					<Button
-						text="VOTE ABSTAIN"
+						text="ABSTAIN"
 						onPress={() =>
 							vote({
 								ballotID: props.navigation.getParam("_id"),
