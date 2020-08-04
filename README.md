@@ -20,7 +20,7 @@ Other features include a profile page button on the list of organizations which 
 
 SlideShow Presentation Here: https://docs.google.com/presentation/d/1Wr97-zyEMPbu1zl9BVycTq1GGVZjxuFjEt0wySWisj4/edit?usp=sharing
 
-Video Demo: https://youtu.be/ErHqSElffvk
+Video Demo: https://youtu.be/9a6Sl-4SOhE
 
 ## How to run the application
 1. Run `git clone https://github.com/Carolx715/ByteHacks.git` in your command line
