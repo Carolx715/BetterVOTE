@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 import Button from "./button";
-import styles from "../styles/formStyling";
+import styles from "../styles/globalStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import * as yup from "yup";
 import { Formik } from "formik";
-import { TouchableOpacity, TextInput } from "react-native";
+import { TextInput } from "react-native";
 
 export default function form({ setData, retrieveData }) {
 	const validationSchema = yup.object().shape({

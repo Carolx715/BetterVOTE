@@ -1,7 +1,7 @@
 import React from "react";
-import { View, ScrollView, Image, Text } from "react-native";
+import { View, Image, Text } from "react-native";
 import { Dimensions } from "react-native";
-const { height, width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 import Card from "../components/card";
 import styles from "../styles/globalStyles";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -49,25 +49,34 @@ export default function vote(props) {
 		<View
 			style={{
 				marginTop: height * 0.25,
-				alignItems: "center", justifyContent: "center"
+				alignItems: "center",
+				justifyContent: "center",
 			}}
 		>
-
 			<Image
 				source={require("../assets/background.jpg")}
-				style={{...styles.backgroundImage, position: "absolute",
-			
-				transform: [
-					{ scaleY: 2 },
-					{ scaleX: 1.5 },
-					{ rotate: "90deg" },
-					{ translateX: vw(10) },
-					{ translateY: vh(0) },
-				],}}
+				style={{
+					...styles.backgroundImage,
+					position: "absolute",
+
+					transform: [
+						{ scaleY: 2 },
+						{ scaleX: 1.5 },
+						{ rotate: "90deg" },
+						{ translateX: vw(10) },
+						{ translateY: vh(0) },
+					],
+				}}
 			/>
 			<Card style={{ alignItems: "center", justifyContent: "center" }}>
 				<Text style={styles.text2}>Topic: {resp}</Text>
-				<View style={{ width: "100%", alignItems: "center", justifyContent: "center" }}>
+				<View
+					style={{
+						width: "100%",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
 					<Button
 						text="VOTE FOR"
 						onPress={() =>

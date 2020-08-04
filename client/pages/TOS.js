@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import styles from "../styles/welcomepage";
+import styles from "../styles/globalStyles";
 
 export default function TOS() {
 	return (
-		<View style = {styles.container}>
-            <Image
+		<View style={styles.container}>
+			<Image
 				source={require("../assets/background.jpg")}
 				style={styles.backgroundImage}
 			/>

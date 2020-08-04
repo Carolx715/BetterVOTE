@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
 		marginRight: vw(1),
 		marginVertical: vh(1),
 	},
-	//formerly container
 	container: {
 		flex: 1,
 		backgroundColor: "#dab",
@@ -28,8 +27,7 @@ const styles = StyleSheet.create({
 	},
 	backgroundImage: {
 		flex: 1,
-		resizeMode: "contain", // or 'stretch'
-		// position: "absolute",
+		resizeMode: "contain",
 		transform: [
 			{ scaleY: 1.5 },
 			{ scaleX: 1.5 },
@@ -37,15 +35,6 @@ const styles = StyleSheet.create({
 			{ translateX: 0 },
 			{ translateY: vh(10) },
 		],
-	},
-	container2: {
-		flex: 1,
-		backgroundColor: "#dab",
-		alignItems: "center",
-		justifyContent: "center",
-		maxHeight: height,
-		height: "auto",
-		paddingBottom: vh(15),
 	},
 	flatlistContainer: {
 		flex: 1,
@@ -62,12 +51,11 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		maxHeight: height,
 		height: "auto",
-		// paddingBottom: vh(10),
 	},
 	textContainer: {
 		fontWeight: "bold",
 		color: "white",
-		position: "absolute", // child
+		position: "absolute",
 		top: vh(20),
 		marginLeft: vw(3),
 	},
@@ -86,24 +74,12 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginTop: vh(0),
 	},
-	//formerly text2
 	voteSubtitle: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 30,
 		textAlign: "center",
 		margin: vw(2.2),
-	},
-	textTitle3: {
-		fontWeight: "bold",
-		color: "black",
-		fontSize: 30,
-		textAlign: "center",
-		margin: vw(2.2),
-	},
-	subText: {
-		color: "white",
-		marginBottom: vh(2),
 	},
 	text2: {
 		fontWeight: "bold",
@@ -112,14 +88,6 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginVertical: 0,
 		textAlign: "center",
-		marginBottom: 10,
-	},
-	text3: {
-		fontWeight: "bold",
-		color: "black",
-		fontSize: 10,
-		margin: vw(2.2),
-		marginVertical: 0,
 		marginBottom: 10,
 	},
 	buttonContainer: {
@@ -192,14 +160,14 @@ const styles = StyleSheet.create({
 	formContainer: {
 		fontWeight: "bold",
 		color: "white",
-		position: "absolute", // child
+		position: "absolute",
 		top: vh(15),
 		marginLeft: vw(3),
 	},
 	formContainerRegister: {
 		fontWeight: "bold",
 		color: "white",
-		position: "absolute", // child
+		position: "absolute",
 		top: vh(10),
 		marginLeft: vw(3),
 		flex: 1,
@@ -265,7 +233,7 @@ const styles = StyleSheet.create({
 
 	organizationBackgroundImage: {
 		flex: 1,
-		resizeMode: "contain", // or 'stretch'
+		resizeMode: "contain",
 		transform: [
 			{ scaleY: 1.5 },
 			{ scaleX: 1.7 },
@@ -276,8 +244,6 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: vh(-10),
 	},
-
-	//formerly textTitleOrg
 	organizationTextTitle: {
 		fontWeight: "bold",
 		color: "white",
@@ -286,7 +252,6 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginBottom: vh(2),
 	},
-
 	addNewBtn: {
 		height: vh(8),
 		width: vh(8),
@@ -308,8 +273,6 @@ const styles = StyleSheet.create({
 		shadowOffset: { width: 5, height: 5 },
 		flex: 1,
 	},
-
-	//formerly text container
 	organizationTextContainer: {
 		width: "100%",
 		height: "100%",
@@ -381,7 +344,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(0, 0, 0, 0.5)",
 	},
 	modalContent: {
-		// width: "90%",
 		height: "50%",
 		padding: vw(10),
 		backgroundColor: "white",
@@ -395,8 +357,6 @@ const styles = StyleSheet.create({
 		top: vh(2),
 		right: vh(2),
 	},
-
-	// Organization Detail Styles
 	textTitleOrgDetails: {
 		textAlign: "center",
 		fontWeight: "bold",

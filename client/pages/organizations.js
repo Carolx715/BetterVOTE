@@ -1,4 +1,3 @@
-//organizations page
 import React, { useState, useEffect } from "react";
 import {
 	Text,
@@ -17,7 +16,7 @@ import cardStyles from "../styles/cardStyles";
 
 import AsyncStorage from "@react-native-community/async-storage";
 import ProfileButton from "../components/profileButton.js";
-import { vh, vw } from "react-native-expo-viewport-units";
+import { vh } from "react-native-expo-viewport-units";
 
 export default function organizations(props) {
 	useEffect(() => {

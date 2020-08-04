@@ -94,7 +94,6 @@ export default function welcome(props) {
 							text="Terms of Service"
 							onPress={() => props.navigation.navigate("TOS")}
 						/>
-						<Button text="Voting Systems" />
 						<Button
 							text="Logout"
 							onPress={() => {

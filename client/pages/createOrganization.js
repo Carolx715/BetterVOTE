@@ -11,8 +11,7 @@ import {
 	TouchableWithoutFeedback,
 } from "react-native";
 
-import styles from "../styles/welcomepage";
-import formStyles from "../styles/formStyling";
+import styles from "../styles/globalStyles";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Button from "../components/button";
@@ -64,12 +63,10 @@ export default (props) => (
 				style={styles.backgroundImage}
 			/>
 			<ScrollView
-				style={formStyles.formContainerRegister}
+				style={styles.formContainerRegister}
 				contentContainerStyle={{ flexGrow: 1 }}
 			>
-				<Text style={formStyles.formTitleCreateNew}>
-					Create a New Organization
-				</Text>
+				<Text style={styles.formTitleCreateNew}>Create a New Organization</Text>
 				<Formik
 					initialValues={{ name: "", description: "" }}
 					onSubmit={(values, actions) => {
@@ -82,12 +79,12 @@ export default (props) => (
 				>
 					{(formikProps) => (
 						<React.Fragment>
-							<View style={formStyles.formTextboxes}>
-								<Text style={formStyles.formText}>Name of Organization</Text>
+							<View style={styles.formTextboxes}>
+								<Text style={styles.formText}>Name of Organization</Text>
 								<TextInput
 									placeholder="Name your organization!"
 									placeholderTextColor="#AAAAAA"
-									style={formStyles.textbox}
+									style={styles.formTextbox}
 									onChangeText={formikProps.handleChange("name")}
 									onBlur={formikProps.handleBlur("name")}
 								/>
@@ -95,12 +92,12 @@ export default (props) => (
 									{formikProps.touched.name && formikProps.errors.name}
 								</Text>
 
-								<Text style={formStyles.formText}>Description</Text>
+								<Text style={styles.formText}>Description</Text>
 								<TextInput
 									placeholder="Describe your organization here..."
 									placeholderTextColor="#AAAAAA"
 									multiline={true}
-									style={formStyles.textarea}
+									style={styles.textarea}
 									onChangeText={formikProps.handleChange("description")}
 									onBlur={formikProps.handleBlur("description")}
 									secureTextEntry
@@ -111,7 +108,7 @@ export default (props) => (
 								</Text>
 							</View>
 
-							<View style={formStyles.btnComponent}>
+							<View style={styles.btnComponent}>
 								{formikProps.isSubmitting ? (
 									<ActivityIndicator />
 								) : (

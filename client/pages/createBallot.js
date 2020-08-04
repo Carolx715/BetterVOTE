@@ -18,8 +18,7 @@ import Button from "../components/button";
 import { withOrientation } from "react-navigation";
 import AsyncStorage from "@react-native-community/async-storage";
 import { vh, vw } from "react-native-expo-viewport-units";
-import { Dimensions, KeyboardAvoidingView } from "react-native";
-const { width } = Dimensions.get("window");
+import { KeyboardAvoidingView } from "react-native";
 
 export default function welcome(props) {
 	const validationSchema = yup.object().shape({
@@ -187,11 +186,10 @@ export default function welcome(props) {
 											<Text style={styles.formText}>Ballot End Date/Time</Text>
 											<TextInput
 												placeholder="YYYY-MM-DDTHH:MM:SSZ"
-												placeholderTextColor="#FFF"
+												placeholderTextColor="#AAAAAA"
 												style={styles.formTextbox}
 												onChangeText={formikProps.handleChange("endTime")}
 												onBlur={formikProps.handleBlur("endTime")}
-												keyboardType="numeric"
 											/>
 											{/* END DATE ENDS */}
 

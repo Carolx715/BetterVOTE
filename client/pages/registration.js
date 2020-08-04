@@ -9,7 +9,6 @@ import {
 	Image,
 	Keyboard,
 	TouchableWithoutFeedback,
-	KeyboardAvoidingView,
 } from "react-native";
 
 import styles from "../styles/globalStyles";
