@@ -19,6 +19,7 @@ The “Vote!” button leads you to a page to either vote for, against or abstai
 Other features include a profile page button on the list of organizations which leads to a user’s profile. There, they can view their name, email, their list of organizations. There is also a section for more information, including the terms of service and a logout button.
 
 SlideShow Presentation Here: https://docs.google.com/presentation/d/1Wr97-zyEMPbu1zl9BVycTq1GGVZjxuFjEt0wySWisj4/edit?usp=sharing
+
 Video Demo: https://youtu.be/ErHqSElffvk
 
 ## How to run the application
