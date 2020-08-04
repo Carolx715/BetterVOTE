@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {
-	Text,
-	View,
-	FlatList,
-	TouchableOpacity,
-	ScrollView,
-	StyleSheet,
-} from "react-native";
-
+import React from "react";
+import { View, ScrollView, Image } from "react-native";
+import { Dimensions } from "react-native";
+const { height, width } = Dimensions.get("window");
 import Card from "../components/card";
-import styles from "../styles/welcomepage";
+import styles from "../styles/globalStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import Button from "../components/button";
 
@@ -51,10 +45,16 @@ export default function vote(props) {
 	}
 
 	return (
-		<ScrollView>
-			<Text style={styles.textTitle3}>Voting On:</Text>
+		<View
+			style={{
+				marginTop: height * 0.25,
+				marginLeft: width * 0.05,
+				marginRight: width * 0.05,
+			}}
+		>
 			<Card>
-				<Text style={styles.text2}>{resp}</Text>
+				{/* <Text style={styles.text2}>{resp}</Text> */}
+				{/* <View style={{ alignItems: "center", justifyContent: "center" }}> */}
 				<Button
 					text="VOTE FOR"
 					onPress={() =>
@@ -82,8 +82,9 @@ export default function vote(props) {
 						})
 					}
 				/>
+				{/* </View> */}
 				{/*submitting should lead you back to original votingPage.js*/}
 			</Card>
-		</ScrollView>
+		</View>
 	);
 }

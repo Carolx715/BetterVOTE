@@ -46,7 +46,7 @@ export default function votingPage(props) {
 	}
 
 	const supports = data.arguments["support"].map((s) => (
-		<View style={{ marginLeft: vw(3) }}>
+		<View style={{ marginLeft: vw(3) }} key={s}>
 			<Text
 				style={{
 					fontStyle: "italic",
@@ -54,13 +54,12 @@ export default function votingPage(props) {
 					marginTop: vh(0.3),
 					marginBottom: vh(0.3),
 				}}
-				key={s}
 			>{`\u2022 ${s}`}</Text>
 		</View>
 	));
 
 	const against = data.arguments["against"].map((a) => (
-		<View style={{ marginLeft: vw(3) }}>
+		<View style={{ marginLeft: vw(3) }} key={a}>
 			<Text
 				style={{
 					fontStyle: "italic",
@@ -68,13 +67,12 @@ export default function votingPage(props) {
 					marginTop: vh(0.3),
 					marginBottom: vh(0.3),
 				}}
-				key={a}
 			>{`\u2022 ${a}`}</Text>
 		</View>
 	));
 
 	return (
-		<React.Fragment>
+		<View style={{ backgroundColor: "#dab" }}>
 			<Image
 				source={require("../assets/background-logged-in.jpg")}
 				style={styles.organizationBackgroundImage}
@@ -245,6 +243,6 @@ export default function votingPage(props) {
 					</View>
 				</View>
 			</ScrollView>
-		</React.Fragment>
+		</View>
 	);
 }
