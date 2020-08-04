@@ -3,6 +3,7 @@ import moment from "moment";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 
 import Card from "../components/card";
+import Button from "../components/button";
 import AsyncStorage from "@react-native-community/async-storage";
 import cardStyles from "../styles/cardStyles";
 import styles from "../styles/globalStyles";
@@ -141,7 +142,7 @@ export default function OrganizationDetails(props) {
 				</Card>
 				<View style={styles.br} />
 
-				<Text style={styles.BallotTitle}>Ballots</Text>
+				<Text style={styles.BallotTitle}>Active Ballots</Text>
 
 				{Object.keys(ballots).length === 0 ? (
 					<Card>
@@ -155,7 +156,6 @@ export default function OrganizationDetails(props) {
 
 				<View style={styles.imageTitle}>
 					<TouchableOpacity 
-						style={styles.userPicContainer}
 						onPress={() => {
 							props.navigation.navigate("createBallot", {
 								_id: props.navigation.getParam("_id"),
@@ -166,33 +166,26 @@ export default function OrganizationDetails(props) {
 						<Text style={{...styles.BallotTitle, fontSize: 20, 
 							margin: vw(2.2),
 							marginTop: 0,
-							marginBottom: 0,}}>+ Add New Ballot
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						style={styles.userPicContainer}
-						onPress={() => {
-							props.navigation.navigate("ballotList", {
-								_id: id
-							});
-						}}>
-						<Text style={{
-							...styles.BallotTitle, fontSize: 20,
-							margin: vw(2.2),
-							marginTop: 0,
-							marginBottom: 0,
-						}}>View All Ballots
+							marginBottom: 0}}>+ Add New Ballot
 						</Text>
 					</TouchableOpacity>
 				</View>
+				<Button text="View All Ballots"
+					onPress={() => {
+						props.navigation.navigate("ballotList", {
+							_id: id
+						});
+					}}
+				/>
 
-				<View style={styles.br} />
 				<View style={{ marginTop: vh(3.1) }}>
 					<Card>
 						<Text style={styles.OrgDescUserListTitle}>Users List:</Text>
 						{users}
 					</Card>
 				</View>
+
+
 			</ScrollView>
 		</View>
 	);
