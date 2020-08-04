@@ -182,15 +182,22 @@ async function createBallot(ballot) {
 }
 
 async function getBallots(org, status = "all") {
-	if (status !== "all") {
+	if (status === "active") {
 		return db.collection("ballots").find({
 			$and: [
 				{ organizationID: org },
 				{ status: status }
 			]
-		}).toArray();
+		}).sort({ endTime: 1 }).toArray();
+	} else if (status === "ended") {
+		return db.collection("ballots").find({
+			$and: [
+				{ organizationID: org },
+				{ status: status }
+			]
+		}).sort({ endTime: -1 }).toArray();
 	} else {
-		return db.collection("ballots").find({ organizationID: org }).toArray();
+		return db.collection("ballots").find({ organizationID: org }).sort({ endTime: -1 }).toArray();
 	}
 }
 

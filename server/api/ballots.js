@@ -106,7 +106,7 @@ async function getBallots(req, res) {
         return;
     }
 
-    database.getBallots(req.query.orgid)
+    database.getBallots(req.query.orgid, "ended")
         .then(async (response) => {
             let ballots = [];
             // iterate through each document returned in the response
