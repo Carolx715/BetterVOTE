@@ -173,20 +173,22 @@ export default function votingPage(props) {
 							<View style={styles.votingInfoTextWrapper}>
 								<View style={styles.votingBr} />
 							</View>
-							{!data.hasVoted ? (
-								<React.Fragment>
-									<Text
-										style={{ ...styles.textSubtitleBallot, color: "black" }}
-									>
-										Threshold to Pass
+							<React.Fragment>
+								<Text
+									style={{ ...styles.textSubtitleBallot, color: "black" }}
+								>
+									Threshold to Pass
 									</Text>
-									<View style={styles.votingInfoTextWrapper}>
-										<Text style={{ fontWeight: "bold", color: "red" }}>{`${
-											data.voteThreshold * 100
+								{(data.status === "ended") ? (<View style={styles.votingInfoTextWrapper}>
+									<Text style={{ fontWeight: "bold", color: (data.result === "passed" ? "green" : "red") }}>{`${
+										data.voteThreshold * 100
+										}% (${data.votes.support > 0 ? (data.votes.support / (data.votes.against + data.votes.support) * 100).toFixed(2) : "0"}% reached)`}</Text>
+								</View>) : (<View style={styles.votingInfoTextWrapper}>
+									<Text style={{ fontWeight: "bold", color: "red" }}>{`${
+										data.voteThreshold * 100
 										}%`}</Text>
-									</View>
-								</React.Fragment>
-							) : null}
+								</View>)}
+							</React.Fragment>
 							<View style={styles.votingInfoTextWrapper}>
 								<View style={styles.votingBr} />
 							</View>
