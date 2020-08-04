@@ -46,7 +46,7 @@ export default function votingPage(props) {
 	}
 
 	const supports = data.arguments["support"].map((s) => (
-		<View style={{ marginLeft: vw(3) }} key={s}>
+		<View style={{ marginLeft: vw(3) }} key={Math.ceil(Math.random() * 100000000)}>
 			<Text
 				style={{
 					fontStyle: "italic",
@@ -59,7 +59,7 @@ export default function votingPage(props) {
 	));
 
 	const against = data.arguments["against"].map((a) => (
-		<View style={{ marginLeft: vw(3) }} key={a}>
+		<View style={{ marginLeft: vw(3) }} key={Math.ceil(Math.random() * 100000000)}>
 			<Text
 				style={{
 					fontStyle: "italic",
@@ -72,7 +72,7 @@ export default function votingPage(props) {
 	));
 
 	if (supports.length === 0) {
-		supports.push(<View style={{ marginLeft: vw(3) }} key={"noSupport"}>
+		supports.push(<View style={{ marginLeft: vw(3) }} key={Math.ceil(Math.random() * 10000000)}>
 			<Text
 				style={{
 					fontStyle: "italic",
@@ -84,7 +84,7 @@ export default function votingPage(props) {
 		</View>)
 	}
 	if (against.length === 0) {
-		against.push(<View style={{ marginLeft: vw(3) }} key={"noAgainst"}>
+		against.push(<View style={{ marginLeft: vw(3) }} key={Math.ceil(Math.random() * 10000000)}>
 			<Text
 				style={{
 					fontStyle: "italic",
