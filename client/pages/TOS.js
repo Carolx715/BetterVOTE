@@ -22,7 +22,6 @@ export default function TOS() {
 						<Text
 							style={{
 								fontWeight: "bold",
-								marginTop: vh(5),
 								fontSize: 20,
 							}}
 						>
