@@ -22,7 +22,7 @@ import { withOrientation } from "react-navigation";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
-const validationSchema = yup.object().shape({
+	const validationSchema = yup.object().shape({
 	title: yup.string().required(),
     description: yup.string().required(),
 	voteThreshold: yup.string().required(),
@@ -108,7 +108,7 @@ return (
 					Create a Ballot
 				</Text>
                 <Text style={{color: "white", textAlign: "center",}}>
-					Create a ballot that members can vote on.
+					Create a ballot that members can vote on. 
 				</Text>
 
                 {/* Form begins */}

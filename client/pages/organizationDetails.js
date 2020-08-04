@@ -172,8 +172,9 @@ export default function OrganizationDetails(props) {
 				</View>
 				<Button text="View All Ballots"
 					onPress={() => {
+						console.log(data.name); 
 						props.navigation.navigate("ballotList", {
-							_id: id
+							_id: id,
 						});
 					}}
 				/>
