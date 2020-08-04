@@ -118,7 +118,6 @@ async function getBallots(req, res) {
                     if (resolvedBallot) {
                         ballot = resolvedBallot;
                     }
-                    console.log(`after update ${ballot}`);
                 }
                 // check if the user requesting has voted to set a boolean
                 if (ballot.voters.includes(req.user.email)) {
@@ -127,13 +126,24 @@ async function getBallots(req, res) {
                     ballot.hasVoted = false;
                 }
 
-                console.log(`build array ${ballot}`);
+                if (ballot.status === "ended") {
+                    if (ballot.votes.against === 0 && ballot.votes.support > 0) {
+                        ballot.result = "passed";
+                    }
+                    else if ((ballot.votes.support / ballot.votes.against) > ballot.voteThreshold) {
+                        ballot.result = "passed";
+                    } else {
+                        ballot.result = "failed";
+                    }
+                };
+
                 ballots.push({
                     _id: ballot._id,
                     status: ballot.status,
                     title: ballot.title,
                     description: ballot.description,
                     endTime: ballot.endTime,
+                    result: ballot.result,
                     hasVoted: ballot.hasVoted
                 });
             }

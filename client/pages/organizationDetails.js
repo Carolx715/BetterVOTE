@@ -163,6 +163,21 @@ export default function OrganizationDetails(props) {
 							marginBottom: 0,}}>+ Add New Ballot
 						</Text>
 					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.userPicContainer}
+						onPress={() => {
+							props.navigation.navigate("ballotList", {
+								_id: id
+							});
+						}}>
+						<Text style={{
+							...styles.BallotTitle, fontSize: 20,
+							margin: vw(2.2),
+							marginTop: 0,
+							marginBottom: 0,
+						}}>View All Ballots
+						</Text>
+					</TouchableOpacity>
 				</View>
 
 				<View style={styles.br} />
