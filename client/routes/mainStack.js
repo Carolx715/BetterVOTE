@@ -16,13 +16,11 @@ import votingPage from "../pages/votingPage";
 import Vote from "../pages/vote";
 import createBallot from "../pages/createBallot";
 import AddPoint from "../pages/addPoint";
+import ballotList from "../pages/ballotList";
 
 //Main Stack Navigator (all screens listed below get access to navigate prop)
 //Screen on top is displayed first
 const screens = {
-	// createBallot: {
-	// 	screen: createBallot,
-	// },
 	Welcome: {
 		screen: Welcome,
 	},
@@ -59,8 +57,14 @@ const screens = {
 	Vote: {
 		screen: Vote,
 	},
+	createBallot: {
+		screen: createBallot,
+	},
 	AddPoint: {
 		screen: AddPoint,
+	},
+	ballotList: {
+		screen: ballotList,
 	},
 };
 

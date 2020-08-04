@@ -22,17 +22,20 @@ import { withOrientation } from "react-navigation";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default function welcome(props) {
-
 const validationSchema = yup.object().shape({
 	title: yup.string().required(),
     description: yup.string().required(),
-    voteThreshold: yup.string().required()
+	voteThreshold: yup.string().required(),
+	endTime: yup.string().required()
     
 });
 
 const url = "http://159.203.16.113:3000/ballots/create";
 
+
 async function createNewBallot(info) {
+	console.log(JSON.stringify(info));
+	
 	try {
 		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
 			console.log("Error accessing jwt token", error);
@@ -60,6 +63,7 @@ async function createNewBallot(info) {
 	} catch (error) {
 		console.log(error);
 	}
+
 }
 
 const onChange = (event, selectedDate) => {
@@ -97,14 +101,14 @@ return (
 				style={styles.backgroundImage}
 			/>
 			<ScrollView
-                style={{maxWidth: "95%"}}
+                style={{maxWidth: "95%", minWidth: "95%"}}
                 contentContainerStyle={{margin: 20}}
                 showsVerticalScrollIndicator={false}>
 				<Text style={formStyles.formTitleCreateNew}>
 					Create a Ballot
 				</Text>
                 <Text style={{color: "white", textAlign: "center",}}>
-					Create a new ballot in *organization name* that people can vote on.
+					Create a ballot that members can vote on.
 				</Text>
 
                 {/* Form begins */}
@@ -162,36 +166,19 @@ return (
 								/>
 								<Text style={{ color: "red" }}>
 									{formikProps.touched.voteThreshold &&
-										formikProps.errors.voteThreshold}
+										formikProps.errors.voteThreshold}	
 								</Text>
 
                                 {/* END DATE STARTS HERE */}
 
 								<Text style={formStyles.formText}>Ballot End Date/Time</Text>
 								<TextInput
-                                    editable={false}
-									placeholder={date.toUTCString()} // SUNNY HOW DO YOU STYLE THE DATE
+									placeholder="YYYY-MM-DDTHH:MM:SSZ"
 									placeholderTextColor="#FFF"
 									style={formStyles.textbox}
 									onChangeText={formikProps.handleChange("endTime")}
 									onBlur={formikProps.handleBlur("endTime")}
 								/>
-                                <View>
-                                    <Button onPress={showDatepicker} text="Change Date" />
-                                </View>
-                                <View>
-                                    <Button onPress={showTimepicker} text="Change Time" />
-                                </View>
-                                {show && (
-                                    <DateTimePicker
-                                        testID="dateTimePicker"
-                                        value={date}
-                                        mode={mode}
-                                        is24Hour={true}
-                                        display="default"
-                                        onChange={onChange}
-                                    />
-                                )}
 							</View>
 
                             {/* END DATE ENDS */}
@@ -204,26 +191,32 @@ return (
 										text="Create"
 										onPress={() => {
 											Keyboard.dismiss();
-											try {
-                                                formikProps.values.endTime = date;
-                                                console.log(formikProps.values);
-												createNewBallot(formikProps.values).then((response) => {
-													if (!response?.error) {
+											try{
+                                                console.log(formikProps.values.endTime);
+                                                // formikProps.values.endTime = date;
+                                                console.log(Date.parse(formikProps.values.endTime)); 
+                                                
+												createNewBallot({
+													title: formikProps.values.title, 
+													description: formikProps.values.description, 
+													endTime: Date.parse(formikProps.values.endTime),
+													voteThreshold: formikProps.values.voteThreshold / 100,
+													organizationID: props.navigation.getParam("_id"),
+												 }).then((response) => {
+													if (!response?.error) { 
 														formikProps.handleSubmit; //submit form
-														props.navigation
-															.getParam("retrieveData")()
-															.then((response) => {
-																props.navigation.getParam("setData")(response);
-																alert("Successfully submitted", response);
-																props.navigation.navigate("Organizations");
-															});
+                                                        alert("Successfully submitted");
+                                                        props.navigation.navigate("OrganizationDetails", {_id: props.navigation.getParam("_id")});
+															
 													} else {
 														alert(response.error.message);
 													}
-												});
+												 });
 											} catch {
 												alert("Unknown Error");
 											}
+
+
 										}}
 									/>
 								)}
