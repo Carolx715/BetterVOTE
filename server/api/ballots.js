@@ -77,14 +77,14 @@ async function getBallot(req, res) {
                 data = resolvedBallot;
             }
         }
-        if (ballot.status === "ended") {
-            if (ballot.votes.against === 0 && ballot.votes.support > 0) {
-                ballot.result = "passed";
+        if (data.status === "ended") {
+            if (data.votes.against === 0 && data.votes.support > 0) {
+                data.result = "passed";
             }
-            else if ((ballot.votes.support / ballot.votes.against) > ballot.voteThreshold) {
-                ballot.result = "passed";
+            else if ((data.votes.support / data.votes.against) > data.voteThreshold) {
+                data.result = "passed";
             } else {
-                ballot.result = "failed";
+                data.result = "failed";
             }
         };
         data.totalVotes = data.votes.support + data.votes.against + data.votes.abstain;
