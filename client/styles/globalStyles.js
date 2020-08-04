@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginTop: vh(0),
 	},
-	textTitle2: {
+	//formerly text2
+	voteSubtitle: {
 		fontWeight: "bold",
 		color: "white",
 		fontSize: 30,
@@ -431,7 +432,19 @@ const styles = StyleSheet.create({
 		margin: vw(2.2),
 		marginBottom: 10,
 	},
-
+	votingInfoTextWrapper: {
+		textAlign: "center",
+		width: "100%",
+		alignItems: "center",
+	},
+	votingBr: {
+		width: "95%",
+		borderBottomColor: "grey",
+		borderBottomWidth: vh(0.09),
+		borderRadius: 5,
+		marginTop: vh(3),
+		marginBottom: vh(2),
+	},
 	br: {
 		width: "85%",
 		borderBottomColor: "grey",
@@ -532,6 +545,9 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		textAlign: "center",
 		margin: vw(2.2),
+	},
+	ballotTextContainer: {
+		justifyContent: "center",
 	},
 });
 

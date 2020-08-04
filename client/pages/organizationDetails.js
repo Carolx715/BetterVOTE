@@ -61,6 +61,9 @@ export default function OrganizationDetails(props) {
 			}
 		>
 			<Card key={ballot._id}>
+				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
+					{ballot.title}
+				</Text>
 				{ballot.hasVoted ? (
 					<View style={{ alignItems: "center", justifyContent: "center" }}>
 						<Text>
@@ -74,13 +77,17 @@ export default function OrganizationDetails(props) {
 						</Text>
 					</View>
 				)}
-				<Text numberOfLines={1} style={styles.textSubtitleBallot}>
-					{ballot.title}
-				</Text>
-				<Text numberOfLines={3} style={cardStyles.textOrgDesc}>
+				<Text
+					numberOfLines={3}
+					style={{
+						...cardStyles.textOrgDesc,
+						textAlign: "center",
+						marginTop: vh(1.5),
+					}}
+				>
 					{ballot.description}
 				</Text>
-				<Text>
+				<Text style={{ textAlign: "center" }}>
 					Voting ends {moment(ballot.endTime).calendar()} (
 					{moment(ballot.endTime).fromNow()})
 				</Text>
@@ -101,7 +108,13 @@ export default function OrganizationDetails(props) {
 					justifyContent: "center",
 				}}
 			>
-				<Text style={{ ...styles.textTitleOrgDetails, color: "white", marginHorizontal: vw(5) }}>
+				<Text
+					style={{
+						...styles.textTitleOrgDetails,
+						color: "white",
+						marginHorizontal: vw(5),
+					}}
+				>
 					{data.name}
 				</Text>
 				<Card>
@@ -131,7 +144,7 @@ export default function OrganizationDetails(props) {
 
 				{Object.keys(ballots).length === 0 ? (
 					<Card>
-						<Text style={{ color: "grey", fontSize: 16 }}>
+						<Text style={{ color: "grey", fontSize: 16, textAlign: "center" }}>
 							There are no active ballots right now.
 						</Text>
 					</Card>
