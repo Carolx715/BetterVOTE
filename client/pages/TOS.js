@@ -15,7 +15,7 @@ export default function TOS() {
 					<View
 						style={{
 							justifyContent: "center",
-							alignItems: "center",
+							alignItem: "center",
 							width: "100%",
 						}}
 					>
@@ -72,9 +72,7 @@ export default function TOS() {
 						visiting our website. Some of our affiliate/advertising partners may
 						also use cookies. {"\n"}
 						{"\n"}
-						<Text style={{ fontWeight: "bold", alignItem: "center" }}>
-							License
-						</Text>
+						<Text style={{ fontWeight: "bold" }}>License</Text>
 						{"\n"}
 						{"\n"}
 						Unless otherwise stated, Company Name and/or its licensors own the
@@ -109,7 +107,7 @@ export default function TOS() {
 						reproduce, edit and authorize others to use, reproduce and edit any
 						of your Comments in any and all forms, formats or media. {"\n"}
 						{"\n"}
-						<Text style={{ fontWeight: "bold", alignItem: "center" }}>
+						<Text style={{ fontWeight: "bold" }}>
 							Hyperlinking to our Content{"\n"}
 							{"\n"}
 						</Text>
