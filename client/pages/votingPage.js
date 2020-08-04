@@ -79,7 +79,8 @@ export default function votingPage(props) {
 				source={require("../assets/background-logged-in.jpg")}
 				style={styles.organizationBackgroundImage}
 			/>
-			<ScrollView>
+			<ScrollView
+				showsHorizontalScrollIndicator={false}>
 				<View>
 					<Text
 						style={{
