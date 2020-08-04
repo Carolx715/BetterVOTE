@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 	backgroundImage: {
 		flex: 1,
 		resizeMode: "contain", // or 'stretch'
-		// position: "absolute",
+		position: "absolute",
 		transform: [
 			{ scaleY: 1.5 },
 			{ scaleX: 1.5 },

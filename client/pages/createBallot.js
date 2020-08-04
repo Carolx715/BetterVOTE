@@ -101,14 +101,14 @@ return (
 				style={styles.backgroundImage}
 			/>
 			<ScrollView
-                style={{maxWidth: "95%"}}
+                style={{maxWidth: "95%", minWidth: "95%"}}
                 contentContainerStyle={{margin: 20}}
                 showsVerticalScrollIndicator={false}>
 				<Text style={formStyles.formTitleCreateNew}>
 					Create a Ballot
 				</Text>
                 <Text style={{color: "white", textAlign: "center",}}>
-					Create a new ballot in *organization name* that people can vote on.
+					Create a ballot that members can vote on.
 				</Text>
 
                 {/* Form begins */}
@@ -192,8 +192,10 @@ return (
 										onPress={() => {
 											Keyboard.dismiss();
 											try{
-												console.log(formikProps.values.endTime);
-												console.log(Date.parse(formikProps.values.endTime)); 
+                                                console.log(formikProps.values.endTime);
+                                                // formikProps.values.endTime = date;
+                                                console.log(Date.parse(formikProps.values.endTime)); 
+                                                
 												createNewBallot({
 													title: formikProps.values.title, 
 													description: formikProps.values.description, 
