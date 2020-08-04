@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView, Image } from "react-native";
 import Card from "../components/card";
 import cardStyles from "../styles/cardStyles";
 import styles from "../styles/globalStyles";
@@ -58,7 +58,7 @@ export default function ballotList(props) {
 						<Text numberOfLines={1} style={styles.textSubtitleBallot}>
 							{ballot.title}
 						</Text>
-						<Text style={{ fontSize: 15 }}>
+						<Text style={{ fontSize: 15, marginBottom: vh(2) }}>
 							{ballot.status === "active"
 								? ballot.hasVoted
 									? "✅ Status: Voted"
@@ -85,6 +85,10 @@ export default function ballotList(props) {
 
 	return (
 		<View style={styles.containerOrgDesc}>
+			<Image
+				source={require("../assets/background-logged-in.jpg")}
+				style={styles.organizationBackgroundImage}
+			/>
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 				contentContainerStyle={{
