@@ -71,6 +71,31 @@ export default function votingPage(props) {
 		</View>
 	));
 
+	if (supports.length === 0) {
+		supports.push(<View style={{ marginLeft: vw(3) }} key={"noSupport"}>
+			<Text
+				style={{
+					fontStyle: "italic",
+					color: "grey",
+					marginTop: vh(0.3),
+					marginBottom: vh(0.3),
+				}}
+			>{`\u2022 There's nothing here. Why not add one?`}</Text>
+		</View>)
+	}
+	if (against.length === 0) {
+		against.push(<View style={{ marginLeft: vw(3) }} key={"noAgainst"}>
+			<Text
+				style={{
+					fontStyle: "italic",
+					color: "grey",
+					marginTop: vh(0.3),
+					marginBottom: vh(0.3),
+				}}
+			>{`\u2022 There's nothing here. Why not add one?`}</Text>
+		</View>)
+	}
+
 	return (
 		<View style={{ backgroundColor: "#dab" }}>
 			<Image
