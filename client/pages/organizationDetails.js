@@ -178,7 +178,7 @@ export default function OrganizationDetails(props) {
 					</TouchableOpacity>
 				</View>
 				<Button
-					text="View All Ballots"
+					text="View Completed Ballots"
 					onPress={() => {
 						console.log(data.name);
 						props.navigation.navigate("ballotList", {

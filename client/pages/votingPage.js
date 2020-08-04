@@ -71,6 +71,31 @@ export default function votingPage(props) {
 		</View>
 	));
 
+	if (supports.length === 0) {
+		supports.push(<View style={{ marginLeft: vw(3) }} key={"noSupport"}>
+			<Text
+				style={{
+					fontStyle: "italic",
+					color: "grey",
+					marginTop: vh(0.3),
+					marginBottom: vh(0.3),
+				}}
+			>{`\u2022 There's nothing here. Why not add one?`}</Text>
+		</View>)
+	}
+	if (against.length === 0) {
+		against.push(<View style={{ marginLeft: vw(3) }} key={"noAgainst"}>
+			<Text
+				style={{
+					fontStyle: "italic",
+					color: "grey",
+					marginTop: vh(0.3),
+					marginBottom: vh(0.3),
+				}}
+			>{`\u2022 There's nothing here. Why not add one?`}</Text>
+		</View>)
+	}
+
 	return (
 		<View style={{ backgroundColor: "#dab" }}>
 			<Image
@@ -92,7 +117,7 @@ export default function votingPage(props) {
 					>
 						<Text>{data.title}</Text>
 					</Text>
-					{data.hasVoted ? (
+					{(data.hasVoted || data.result === "passed") ? (
 						<View
 							style={{
 								borderTopWidth: 1,
@@ -107,28 +132,28 @@ export default function votingPage(props) {
 									marginTop: vh(0.4),
 								}}
 							>
-								✅ Status: Voted
+								{data.result === "passed" ? "✅ Legislation Passed" : "✅ Status: Voted"}
 							</Text>
 						</View>
-					) : (
-						<View
-							style={{
-								borderTopWidth: 1,
-								borderColor: "red",
-								borderBottomWidth: 1,
-							}}
-						>
-							<Text
+							) : (
+							<View
 								style={{
-									...styles.BallotTitle,
-									fontSize: 20,
-									marginTop: vh(0.4),
+									borderTopWidth: 1,
+									borderColor: "red",
+									borderBottomWidth: 1,
 								}}
 							>
-								❌ Status: Not Voted
-							</Text>
-						</View>
-					)}
+								<Text
+									style={{
+										...styles.BallotTitle,
+										fontSize: 20,
+										marginTop: vh(0.4),
+									}}
+								>
+									{data.result === "failed" ? "❌ Failed to Pass" : "❌ Status: Not Voted"}
+								</Text>
+							</View>)
+					}
 					<Text
 						style={{
 							fontWeight: "bold",
@@ -173,20 +198,22 @@ export default function votingPage(props) {
 							<View style={styles.votingInfoTextWrapper}>
 								<View style={styles.votingBr} />
 							</View>
-							{!data.hasVoted ? (
-								<React.Fragment>
-									<Text
-										style={{ ...styles.textSubtitleBallot, color: "black" }}
-									>
-										Threshold to Pass
+							<React.Fragment>
+								<Text
+									style={{ ...styles.textSubtitleBallot, color: "black" }}
+								>
+									Threshold to Pass
 									</Text>
-									<View style={styles.votingInfoTextWrapper}>
-										<Text style={{ fontWeight: "bold", color: "red" }}>{`${
-											data.voteThreshold * 100
+								{(data.status === "ended") ? (<View style={styles.votingInfoTextWrapper}>
+									<Text style={{ fontWeight: "bold", color: (data.result === "passed" ? "green" : "red") }}>{`${
+										data.voteThreshold * 100
+										}% (${data.votes.support > 0 ? (data.votes.support / (data.votes.against + data.votes.support) * 100).toFixed(2) : "0"}% reached)`}</Text>
+								</View>) : (<View style={styles.votingInfoTextWrapper}>
+									<Text style={{ fontWeight: "bold", color: "red" }}>{`${
+										data.voteThreshold * 100
 										}%`}</Text>
-									</View>
-								</React.Fragment>
-							) : null}
+								</View>)}
+							</React.Fragment>
 							<View style={styles.votingInfoTextWrapper}>
 								<View style={styles.votingBr} />
 							</View>

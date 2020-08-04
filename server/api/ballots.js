@@ -81,7 +81,7 @@ async function getBallot(req, res) {
             if (data.votes.against === 0 && data.votes.support > 0) {
                 data.result = "passed";
             }
-            else if ((data.votes.support / data.votes.against) > data.voteThreshold) {
+            else if ((data.votes.support / (data.votes.against + data.votes.support)) > data.voteThreshold) {
                 data.result = "passed";
             } else {
                 data.result = "failed";
@@ -141,7 +141,7 @@ async function getBallots(req, res) {
                     if (ballot.votes.against === 0 && ballot.votes.support > 0) {
                         ballot.result = "passed";
                     }
-                    else if ((ballot.votes.support / ballot.votes.against) > ballot.voteThreshold) {
+                    else if ((ballot.votes.support / (ballot.votes.against + ballot.votes.support)) > ballot.voteThreshold) {
                         ballot.result = "passed";
                     } else {
                         ballot.result = "failed";
