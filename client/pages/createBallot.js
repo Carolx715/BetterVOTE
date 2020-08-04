@@ -25,7 +25,8 @@ export default function welcome(props) {
 const validationSchema = yup.object().shape({
 	title: yup.string().required(),
     description: yup.string().required(),
-    voteThreshold: yup.string().required()
+	voteThreshold: yup.string().required(),
+	endTime: yup.string().required()
     
 });
 
@@ -34,7 +35,7 @@ const url = "http://159.203.16.113:3000/ballots/create";
 
 async function createNewBallot(info) {
 	console.log(JSON.stringify(info));
-	{/*}
+	
 	try {
 		const jwt = await AsyncStorage.getItem("Token").catch((err) => {
 			console.log("Error accessing jwt token", error);
@@ -62,7 +63,6 @@ async function createNewBallot(info) {
 	} catch (error) {
 		console.log(error);
 	}
-*/}
 
 }
 
@@ -166,36 +166,19 @@ return (
 								/>
 								<Text style={{ color: "red" }}>
 									{formikProps.touched.voteThreshold &&
-										formikProps.errors.voteThreshold}	e
+										formikProps.errors.voteThreshold}	
 								</Text>
 
                                 {/* END DATE STARTS HERE */}
 
 								<Text style={formStyles.formText}>Ballot End Date/Time</Text>
 								<TextInput
-                                    editable={false}
-									placeholder={date.toUTCString()} // SUNNY HOW DO YOU STYLE THE DATE
+									placeholder="YYYY-MM-DDTHH:MM:SSZ"
 									placeholderTextColor="#FFF"
 									style={formStyles.textbox}
 									onChangeText={formikProps.handleChange("endTime")}
 									onBlur={formikProps.handleBlur("endTime")}
 								/>
-                                <View>
-                                    <Button onPress={showDatepicker} text="Change Date" />
-                                </View>
-                                <View>
-                                    <Button onPress={showTimepicker} text="Change Time" />
-                                </View>
-                                {show && (
-                                    <DateTimePicker
-                                        testID="dateTimePicker"
-                                        value={date}
-                                        mode={mode}
-                                        is24Hour={true}
-                                        display="default"
-                                        onChange={onChange}
-                                    />
-                                )}
 							</View>
 
                             {/* END DATE ENDS */}
